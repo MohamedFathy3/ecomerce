@@ -1,0 +1,63 @@
+.heroCarousel {
+  position: relative;
+  height: 40vh;
+  width: 100%;
+  color: transparent;
+  z-index: 1; /* تأكد إن الـ z-index منخفض */
+}
+
+.heroCarousel .swiper-slide {
+  height: 100%;
+  position: relative;
+}
+
+.heroCarousel .image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Pagination Styles */
+.heroCarousel .swiper-pagination {
+  bottom: 2rem;
+  inset-inline-start: 25%;
+  z-index: 2;
+}
+
+.heroCarousel .swiper-pagination-bullet {
+  background: var(--color-stone-700);
+  width: 8px;
+  height: 3px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.heroCarousel .swiper-pagination-bullet-active {
+  background: #c00201;
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .heroCarousel {
+    height: 60vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroCarousel {
+    height: 70vh;
+  }
+  
+}
+
+
+@media (min-width: 2024px) {
+  .heroCarousel {
+    height: 70vh;
+  }
+}

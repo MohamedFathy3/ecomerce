@@ -1,0 +1,70 @@
+# Robots.txt for Valideria - Online Pharmacy Platform
+# https://valideria.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Allow important pages for SEO
+Allow: /products
+Allow: /about
+Allow: /contact-us
+Allow: /product/
+Allow: /categories/
+
+# Disallow private/sensitive areas
+Disallow: /api/
+Disallow: /account/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /cart
+Disallow: /place-order
+Disallow: /signin
+Disallow: /register
+
+# Block access to sensitive files
+Disallow: /.env
+Disallow: /package.json
+Disallow: /next.config.*
+Disallow: /tsconfig.json
+
+# Allow search engines to access images
+Allow: /images/
+Allow: /icons/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Sitemap location
+Sitemap: https://valideria.com/sitemap.xml
+
+# Crawl delay (be respectful)
+Crawl-delay: 1
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot  
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# Block aggressive crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
