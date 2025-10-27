@@ -58,7 +58,7 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
 
   return (
     <div className="relative">
-      <div className="!border-primary border rounded-md bg-secondary h-9 md:h-10 flex-center overflow-hidden">
+      <div className="!border-gray-300 border rounded-md bg-secondary h-9 md:h-10 flex-center overflow-hidden">
         <div className="flex-center py-2 flex-grow-1">
           <Select
             onValueChange={(value) => {
@@ -66,7 +66,7 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
             }}
             value={categoryId || "all"}
           >
-            <SelectTrigger className="!text-froreground !bg-transparent w-36 border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 ">
+            <SelectTrigger className="!text-froreground bg-white w-36 border-none shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 ">
               <SelectValue
                 placeholder="All Categories"
                 className="text-gray-500"
@@ -90,7 +90,7 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
 
           <Input
             type="text"
-            className="h-full !bg-transparent shadow-none border-0 border-s !border-stone-300 dark:!border-stone-700 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 leading-0 !text-base text-gray-700 dark:text-gray-300"
+            className="h-full bg-white shadow-none border-0 border-s !border-stone-300 dark:!border-stone-700 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 leading-0 !text-base text-gray-700 dark:text-white"
             placeholder="Search for products..."
             onChange={(e) => {
               setKeyword(e.target.value.trim());

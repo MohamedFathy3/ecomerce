@@ -15,24 +15,25 @@ import Image from "next/image";
 const HeroSlider = () => {
   return (
     <div className="absolute inset-0 z-0">
-      <Swiper
-        pagination={{
-          dynamicBullets: true,
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        speed={800}
-        modules={[Pagination, Autoplay]}
-        className="heroCarousel"
-      >
+    <Swiper
+  pagination={{
+    dynamicBullets: true,
+    clickable: true,
+  }}
+  autoplay={{
+    delay: 4000,
+    disableOnInteraction: false,
+  }}
+  loop={true}
+  speed={1000} // أسرع في التنقل بين الصور
+  effect="fade" // لتغيير التأثير ليكون fade
+  modules={[Pagination, Autoplay]}
+  className="heroCarousel"
+>
         <SwiperSlide>
           <div className="image-container">
             <Image
-              src="/images/banners/baner1.jpg"
+              src="/images/banners/KMgT.gif"
               fill
               alt="hero"
               className="object-cover object-center"
@@ -43,7 +44,7 @@ const HeroSlider = () => {
         <SwiperSlide>
           <div className="image-container">
             <Image
-              src="/images/banners/baner2.jpeg"
+              src="/images/banners/art.webp"
               fill
               alt="hero"
               className="object-cover object-center"

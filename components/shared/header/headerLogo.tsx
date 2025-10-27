@@ -6,9 +6,9 @@ import React from "react";
 const HeaderLogo = () => {
   return (
     <div className="flex-start">
-      <Link href="/" className="relative w-10 md:w-14 aspect-square">
+      <Link href="/" className="relative w-20 md:w-14 aspect-square">
         <Image
-          src="/images/logos/logos.png"
+          src="/images/logos/logo.png"
           fill
           className="object-contain object-center"
           alt={`${APP_NAME} "logo"`}

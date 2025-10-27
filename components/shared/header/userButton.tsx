@@ -22,11 +22,7 @@ const userMenuItems = [
     href: "/account/profile",
     icon: <User />,
   },
-  {
-    title: "Notification",
-    href: "/notifications",
-    icon: <Bell />,
-  },
+
   {
     title: "Favorites",
     href: "/favorites",

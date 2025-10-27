@@ -47,19 +47,19 @@ export default async function Home() {
         highlight="Categories"
         subHeadign="Choose from a wide range of medicines, health products, and personal care products – everything you need in one place."
       />
-      {uniqueProducts && uniqueProducts.length > 0 && (
+      {/* {uniqueProducts && uniqueProducts.length > 0 && (
         <ProductSwiper
           products={uniqueProducts}
           headLine="Unique Products"
           showAll
         />
-      )}
-      <BrandSwiper
+      )} */}
+      {/* <BrandSwiper
         items={brandCategories}
         headLine="Browse all"
         highlight="Brands"
         subHeadign="Choose from a wide range of medicines, health products, and personal care products – everything you need in one place."
-      />
+      /> */}
       {topRatesProducts && topRatesProducts.length > 0 && (
         <ProductSwiper
           products={topRatesProducts}
@@ -68,12 +68,12 @@ export default async function Home() {
         />
       )}
       {/* <Banner /> */}
-      <BrandSwiper
+      {/* <BrandSwiper
         items={brandCategories}
         headLine="Top"
         highlight="Rated Brands"
         subHeadign=""
-      />
+      /> */}
       {topSellingProducts && topSellingProducts.length > 0 && (
         <ProductSwiper
           products={topSellingProducts}

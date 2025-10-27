@@ -201,11 +201,14 @@ const HeaderMenu = ({ session }: { session: any }) => {
 
             {/* Menu Actions */}
             <Menu>
-              <MenuItem
-                title={"en"}
-                icon={<Globe />}
-                handleClick={() => console.log("change lang")}
-              />
+             {isAuth ? (
+               <MenuItem
+                 title={"en"}
+                 icon={<Globe />}
+                 handleClick={() => console.log("change lang")}
+               />
+             ) : null}
+              
               <MenuItem
                 title={theme === "light" ? "Light Mode" : "Dark Mode"}
                 icon={theme === "dark" ? <Sun /> : <Moon />}

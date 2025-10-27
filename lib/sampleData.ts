@@ -15,5 +15,5 @@ export const headerPages = [
   { title: "Home", path: "/" },
   { title: "About", path: "/about" },
   { title: "Contact Us", path: "/contact-us" },
-  { title: "plans", path: "/plans" },
+  { title: "In Loving Memory", path: "/in-loving-memory" },
 ];

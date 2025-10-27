@@ -11,15 +11,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useGetProfile } from "@/hooks/useGetProfile";
 import { updateUserLanguage } from "@/lib/api/apiUser";
-import { formatCurrencyEGP } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
-import { Globe, Moon, ShoppingCart, Sun } from "lucide-react";
+import { Globe, Moon, Sun } from "lucide-react";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 
+// تعديل الكود الخاص بتغيير اللغة
 const HeaderButtons = ({
   children,
   session,
@@ -28,96 +28,101 @@ const HeaderButtons = ({
   session: Session | null;
 }) => {
   const { theme, setTheme } = useTheme();
-  // const [language, setLanguage] = useState<string>("");
-  let language = "en";
   const { profileData, isLoadoingProfile } = useGetProfile();
   const queryClient = useQueryClient();
+  const [language, setLanguage] = useState("en");
 
-  // useEffect(
-  //   function () {
-  //     const localLang = localStorage?.getItem("Lan");
-  //     if (profileData?.success && profileData.data?.language) {
-  //       setLanguage(profileData.data.language);
-  //       setDocumentLanguage(profileData.data.language);
-  //       console.log("current lan:", profileData.data.language);
-  //       console.log("set from profileData");
-  //     } else if (localLang) {
-  //       setLanguage(localLang);
-  //       setDocumentLanguage(localLang);
-  //       console.log("set from localStorage");
-  //     } else {
-  //       setLanguage("ar"); // default language
-  //       setDocumentLanguage("ar");
-  //       console.log("set default");
-  //     }
+  // قائمة اللغات التي نريدها فقط (إزالة العربية)
+  const availableLanguages = ["en", "nl", "de", "fr"]; // الإنجليزي، الهولندي، الألماني، الفرنسي
 
-  //     setMounted(true);
-  //   },
-  //   [profileData?.data.language, profileData?.success]
-  // );
-
-  async function handleChangeLanguage() {
-    if (profileData?.success) {
-      const response = await updateUserLanguage(language);
-      console.log(response);
-      if (response?.success) {
-        // Invalidate and refetch
-        language = language === "en" ? "ar" : "en";
-        setDocumentLanguage(language);
-        queryClient.invalidateQueries({ queryKey: ["profile"] });
-        console.log("Language updated successfully");
-      } else {
-        console.log("Failed to update language");
-      }
-    }
-    // setLanguage(newLang);
-    // localStorage?.setItem("Lan", newLang);
-    // setDocumentLanguage(newLang);
-  }
-
-  function setDocumentLanguage(newLang: string) {
+  // ضبط اللغة في المستند
+  const setDocumentLanguage = (newLang: string) => {
     document.documentElement.lang = newLang;
-    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
-  }
+    document.documentElement.dir = "ltr"; // كل اللغات هنا لليسار لليمين
+  };
 
-  function toggleTheme() {
-    setTheme(theme === "light" ? "dark" : "light");
-  }
+  // عند تحميل البروفايل أو اللغة المحفوظة
+  useEffect(() => {
+    if (profileData?.success && profileData.data?.language) {
+      setLanguage(profileData.data.language);
+      setDocumentLanguage(profileData.data.language);
+      localStorage.setItem("Lan", profileData.data.language);
+    } else {
+      const savedLang = localStorage.getItem("Lan") || "en";
+      setLanguage(savedLang);
+      setDocumentLanguage(savedLang);
+    }
+  }, [profileData]);
+
+  // تغيير اللغة
+  const handleChangeLanguage = async (newLang: string) => {
+    if (!availableLanguages.includes(newLang)) return; // تأكد من أن اللغة في القائمة المتاحة
+
+    // تغيير اللغة في الواجهة
+    setLanguage(newLang);
+    setDocumentLanguage(newLang);
+    localStorage.setItem("Lan", newLang);
+
+    // تحديث السيرفر في الخلفية
+    try {
+      const response = await updateUserLanguage(newLang);
+      if (response?.success) {
+        console.log("✅ Language updated on server");
+        setTimeout(() => {
+          queryClient.invalidateQueries({ queryKey: ["profile"] });
+        }, 1000);
+      } else {
+        console.log("⚠️ Server update failed");
+      }
+    } catch (error) {
+      console.log("Error updating language:", error);
+    }
+  };
+
+  // ضبط الثيم الافتراضي ليكون Light
+  useEffect(() => {
+    if (!theme) setTheme("light");
+  }, [theme, setTheme]);
+
   if (isLoadoingProfile) return null;
 
-  const localLang = localStorage?.getItem("Lan");
-  if (profileData?.success && profileData.data?.language) {
-    language = profileData.data.language;
-    setDocumentLanguage(profileData.data.language);
-    console.log("current lan:", profileData.data.language);
-    console.log("set from profileData");
-  } else if (localLang) {
-    language = localLang;
-    setDocumentLanguage(localLang);
-    console.log("set from localStorage");
-  } else {
-    language = "en"; // default language
-    setDocumentLanguage("en");
-    console.log("set default");
-  }
   return (
     <div className="flex-center text-stone-700 dark:text-stone-400 !hidden lg:!flex">
+      {/* زر اللغة */}
+      {session && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="gap-1 p-0">
+              <Globe className="!w-6 !h-6" />
+              {language.toUpperCase()}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {availableLanguages.map((lang) => (
+              <DropdownMenuItem
+                key={lang}
+                onClick={() => handleChangeLanguage(lang)}
+              >
+                {lang.toUpperCase()}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+
+      {/* زر الثيم */}
       <Button
-        onClick={handleChangeLanguage}
+        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         variant="ghost"
-        className=" gap-1 p-0"
+        className="p-0"
       >
-        <Globe className="!w-6 !h-6" />
-        {language === "en" ? "AR" : "EN"}
-      </Button>
-      <Button onClick={toggleTheme} variant="ghost" className=" p-0">
         {theme === "light" ? (
           <Moon className="!w-6 !h-6" />
         ) : (
           <Sun className="!w-6 !h-6" />
         )}
       </Button>
-      {/* Shopping cart */}
+
       {children}
     </div>
   );
