@@ -7,14 +7,14 @@ export const NEXT_PUBLIC = "https://hamad-store.vercel.app/";
 
 export const SERVER_URL =
   process.env.NEXT_PUBLIC_LARAVEL_PUBLIC_SERVER_URL ||
-  "https://backend.valideria.com/";
+  "https://jobss.professionalacademyedu.com/";
 export const SERVER_URL_images =
   process.env.NEXT_PUBLIC_LARAVEL_PUBLIC_SERVER_URL_IMAGES ||
-  "https://backend.valideria.com/storage";
+  "https://jobss.professionalacademyedu.com/storage";
 
 export const API_URL =
   process.env.NEXT_PUBLIC_LARAVEL_PUBLIC_API_BASE_URL ||
-  "https://backend.valideria.com/api/";
+  "https://jobss.professionalacademyedu.com/api/";
 
 export const LATEST_PRODUCTS_LIMIT =
   Number(process.env.LATEST_PRODUCTS_LIMIT) || 4;

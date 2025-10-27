@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "backend.valideria.com",
+        hostname: "job.professionalacademyedu.com",
         port: "",
         pathname: "/storage/**",
       },
