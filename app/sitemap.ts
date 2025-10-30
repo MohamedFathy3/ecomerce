@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
 import { getAllCategories, getFilteredProducts } from "@/lib/api/apiProducts";
-
+import {Product} from '@/types'
 const SITE_URL = process.env.NEXTAUTH_URL || "https://valideria.com";
+
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
@@ -50,7 +51,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const productPages =
       productsResponse.success && productsResponse.products
-        ? productsResponse.products.map((product) => ({
+      
+        ? productsResponse.products.map((product:Product) => ({
             url: `${SITE_URL}/product/${product.id}`,
             lastModified: new Date(),
             changeFrequency: "weekly" as const,

@@ -19,116 +19,104 @@ import { getAuthToken } from "./helpers";
 
 export async function registerUser(data: RegisterFormData) {
   try {
-    const response = await api.post("register", data);
+    const response = await api.post("front/register", data);
+    console.log('register', response.data)
     return response.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      if (error.response?.data?.message) {
+      console.log('Axios error:', error.response?.data);
+      
+      // إذا كان في validation errors
+      if (error.response?.data?.errors) {
         return {
           status: "error",
           payload: error.response.data.errors,
         };
       }
-    } else {
-      console.log("Unexpected error during registration:", error);
-      return {
-        success: false,
-        payload: "An unexpected error occurred",
-      };
-    }
-  }
-}
-
-export async function registerDoctor(
-  data: Omit<DoctorRegisterFormData, "certificate_file"> & {
-    certificate_file?: File | string;
-  }
-) {
-  console.log("Doctor registration data:", data);
-  try {
-    // Create FormData for file upload
-    const formData = new FormData();
-
-    // Append all form fields
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === "certificate_file") {
-        // Handle both File object and string cases
-        if (value && typeof value === "object" && "name" in value) {
-          // It's a File object
-          formData.append(key, value as File);
-        } else if (typeof value === "string") {
-          // It's a string (filename), skip it for now as we need the actual file
-          console.warn(
-            "Certificate file is a string, not a File object. File upload may fail."
-          );
-        }
-      } else if (value !== undefined && value !== null) {
-        formData.append(key, String(value));
-      }
-    });
-
-    // Always set is_doctor to 1 for doctor registration
-    formData.append("is_doctor", "1");
-
-    const response = await api.post("doctor/register", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return response.data.data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log("error during doctor registration:", error.response);
+      
+      // إذا كان في message عادية
       if (error.response?.data?.message) {
         return {
           status: "error",
-          payload: error.response.data.errors,
+          payload: { message: error.response.data.message },
         };
       }
+      
+      // إذا كان في أي response تانيه
+      return {
+        status: "error",
+        payload: error.response?.data || "An unknown error occurred",
+      };
     } else {
       console.log("Unexpected error during registration:", error);
       return {
-        success: false,
+        status: "error",
         payload: "An unexpected error occurred",
       };
     }
   }
 }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// export async function registerDoctor(data: any) {
+//   try {
+//     const response = await api.post("front/register-doctor", data);
+//     console.log('doctor register', response.data)
+//     return response.data.data;
+//   } catch (error) {
+//     if (error instanceof AxiosError) {
+//       return {
+//         status: "error",
+//         payload: error.response?.data?.errors || error.response?.data?.message || "An error occurred",
+//       };
+//     }
+//     return {
+//       status: "error",
+//       payload: "An unexpected error occurred",
+//     };
+//   }
+// }
 
+
+// Sign in the user with credentials
 // Sign in the user with credentials
 export async function signInWithCredentials(formData: SignInFormData) {
   try {
+    console.log('📧 Sign in attempt with:', { email: formData.email });
+    
     const user = signInSchema.parse({
       email: formData.email,
       password: formData.password,
     });
-    await signIn("credentials", {
+    
+    console.log('🔐 Calling signIn...');
+    const result = await signIn("credentials", {
       ...user,
       redirect: false,
     });
 
+    console.log('📋 SignIn result:', result);
+
+    if (result?.error) {
+      console.log('❌ SignIn error:', result.error);
+      return {
+        success: false,
+        payload: result.error,
+      };
+    }
+
+    console.log('✅ SignIn successful');
     return {
       success: true,
       message: "Sign in successful",
     };
   } catch (error) {
-    // console.log("error", error);
-    if (error instanceof AxiosError) {
-      if (error.response?.data?.message) {
-        return {
-          status: "error",
-          payload: error.response.data.errors,
-        };
-      }
-    } else {
-      return {
-        success: false,
-        payload: "An unexpected error occurred",
-      };
-    }
+    console.log("❌ Sign in error:", error);
+    return {
+      success: false,
+      payload: "An unexpected error occurred",
+    };
   }
 }
-
 export async function signOutUser(token: string) {
   try {
     const response = await api.post(
@@ -149,71 +137,145 @@ export async function signOutUser(token: string) {
   }
 }
 
-export async function getProfile(userToken?: string) {
+export const getProfile = async (userToken: string) => {
   try {
-    const authResult = await getAuthToken(userToken);
-    if (!authResult.success) {
-      redirect("/signin");
-    }
-    const token = authResult.token;
-    const response = await api.get("user-profile", {
+    console.log("👤 Fetching user profile...");
+    
+    const response = await api.get("/front/check-auth", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userToken}`,
       },
     });
-    // console.log("profile response", response.data);
+
+    console.log("✅ Profile response:", response.data);
+
     if (response.data.result === "Success") {
       return {
         success: true,
-        data: response.data.data as UserProfile,
+        data: response.data.data,
+        message: response.data.message || "Profile retrieved successfully"
       };
     }
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.error("Error fetching user profile:", error.response?.statusText);
-      if (error.response?.statusText === "Unauthorized") {
-        redirect("/signin");
-      }
-    }
-  }
-}
 
-export async function updateUserProfile(
-  userToken: string = "",
-  profileData: UserProfile
-) {
-  if (!userToken) {
-    // console.log("User not authenticated");
-    return { success: false, message: "User not authenticated" };
+    return {
+      success: false,
+      message: response.data.message || "Failed to retrieve profile",
+      data: null
+    };
+
+  } catch (error) {
+    console.error("❌ Get profile error:", error);
+    
+    if (error instanceof AxiosError) {
+      console.error("🔍 Axios error details:", {
+        status: error.response?.status,
+        message: error.response?.data?.message,
+        data: error.response?.data
+      });
+
+      if (error.response?.status === 401) {
+        return {
+          success: false,
+          message: "Unauthorized access - Please login again",
+          data: null,
+          notAuthenticated: true
+        };
+      }
+
+      return {
+        success: false,
+        message: error.response?.data?.message || error.message,
+        data: null
+      };
+    }
+
+    return {
+      success: false,
+      message: "An unexpected error occurred",
+      data: null
+    };
   }
+};
+// في apiUser.ts
+export const updateUserProfile = async (
+  userToken: string,
+  profileData: Partial<UserProfile>
+) => {
   try {
-    const response = await api.put(
-      "user-profile",
-      {
-        ...profileData,
-      },
+    console.log("👤 Updating user profile:", profileData);
+    
+    const response = await api.post(
+      "/front/update-profile",
+      profileData,
       {
         headers: {
           Authorization: `Bearer ${userToken}`,
+          'Content-Type': 'application/json',
         },
       }
     );
+
+    console.log("✅ Update profile response:", response.data);
+
     if (response.data.result === "Success") {
       return {
         success: true,
-        data: response.data.data as UserProfile,
+        data: response.data.data,
+        message: response.data.message || "Profile updated successfully"
       };
     }
+
+    return {
+      success: false,
+      message: response.data.message || "Failed to update profile",
+      data: null
+    };
+
   } catch (error) {
+    console.error("❌ Update profile error:", error);
+    
     if (error instanceof AxiosError) {
-      console.error("Error updating user profile:", error.response?.statusText);
+      console.error("🔍 Axios error details:", {
+        status: error.response?.status,
+        message: error.response?.data?.message,
+        data: error.response?.data
+      });
+
+      if (error.response?.status === 401) {
+        return {
+          success: false,
+          message: "Unauthorized access - Please login again",
+          data: null,
+          notAuthenticated: true
+        };
+      }
+
+      if (error.response?.status === 422) {
+        // Handle validation errors
+        const validationErrors = error.response.data.errors;
+        const errorMessages = Object.values(validationErrors).flat().join(", ");
+        return {
+          success: false,
+          message: `Validation failed: ${errorMessages}`,
+          errors: validationErrors,
+          data: null
+        };
+      }
+
       return {
         success: false,
-        message: error.response?.data?.message || "Failed to update profile",
+        message: error.response?.data?.message || error.message,
+        data: null
       };
     }
+
+    return {
+      success: false,
+      message: "An unexpected error occurred",
+      data: null
+    };
   }
-}
+};
 
 export async function updateUserPassword(
   data: UpdateUserPasswordData,

@@ -13,7 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { use, useEffect, useRef, useState, useTransition } from "react";
 import { revalidatePath } from "next/cache";
 import { Brand, category } from "@/types";
-import { getAllCategories, getBrandsBytitle } from "@/lib/api/apiProducts";
+import { getAllCategories } from "@/lib/api/apiProducts";
 import { set } from "zod";
 import {
   Accordion,
@@ -68,13 +68,10 @@ function SidebarContent({
     if (categoriesRes.length > 0) {
       setCategories(categoriesRes);
       setFilteredCategories(categoriesRes);
+       console.log("Fetched Categories:", categoriesRes);
     }
-    // console.log("Categories fetched:", categoriesRes);
-    const brandsRes = await getBrandsBytitle();
-    if (brandsRes.length > 0) {
-      setBrands(brandsRes);
-      setFilteredBrands(brandsRes);
-    }
+    console.log("Categories fetched:", categoriesRes);
+   
     // console.log("Brands fetched:", brandsRes);
   }
 
@@ -106,61 +103,7 @@ function SidebarContent({
         </div>
       </div>
 
-      <div>
-        <h3 className="text-lg font-semibold">Customer Rating</h3>
-        <div className="flex flex-wrap">
-          <Input
-            id="customer-rating-slider"
-            type="range"
-            min={0}
-            max={5}
-            step={1}
-            value={customerRating ?? 1}
-            onChange={(e) => setCustomerRating(Number(e.target.value))}
-            className="w-full accent-primary shadow-none "
-          />
-          <div className="flex gap-1 mt-2">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-4 h-4 ${
-                  i < (customerRating ?? 1)
-                    ? "fill-yellow-500 text-yellow-500"
-                    : "text-gray-300"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold">Doctor Rating</h3>
-        <div className="flex flex-wrap">
-          <Input
-            id="doctor-rating-slider"
-            type="range"
-            min={0}
-            max={5}
-            step={1}
-            value={doctorRating ?? 1}
-            onChange={(e) => setDoctorRating(Number(e.target.value))}
-            className="w-full accent-primary shadow-none"
-          />
-          <div className="flex gap-1 mt-2">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-4 h-4 ${
-                  i < (doctorRating ?? 1)
-                    ? "fill-green-500 text-green-500"
-                    : "text-gray-300"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+  
 
       <div className="pt-3 space-y-1">
         <div className="flex items-center gap-2">
@@ -207,17 +150,7 @@ function SidebarContent({
             Categories
           </AccordionTrigger>
           <AccordionContent>
-            <Input
-              placeholder="Search categories..."
-              onChange={(e) => {
-                const query = e.target.value.toLowerCase();
-                const filtered = categories.filter((cat) =>
-                  cat.name.toLowerCase().includes(query)
-                );
-                setFilteredCategories(filtered);
-              }}
-              className="mb-2"
-            />
+          
             <div className="flex flex-col gap-2 max-h-60 overflow-y-auto">
               {filteredCategories.map((cat) => (
                 <div key={cat.id} className="flex items-center gap-2">
@@ -245,51 +178,7 @@ function SidebarContent({
             </div>
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="brands">
-          <AccordionTrigger className="text-lg font-semibold mb-2">
-            Brands
-          </AccordionTrigger>
-          <AccordionContent>
-            <Input
-              placeholder="Search brands..."
-              onChange={(e) => {
-                const query = e.target.value.toLowerCase();
-                const filtered = brands.filter((brand) =>
-                  brand.name.toLowerCase().includes(query)
-                );
-                setFilteredBrands(filtered);
-              }}
-              className="mb-2"
-            />
-            <div className="flex flex-col gap-2 max-h-60 overflow-y-auto">
-              {filteredBrands.map((brand) => (
-                <div key={brand.id} className="flex items-center gap-2">
-                  <input
-                    id={`brand-${brand.id}`}
-                    type="checkbox"
-                    checked={selectedBrands.includes(brand.id.toString())}
-                    onChange={() => {
-                      setSelectedBrands((prev: string[]) =>
-                        prev.includes(brand.id.toString())
-                          ? prev.filter(
-                              (id) => id.toString() !== brand.id.toString()
-                            )
-                          : [...prev, brand.id.toString()]
-                      );
-                    }}
-                    className="accent-primary"
-                  />
-                  <label
-                    htmlFor={`category-${brand.id}`}
-                    className="text-sm font-medium cursor-pointer"
-                  >
-                    {brand.name}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+      
       </Accordion>
 
       <div className="">
@@ -352,6 +241,7 @@ function ProductSidebar({ revalidate }: { revalidate: () => void }) {
     } else {
       params.delete("inStock");
     }
+      console.log("Applied Filters:", params.toString()); // عرض الفلاتر المطبقة
     router.push(`?${params.toString()}`);
     revalidate(); // Call revalidate if provided
   };
@@ -364,7 +254,7 @@ function ProductSidebar({ revalidate }: { revalidate: () => void }) {
     setSelectedCategories([]);
     setSelectedBrands([]);
     setInStock("");
-
+ console.log("Filters Reset"); 
     router.push("?");
   };
 

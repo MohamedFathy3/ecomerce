@@ -19,6 +19,15 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 
+// تعريف النوع لـ profileData
+interface ProfileResponse {
+  success: boolean;
+  data?: {
+    language: string;
+    // أضف الخصائص الأخرى إذا كنت تعرفها
+  };
+}
+
 // تعديل الكود الخاص بتغيير اللغة
 const HeaderButtons = ({
   children,
@@ -32,6 +41,9 @@ const HeaderButtons = ({
   const queryClient = useQueryClient();
   const [language, setLanguage] = useState("en");
 
+  // Type assertion لـ profileData
+  const typedProfileData = profileData as ProfileResponse;
+
   // قائمة اللغات التي نريدها فقط (إزالة العربية)
   const availableLanguages = ["en", "nl", "de", "fr"]; // الإنجليزي، الهولندي، الألماني، الفرنسي
 
@@ -43,16 +55,16 @@ const HeaderButtons = ({
 
   // عند تحميل البروفايل أو اللغة المحفوظة
   useEffect(() => {
-    if (profileData?.success && profileData.data?.language) {
-      setLanguage(profileData.data.language);
-      setDocumentLanguage(profileData.data.language);
-      localStorage.setItem("Lan", profileData.data.language);
+    if (typedProfileData?.success && typedProfileData.data?.language) {
+      setLanguage(typedProfileData.data.language);
+      setDocumentLanguage(typedProfileData.data.language);
+      localStorage.setItem("Lan", typedProfileData.data.language);
     } else {
       const savedLang = localStorage.getItem("Lan") || "en";
       setLanguage(savedLang);
       setDocumentLanguage(savedLang);
     }
-  }, [profileData]);
+  }, [typedProfileData]);
 
   // تغيير اللغة
   const handleChangeLanguage = async (newLang: string) => {

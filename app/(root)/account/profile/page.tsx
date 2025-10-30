@@ -36,13 +36,9 @@ const Profile = () => {
     // console.log("hhhhh");
     if (profile) {
       reset({
-        first_name: profile.first_name || "",
-        last_name: profile.last_name || "",
+        name: profile.name || "",
         phone: profile.phone || "",
         email: profile.email || "",
-        age: profile.age ? Number(profile.age) : undefined,
-        gender: profile.gender || "",
-        state: profile.state || "",
       });
     }
   }, [profile, reset]);
@@ -55,29 +51,24 @@ const Profile = () => {
   async function updateProfile() {
     const profileData: UserProfile = {
       id: profile?.id ?? "", // Provide a fallback or get from session/profile
-      first_name: getValues("first_name"),
-      last_name: getValues("last_name"),
+      name: getValues("name"),
       phone: getValues("phone"),
       email: getValues("email"),
-      age: getValues("age"),
-      gender: getValues("gender"),
-      state: getValues("state"),
-      language: profile?.language,
-      profile_image: profile?.profile_image,
+      avatar: profile?.avatar,
     };
 
     // Call the API to update the profile
     const response = await updateUserProfile(token, profileData);
     if (response && response.success) {
-      toast.success("تم تحديث الملف الشخصي بنجاح", {
+      toast.success("The full active file has been updated.", {
         duration: 3000,
-        description: "تم حفظ التغييرات بنجاح.",
+        description: "Changes were saved successfully.",
       });
       refreshProfile();
     } else {
-      toast.error("فشل تحديث الملف الشخصي", {
+      toast.error("Failed to update profile", {
         duration: 3000,
-        description: response?.message || "حدث خطأ أثناء تحديث الملف الشخصي.",
+        description: response?.message || "An error occurred while updating the profile.",
       });
     }
   }
@@ -110,7 +101,7 @@ const Profile = () => {
   return (
     <div className="">
       <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-        تفاصيل الحساب
+Account details
       </h1>
 
       <form
@@ -122,50 +113,32 @@ const Profile = () => {
             htmlFor="first-name"
             className="mb-1 block text-sm font-medium text-muted-foreground"
           >
-            الاسم الأول *
+            First Name *
           </Label>
           <Input
             id="first-name"
-            {...register("first_name")}
-            placeholder="الاسم الأول"
+            {...register("name")}
+            placeholder=" Name"
             type="text"
           />
-          {errors.first_name && (
+          {errors.name && (
             <span className="text-red-500 text-xs">
-              {errors.first_name.message}
+              {errors.name.message}
             </span>
           )}
         </div>
-        <div>
-          <Label
-            htmlFor="last-name"
-            className="mb-1 block text-sm font-medium text-muted-foreground"
-          >
-            الاسم الأخير *
-          </Label>
-          <Input
-            id="last-name"
-            {...register("last_name")}
-            placeholder="الاسم الأخير"
-            type="text"
-          />
-          {errors.last_name && (
-            <span className="text-red-500 text-xs">
-              {errors.last_name.message}
-            </span>
-          )}
-        </div>
+       
         <div>
           <Label
             htmlFor="phone"
             className="mb-1 block text-sm font-medium text-muted-foreground"
           >
-            رقم الهاتف *
+            Phone Number *
           </Label>
           <Input
             id="phone"
             {...register("phone")}
-            placeholder="رقم الهاتف"
+            placeholder="Phone Number"
             type="tel"
           />
           {errors.phone && (
@@ -177,66 +150,19 @@ const Profile = () => {
             htmlFor="email"
             className="mb-1 block text-sm font-medium text-muted-foreground"
           >
-            البريد الإلكتروني *
+Email *
           </Label>
           <Input
             id="email"
             {...register("email")}
-            placeholder="البريد الإلكتروني"
+            placeholder="Email"
             type="text"
           />
           {errors.email && (
             <span className="text-red-500 text-xs">{errors.email.message}</span>
           )}
         </div>
-        <div>
-          <Label
-            htmlFor="age"
-            className="mb-1 block text-sm font-medium text-muted-foreground"
-          >
-            العمر *
-          </Label>
-          <Input
-            id="age"
-            {...register("age", { valueAsNumber: true })}
-            placeholder="العمر"
-            type="number"
-          />
-          {errors.age && (
-            <span className="text-red-500 text-xs">{errors.age.message}</span>
-          )}
-        </div>
-        <div>
-          <Label
-            htmlFor="gender"
-            className="mb-1 block text-sm font-medium text-muted-foreground"
-          >
-            النوع *
-          </Label>
-          <Input
-            id="gender"
-            {...register("gender")}
-            placeholder="الجنس"
-            type="text"
-          />
-          {errors.gender && (
-            <span className="text-red-500 text-xs">
-              {errors.gender.message}
-            </span>
-          )}
-        </div>
-        <div className="md:col-span-2">
-          <Label
-            htmlFor="state"
-            className="mb-1 block text-sm font-medium text-muted-foreground"
-          >
-            العنوان *
-          </Label>
-          <Input id="state" {...register("state")} placeholder="العنوان" />
-          {errors.state && (
-            <span className="text-red-500 text-xs">{errors.state.message}</span>
-          )}
-        </div>
+       
         <div className="mt-8 flex justify-end md:col-span-2">
           <Button
             type="submit"
@@ -247,7 +173,7 @@ const Profile = () => {
             // }}
             disabled={isSubmitting}
           >
-            {isSubmitting ? <SpinnerMini /> : "حفظ "}
+            {isSubmitting ? <SpinnerMini /> : "save changes"}
           </Button>
         </div>
       </form>

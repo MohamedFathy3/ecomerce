@@ -58,24 +58,15 @@ export const cardSchema = z.object({
 
 export const registerSchema = z
   .object({
-    first_name: z.string().min(1, "First name is required"),
-    last_name: z.string().min(1, "Last name is required"),
-    state: z.string().min(1, "Address is required"),
-    gender: gender,
-    age: z.string().regex(/^\d+$/, "Age must be a valid number"),
+    name: z.string().min(1, "Name is required"),
     phone: z
       .string()
       .regex(/^\+?[0-9]{7,15}$/, "Phone must be a valid phone number"),
     email: z.string().email("Email must be a valid email address"),
     password: z.string().min(8, "Password must be at least 8 characters"),
-    password_confirmation: z
-      .string()
-      .min(8, "Password confirmation must be at least 8 characters"),
+  
   })
-  .refine((data) => data.password === data.password_confirmation, {
-    message: "Passwords must match",
-    path: ["password_confirmation"],
-  });
+  
 
 // Doctor Rigister schema
 export const doctorRegisterSchema = registerSchema.extend({
@@ -105,18 +96,12 @@ export const signInSchema = z.object({
 
 export const profileSchema = z.object({
   id: z.string(),
-  first_name: z.string().min(2, "First name is required"),
-  last_name: z.string().optional(),
+  name:z.string().min(2, " name is required"),
   phone: z
     .string()
     .regex(/^\+?[0-9]{7,15}$/, "Phone must be a valid phone number"),
-  language: z.string().optional(),
-  gender: gender,
-  state: z.string().min(1, "address is required"),
-  age: z.number().int().min(0, "Age must be a valid number"),
   email: z.string().email("Email must be a valid email address"),
-  profile_image: z.string().url("Profile image must be a valid URL").optional(),
-  is_doctor: boolean().optional(),
+  avatar: z.string().url("Profile image must be a valid URL").optional(),
   // currency_code: z.string().optional(),
 });
 

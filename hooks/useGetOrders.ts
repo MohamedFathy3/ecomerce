@@ -1,4 +1,4 @@
-import { getUserOrders } from "@/lib/api/apiOrders";
+// import { getUserOrders } from "@/lib/api/apiOrders";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetOrders = () => {
@@ -8,7 +8,7 @@ export const useGetOrders = () => {
     error: errorOrders,
   } = useQuery({
     queryKey: ["orders"],
-    queryFn: async () => await getUserOrders(),
+    // queryFn: async () => await getUserOrders(),
   });
 
   return { ordersData, isLoadingOrders, errorOrders };

@@ -1,4 +1,4 @@
-import { getProfile } from "@/lib/api/apiUser";
+// import { getProfile } from "@/lib/api/apiUser";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetProfile = () => {
@@ -8,7 +8,7 @@ export const useGetProfile = () => {
     error: profileError,
   } = useQuery({
     queryKey: ["profile"],
-    queryFn: async () => await getProfile(),
+    // queryFn: async () => await getProfile(),
   });
 
   return { profileData, isLoadoingProfile, profileError };

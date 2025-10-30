@@ -41,13 +41,31 @@ const AddToCart = ({
   const [inCart, setInCart] = useState(false);
   const [inCartCount, setInCartCount] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const { data: session } = useSession();
 
   const { data, isLoading, error } = useGetCart();
   const cart = data?.data as CartData | null | undefined;
 
   const queryClient = useQueryClient();
+
+  // Handle Add to Cart mutation
   const { mutate: cartAddMutation, isPending: isAddPending } = useMutation({
-    mutationFn: handleAddToCart,
+    mutationFn: async () => {
+      const response = await addToCart(productId, 1);
+      
+      // Handle specific error cases
+      if (!response.success) {
+        if (response.message?.includes('No query results for model')) {
+          throw new Error('Product not found');
+        }
+        if (response.message?.includes('Unauthorized')) {
+          throw new Error('Please login to add items to cart');
+        }
+        throw new Error(response.message || 'Failed to add item to cart');
+      }
+      
+      return response;
+    },
     onSuccess: (response) => {
       if (response && response.success) {
         setInCartCount(1);
@@ -56,10 +74,42 @@ const AddToCart = ({
         queryClient.invalidateQueries({ queryKey: ["cart"] });
       }
     },
+    onError: (error: Error) => {
+      console.error("Add to cart error:", error);
+      
+      if (error.message.includes('Product not found')) {
+        toast.error("This product is no longer available", {
+          description: "The product may have been removed or is out of stock"
+        });
+      } else if (error.message.includes('Please login')) {
+        toast.warning("Please sign in to add items to cart", {
+          action: {
+            label: "Sign In",
+            onClick: () => {
+              router.push(`/signin?callbackUrl=${pathName}`);
+            },
+          },
+        });
+      } else {
+        toast.error(error.message || "Failed to add item to cart");
+      }
+    },
   });
 
+  // Handle Plus mutation
   const { mutate: cartPlusMutation, isPending: isPlusPending } = useMutation({
-    mutationFn: handlePlus,
+    mutationFn: async () => {
+      const response = await updateCartItem(productId, inCartCount + 1);
+      
+      if (!response.success) {
+        if (response.message?.includes('No query results for model')) {
+          throw new Error('Product not found');
+        }
+        throw new Error(response.message || 'Failed to update cart');
+      }
+      
+      return response;
+    },
     onSuccess: (response) => {
       if (response && response.success) {
         setInCartCount((prev) => prev + 1);
@@ -77,10 +127,39 @@ const AddToCart = ({
         });
       }
     },
+    onError: (error: Error) => {
+      console.error("Plus cart error:", error);
+      toast.error(error.message || "Failed to update cart");
+    },
   });
 
+  // Handle Minus mutation
   const { mutate: cartMinusMutation, isPending: isMinusPending } = useMutation({
-    mutationFn: handleMinus,
+    mutationFn: async () => {
+      if (inCartCount > 1) {
+        const response = await updateCartItem(productId, inCartCount - 1);
+        
+        if (!response.success) {
+          if (response.message?.includes('No query results for model')) {
+            throw new Error('Product not found');
+          }
+          throw new Error(response.message || 'Failed to update cart');
+        }
+        
+        return response;
+      } else {
+        const response = await removeCartItem(productId);
+        
+        if (!response.success) {
+          if (response.message?.includes('No query results for model')) {
+            throw new Error('Product not found');
+          }
+          throw new Error(response.message || 'Failed to remove item from cart');
+        }
+        
+        return response;
+      }
+    },
     onSuccess: (response) => {
       if (response && response.success) {
         setInCartCount((prev) => Math.max(prev - 1, 0));
@@ -91,47 +170,29 @@ const AddToCart = ({
         }
       }
     },
+    onError: (error: Error) => {
+      console.error("Minus cart error:", error);
+      toast.error(error.message || "Failed to update cart");
+    },
   });
 
-  useEffect(
-    function () {
-      if (cart && cart.pharmacies && !data?.notAuthenticated) {
-        setInCart(
-          cart.pharmacies.some((pharmacy) => {
-            const item = pharmacy.items.find(
-              (item) => item.product_id === productId
-            );
-            if (item) {
-              setInCartCount(item.quantity);
-            }
-            return item;
-          })
-        );
+  // Check if product is in cart
+  useEffect(() => {
+    if (cart && cart.items && !data?.notAuthenticated) {
+      const cartItem = cart.items.find((item) => item.card_id === productId);
+      
+      if (cartItem) {
+        setInCart(true);
+        setInCartCount(cartItem.quantity);
+      } else {
+        setInCart(false);
+        setInCartCount(0);
       }
-      setMounted(true);
-    },
-    [cart, productId, status]
-  );
-
-  async function handleAddToCart() {
-    return await addToCart(productId, 1);
-  }
-
-  async function handlePlus() {
-    return await updateCartItem(productId, inCartCount + 1);
-  }
-
-  async function handleMinus() {
-    if (inCartCount > 1) {
-      return await updateCartItem(productId, inCartCount - 1);
-    } else {
-      return await removeCartItem(productId);
     }
-  }
+    setMounted(true);
+  }, [cart, productId, data?.notAuthenticated]);
 
   function showToast(message: string) {
-    // console.log("pathName", pathName);
-    // revalidate(pathName);
     toast.success(message, {
       action: {
         label: "View Cart",
@@ -142,32 +203,47 @@ const AddToCart = ({
     });
   }
 
-  if (data?.notAuthenticated) {
+  // Handle not authenticated state
+  if (data?.notAuthenticated || !session) {
     return (
       <Button
         onClick={() => {
-          toast.warning("You are not signed in!", {
+          toast.warning("Please sign in to add items to cart", {
             action: {
-              label: "go to sign in",
+              label: "Sign In",
               onClick: () => {
                 router.push(`/signin?callbackUrl=${pathName}`);
               },
             },
           });
         }}
+        className="flex items-center gap-2"
       >
         <ShoppingCart className="w-5 h-5" />
-        أضف إلى العربة
+        Add to Cart
       </Button>
     );
   }
 
-  // console.log(inCart, "inCart");
-  // console.log(inCartCount, "inCartCount");
-  if (!mounted) {
-    return <SpinnerMini />;
+  // Show loading state
+  if (!mounted || isLoading) {
+    return (
+      <Button disabled>
+        <SpinnerMini />
+      </Button>
+    );
   }
 
+  // Show out of stock state
+  if (stock <= 0) {
+    return (
+      <Button disabled variant="outline">
+        Out of Stock
+      </Button>
+    );
+  }
+
+  // If product is already in cart, show quantity controls
   if (inCart) {
     return (
       <div className="flex items-center gap-2 border rounded-md px-2 py-1">
@@ -198,19 +274,20 @@ const AddToCart = ({
     );
   }
 
+  // Default state - Add to Cart button
   return (
     <div>
       <Button
-        type="submit"
         onClick={() => cartAddMutation()}
         disabled={isAddPending || stock <= 0}
+        className="flex items-center gap-2"
       >
         {isAddPending ? (
           <SpinnerMini />
         ) : (
           <>
             <Plus className="w-5 h-5" />
-            أضف إلى العربة
+            Add to Cart
           </>
         )}
       </Button>

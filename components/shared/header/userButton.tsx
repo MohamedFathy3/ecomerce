@@ -88,8 +88,8 @@ const UserButton = ({ user }: { user: UserType | null }) => {
                   variant="ghost"
                   className="w-8 h-8 aspect-square rounded-full ms-2 flex items-center justify-center bg-secondary text-primary"
                 >
-                  {user?.firstName?.charAt(0).toUpperCase() ??
-                    user?.lastName?.charAt(0).toUpperCase() ??
+                  {user?.name?.charAt(0).toUpperCase() ??
+                    user?.name?.charAt(0).toUpperCase() ??
                     "U"}
                 </Button>
               </div>
@@ -104,7 +104,7 @@ const UserButton = ({ user }: { user: UserType | null }) => {
                 <div className="flex flex-col space-y-1">
                   <div className="text-sm leading-none">
                     {/* Ahmed Othman */}
-                    {user?.firstName} {user?.lastName}
+                    {user?.name} {user?.lastName}
                   </div>
                   <div className="text-sm text-muted-foreground leading-none">
                     {user?.email}

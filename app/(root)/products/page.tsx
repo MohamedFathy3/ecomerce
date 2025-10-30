@@ -14,15 +14,31 @@ const Products = async ({
 }: {
   searchParams: Promise<SearchParams>;
 }) => {
-  const filterParams = await searchParams;
+  // أول حاجة نطبع الـ searchParams اللي جاية من الـ URL
+  console.log("🔍 Raw searchParams (Promise):", searchParams);
 
+  // ننتظر لما تتفك الـ Promise
+  const filterParams = await searchParams;
+  console.log("✅ Resolved filterParams:", filterParams);
+
+  // نطبع كل مفتاح وقيمة عشان نعرف إيه اللي جاي بالظبط
+  Object.entries(filterParams || {}).forEach(([key, value]) => {
+    console.log(`🔸 ${key}:`, value);
+  });
+
+  // Function to refetch data with params
   async function refetchDataWithParams() {
     "use server";
-    revalidatePath("/products");
+    console.log("♻️ Refetching data with revalidatePath...");
+    revalidatePath("/front/search-cards");
   }
 
+  console.log("🚀 Rendering Products page...");
+  console.log("🧱 Components being rendered: Sidebar + ProductsFiltered");
+  console.log("---------------------------------------------");
+
   return (
-    <div className="">
+    <div>
       <div className="grid grid-cols-12 xl:grid-cols-11 gap-6 px-3 xl:gap-2 sm:px-6 py-8 relative">
         {/* Sidebar filters */}
         <ProductSidebar revalidate={refetchDataWithParams} />

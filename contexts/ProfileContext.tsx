@@ -57,7 +57,20 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   }, [status]);
+const updateProfile = async (profileData: Partial<UserProfile>) => {
+  const token = session?.user?.token || session?.accessToken || "";
+  if (!token) {
+    console.error("No token available for profile update");
+    return;
+  }
 
+  const result = await updateUserProfile(token, profileData);
+  if (result?.success) {
+    setProfile(result.data as UserProfile);
+    return result;
+  }
+  return result;
+};
   return (
     <ProfileContext.Provider
       value={{

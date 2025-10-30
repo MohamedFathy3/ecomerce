@@ -13,7 +13,10 @@ export async function getAuthToken(userToken?: string) {
   }
 
   const session = await auth();
+  console.log('🔐 Session data:', session); // زود دي
+  
   const token = session?.user?.token || session?.accessToken || "";
+  console.log('🔑 Extracted token:', token); // وزود دي
 
   if (!session || !session.user || !session.accessToken) {
     return {

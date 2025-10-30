@@ -44,14 +44,21 @@ const RegisterUser = () => {
     const response = await registerUser(data);
     console.log(response);
 
-    if (response.status === "error") {
-      const errorsArray = Object.entries(response.payload).map(
-        ([key, value]) => value as string
-      );
-      setFormErrors(errorsArray);
-    } else {
-      redirect("/signin");
-    }
+   if (response.status === "error") {
+  if (response?.payload && typeof response.payload === "object") {
+    const errorsArray = Object.entries(response.payload).map(
+      ([, value]) => String(value)
+    );
+    setFormErrors(errorsArray);
+  } else if (response?.message) {
+    setFormErrors([response.message]);
+  } else {
+    setFormErrors(["An unknown error occurred. Please try again."]);
+  }
+} else {
+  redirect("/signin");
+}
+
   };
 
   return (
@@ -77,95 +84,25 @@ const RegisterUser = () => {
       >
         <div>
           <Label htmlFor="first_name" className="block text-sm font-medium">
-            First Name
+             Name
           </Label>
           <Input
-            id="first_name"
+            id="name"
             type="text"
-            {...register("first_name")}
+            {...register("name")}
             className="mt-1"
             defaultValue={signUpDefaultValues.first_name}
           />
-          {errors.first_name && (
+          {errors.name && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.first_name.message}
+              {errors.name.message}
             </p>
           )}
         </div>
 
-        <div>
-          <Label htmlFor="last_name" className="block text-sm font-medium">
-            Last Name
-          </Label>
-          <Input
-            id="last_name"
-            type="text"
-            {...register("last_name")}
-            className="mt-1"
-            defaultValue={signUpDefaultValues.last_name}
-          />
-          {errors.last_name && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.last_name.message}
-            </p>
-          )}
-        </div>
+      
 
-        <div>
-          <Label htmlFor="governorate" className="block text-sm font-medium">
-            Governorate
-          </Label>
-          <select
-            id="governorate"
-            {...register("state")}
-            defaultValue={signUpDefaultValues.governorate}
-            className="mt-1 block w-full border py-1 px-3 bg-input/30 rounded-md shadow-sm"
-          >
-            <option value="-1">Select governorate</option>
-            {EGYPT_GOVERNORATES.map((gov) => (
-              <option key={gov} value={gov}>
-                {gov}
-              </option>
-            ))}
-          </select>
-          {errors.state && (
-            <p className="text-red-500 text-sm mt-1">{errors.state.message}</p>
-          )}
-        </div>
-
-        <div>
-          <Label htmlFor="gender" className="block text-sm font-medium">
-            Gender
-          </Label>
-          <select
-            id="gender"
-            {...register("gender")}
-            defaultValue={signUpDefaultValues.gender}
-            className="mt-1 block w-full border py-1 px-3 bg-input/30 rounded-md shadow-sm"
-          >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-          {errors.gender && (
-            <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>
-          )}
-        </div>
-
-        <div>
-          <Label htmlFor="age" className="block text-sm font-medium">
-            Age
-          </Label>
-          <Input
-            id="age"
-            type="text"
-            {...register("age")}
-            className="mt-1"
-            defaultValue={signUpDefaultValues.age}
-          />
-          {errors.age && (
-            <p className="text-red-500 text-sm mt-1">{errors.age.message}</p>
-          )}
-        </div>
+      
 
         <div>
           <Label htmlFor="phone" className="block text-sm font-medium">
@@ -217,26 +154,7 @@ const RegisterUser = () => {
           )}
         </div>
 
-        <div>
-          <Label
-            htmlFor="password_confirmation"
-            className="block text-sm font-medium"
-          >
-            Confirm Password
-          </Label>
-          <Input
-            id="password_confirmation"
-            type="password"
-            {...register("password_confirmation")}
-            className="mt-1"
-            defaultValue={signUpDefaultValues.password_confirmation}
-          />
-          {errors.password_confirmation && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.password_confirmation.message}
-            </p>
-          )}
-        </div>
+      
 
         <div className="col-span-full flex flex-col gap-3 mt-4 ">
           {formErrors.length > 0 && (

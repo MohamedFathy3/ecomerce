@@ -1,121 +1,147 @@
-import { Heart, Star } from "lucide-react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { formatCurrency, formatCurrencyEGP } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { FavoriteItem, ProductItem } from "@/types";
-import StarRating from "../starRating";
-import { auth } from "@/lib/auth";
-import { getFavorites } from "@/lib/api/apiFavorites";
-import ButtonFavorite from "./buttonFavorite";
-import { Badge } from "@/components/ui/badge";
-import ButtonAddToCompare from "./buttonAddToCompare";
+// components/custom/product/productCard.tsx
+"use client";
+
+import { ProductItem } from "@/types";
+import React, { useState } from "react";
 import Image from "next/image";
-import { CURRENCY_CODE } from "@/lib/constants";
+import Link from "next/link";
 
-const ProductCard = async ({ productItem }: { productItem: ProductItem }) => {
-  const session = await auth();
-  let inFavorites = false;
-  if (session && session.user) {
-    const res = await getFavorites();
-    if (res && res.success && !res.empty) {
-      const favorites = res.data as FavoriteItem[];
-      inFavorites = favorites.some((item) => item.id === productItem.id);
-    }
-  }
-  const isValidImage =
-    productItem.image &&
-    (productItem.image.endsWith(".jpg") || productItem.image.endsWith(".png"));
+interface ProductCardProps {
+  productItem: ProductItem;
+}
 
-  const image = isValidImage ? productItem.image : "/images/no-image.jpg";
+const ProductCard = ({ productItem }: ProductCardProps) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageLoading, setImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+
+  // تحديد الصور المتاحة للعرض
+  const availableImages = [
+    productItem.image,
+    ...(productItem.gallery || [])
+  ].filter(Boolean) as string[];
+
+  const hasMultipleImages = availableImages.length > 1;
+  const hasDiscount = productItem.discount && parseFloat(productItem.discount) > 0;
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
+    setImageError(false);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoading(false);
+  };
+
+  // تغيير الصورة عند click على النقاط
+  const handleDotClick = (index: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex(index);
+    setImageLoading(true);
+  };
 
   return (
-    <div className="bg-white dark:bg-slate-800 w-full rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-3 h-full flex flex-col gap-3 relative transition-all duration-300 hover:shadow-md">
-      {/* Favorite Button */}
-      <div className="absolute top-3 end-3 z-10">
-        <ButtonFavorite inFavorites={inFavorites} productId={productItem.id} />
-      </div>
-
-      {/* Product Image - الصورة من فوق */}
-      <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-700">
-        <Link href={`/product/${productItem.id}`}>
-          <Image
-            src={image || "/images/no-image.jpg"}
-            alt={productItem.name}
-            fill
-            className="object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </Link>
+    <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group w-full h-full flex flex-col">
+      
+      {/* قسم الصورة */}
+      <Link href={`/product/${productItem.id}`} className="block relative aspect-[4/3] bg-gray-50 overflow-hidden">
         
-        {/* Discount Badge */}
-        {productItem.offer_discount && (
-          <Badge className="absolute top-2 start-2 bg-red-600 text-white text-xs px-2 py-1">
-            خصم
-          </Badge>
-        )}
-      </div>
+      
 
-      {/* Product Content - المحتوى من تحت */}
-      <div className="flex flex-col flex-grow space-y-3">
-        {/* Product Name */}
+        {/* حالة الخطأ - صورة بديلة */}
+        {imageError || availableImages.length === 0 ? (
+          <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-gray-400">
+            <svg className="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span className="text-sm">No Image</span>
+          </div>
+        ) : (
+          <>
+            {/* الصورة الرئيسية */}
+            <Image
+              src={availableImages[currentImageIndex]}
+              alt={productItem.name}
+              fill
+              className={`object-cover transition-opacity duration-300 `}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              priority={currentImageIndex === 0}
+            />
+
+            {/* Badge للخصم */}
+            {hasDiscount && (
+              <div className="absolute top-3 left-3 bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg z-10 shadow-md">
+                -{productItem.discount}%
+              </div>
+            )}
+
+            {/* Badge للـ Out of Stock */}
+            {productItem.quantity <= 0 && (
+              <div className="absolute top-3 right-3 bg-gray-700 text-white text-sm font-bold px-3 py-1.5 rounded-lg z-10 shadow-md">
+                Out of Stock
+              </div>
+            )}
+          </>
+        )}
+
+        {/* النقاط (Dots) للتنقل بين الصور - تحت الصورة مباشرة */}
+        {hasMultipleImages && availableImages.length > 0 && !imageError && (
+          <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+            {availableImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => handleDotClick(index, e)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 border border-white ${
+                  index === currentImageIndex 
+                    ? 'bg-red-500 scale-110'  // اللون الأحمر للنقطة النشطة
+                    : 'bg-white/70 hover:bg-white'
+                }`}
+                aria-label={`View image ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </Link>
+
+      <div className="p-4 flex flex-col flex-grow">
         <Link href={`/product/${productItem.id}`}>
-          <h3 className="text-sm font-medium text-foreground line-clamp-2 hover:text-red-600 transition-colors min-h-[40px]">
+          <h3 className="font-bold text-lg text-gray-900 hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-tight">
             {productItem.name}
           </h3>
         </Link>
 
-        {/* Price Section */}
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex flex-col gap-1">
-            {productItem.offer_discount ? (
-              <>
-                <span className="line-through text-gray-500 text-xs">
-                  {formatCurrency(
-                    productItem.price as number,
-                    productItem.currency_symbol
-                  )}
-                </span>
-                <span className="text-foreground font-bold text-lg text-red-600">
-                  {formatCurrency(
-                    productItem.final_price as number,
-                    productItem.currency_symbol
-                  )}
-                </span>
-              </>
-            ) : (
-              <span className="text-foreground font-bold text-lg">
-                {formatCurrency(
-                  productItem.price as number,
-                  session?.user.currency_code || CURRENCY_CODE
-                )}
-              </span>
-            )}
-          </div>
+        <div className="flex items-center gap-2 mb-2">
+          {hasDiscount && productItem.old_price && (
+            <span className="text-base text-gray-500 line-through font-medium">
+              {productItem.old_price} {productItem.currency}
+            </span>
+          )}
+          <span className={`text-xl font-bold ${
+            hasDiscount ? 'text-red-600' : 'text-green-600'
+          }`}>
+            {productItem.price} {productItem.currency}
+          </span>
         </div>
 
-        {/* Stock Status */}
-        {productItem.quantity > 0 ? (
-          <div className="flex items-center gap-2 text-green-600 text-xs">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            متوفر في المخزون
-          </div>
-        ) : (
-          <Badge variant="destructive" className="w-fit text-xs py-1 px-2">
-            <div className="w-2 h-2 bg-white rounded-full mr-1"></div>
-            غير متوفر
-          </Badge>
+        {/* الوصف القصير */}
+        {productItem.short_description && (
+          <p className="text-gray-600 line-clamp-2 mb-3 text-sm leading-relaxed">
+            {productItem.short_description}
+          </p>
         )}
 
-        {/* Action Buttons */}
-        <div className="flex gap-2 mt-auto">
-          <Button
-            asChild
-            className="flex-1 bg-red-600 hover:bg-red-700 text-white text-sm font-medium py-2 rounded-lg transition-all duration-200"
-          >
-            <Link href={`/product/${productItem.id}`}>
-              {productItem.quantity > 0 ? "اشتري الآن" : "التفاصيل"}
-            </Link>
-          </Button>
+        <div className="mt-auto">
+          <span className={`text-sm font-semibold px-2 py-1 rounded ${
+            productItem.quantity > 0 
+              ? 'bg-green-100 text-green-700' 
+              : 'bg-red-100 text-red-700'
+          }`}>
+            {productItem.quantity > 0 ? 'In Stock' : 'Out of Stock'}
+          </span>
         </div>
       </div>
     </div>

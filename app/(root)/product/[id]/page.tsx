@@ -2,14 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import ProductSwiper from "@/components/custom/product/productSwiper";
 import ProductMainInfo from "@/components/custom/product/productMainInfo";
-import ProductRatingsComments from "@/components/custom/product/productRatingsComments";
-import { getProduct } from "@/lib/api/apiProducts";
-import { Product } from "@/types";
+import { getProduct, getAlternativeProducts } from "@/lib/api/apiProducts";
+import { Product, ProductItem } from "@/types"; // تأكد من استيراد ProductItem
 import { generateProductSEO, getProductCanonicalUrl } from "@/lib/seo";
 import {
   generateProductSchema,
   generateBreadcrumbSchema,
-  generateReviewSchema,
 } from "@/lib/structured-data";
 
 interface ProductPageProps {
@@ -25,97 +23,54 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "المنتج غير موجود | فاليديريا - الصيدلية الإلكترونية",
-      description:
-        "المنتج المطلوب غير متوفر حالياً. تصفح مجموعتنا الواسعة من الأدوية والمنتجات الصحية.",
-      robots: {
-        index: false,
-        follow: false,
-      },
+      title: "Product Not Found | Valideria - Online Pharmacy",
+      description: "The requested product is currently unavailable.",
+      robots: { index: false, follow: false },
     };
   }
 
-  // Generate rich metadata
   const metadata = generateProductSEO({
     id: product.id,
     name: product.name,
-    description:
-      product.description ||
-      `${product.name} من ${product.brandName}. ${product.form} ${
-        product.strength ? `بتركيز ${product.strength}` : ""
-      }. متوفر في ${product.pharmacy.name}.`,
-    category: product.categoryName,
-    brand: product.brandName,
-    price: product.offer?.price_after || product.price,
-    image: product.image || undefined,
+    description: product.description || product.short_description || `${product.name} - ${product.type}`,
+    category: product.category,
+    brand: product.type,
+    price: product.price,
+    image: product.image,
   });
 
-  // Add structured data
   const productSchema = generateProductSchema({
     id: product.id,
     name: product.name,
-    description: product.description,
+    description: product.description || product.short_description,
     price: product.price,
-    image: product.image || undefined,
-    brand: product.brandName,
-    category: product.categoryName,
-    availability: product.quantity > 0 ? "in_stock" : "out_of_stock",
-    offer: product.offer
-      ? {
-          price_after: product.offer.price_after,
-          discount_percentage: product.offer.discount_percentage,
-        }
-      : undefined,
+    image: product.image,
+    brand: product.type,
+    category: product.category,
+    availability: product.active ? "in_stock" : "out_of_stock",
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "الرئيسية", url: "/" },
-    { name: "المنتجات", url: "/products" },
-    {
-      name: product.categoryName,
-      url: `/products?category=${product.categoryName}`,
-    },
+    { name: "Home", url: "/" },
+    { name: "Products", url: "/products" },
+    { name: product.category, url: `/products?category=${encodeURIComponent(product.category)}` },
     { name: product.name },
   ]);
 
-  // Add review schemas if available
-  const allComments = [
-    ...product.user_comments.map((comment) => ({
-      rating: comment.rate,
-      comment: comment.comment,
-      author: comment.user_name,
-      date: new Date().toISOString(),
-    })),
-    ...product.doctors_comments.map((comment) => ({
-      rating: comment.rate,
-      comment: comment.comment,
-      author: `د. ${comment.user_name}`,
-      date: new Date().toISOString(),
-    })),
-  ];
-
-  const reviewSchemas =
-    allComments.length > 0 ? generateReviewSchema(allComments) : [];
-
-  // Create structured data script
-  const structuredData = [productSchema, breadcrumbSchema, ...reviewSchemas];
-
-  // Enhanced metadata with product-specific SEO properties
+  const structuredData = [productSchema, breadcrumbSchema];
+  
   return {
     ...metadata,
     other: {
-      "product:price:amount": String(
-        product.offer?.price_after || product.price
-      ),
-      "product:price:currency": "EGP",
-      "product:availability":
-        product.quantity > 0 ? "in stock" : "out of stock",
-      "product:brand": product.brandName,
-      "product:category": product.categoryName,
+      "product:price:amount": String(product.price),
+      "product:price:currency": product.currency,
+      "product:availability": product.active ? "in stock" : "out of stock",
+      "product:brand": product.type,
+      "product:category": product.category,
       "product:retailer_item_id": String(product.id),
       "product:condition": "new",
-      "og:price:amount": String(product.offer?.price_after || product.price),
-      "og:price:currency": "EGP",
+      "og:price:amount": String(product.price),
+      "og:price:currency": product.currency,
       "structured-data": JSON.stringify(structuredData),
     },
   };
@@ -123,131 +78,162 @@ export async function generateMetadata({
 
 const ProductPage = async ({ params }: ProductPageProps) => {
   const { id: productId } = await params;
+  
+  console.log("🚀 [PAGE] Starting product page load...");
+  console.log("🎯 [PAGE] Requested product ID:", productId);
+
   const product = await getProduct(productId);
 
   if (!product) {
+    console.log("❌ [PAGE] Product not found:", productId);
     return (
-      <div className="flex-center h-screen">
-        <h1 className="text-2xl font-bold">Product not found</h1>
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
+          <p className="text-gray-600 mb-6">The product youre looking for doesnt exist.</p>
+          <Link href="/products" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            Browse All Products
+          </Link>
+        </div>
       </div>
     );
   }
 
-  // Generate structured data for this product
+  console.log("✅ [PAGE] Product found:", {
+    id: product.id,
+    name: product.name,
+    category: product.category,
+    price: product.price
+  });
+
+  // Fetch alternative products (latest products)
+  console.log("🔄 [PAGE] Fetching alternative products...");
+  const alternativeProductsResponse = await getAlternativeProducts(12);
+  
+  console.log("📊 [PAGE] Alternative products result:", {
+    success: alternativeProductsResponse.success,
+    productsCount: alternativeProductsResponse.products?.length || 0,
+    message: alternativeProductsResponse.message
+  });
+
+  // Filter out the current product from alternative products - تم إصلاح TypeScript error هنا
+  let filteredProducts: ProductItem[] = [];
+  if (alternativeProductsResponse.success && alternativeProductsResponse.products && alternativeProductsResponse.products.length > 0) {
+    filteredProducts = alternativeProductsResponse.products.filter(
+      (productItem: ProductItem) => productItem.id !== product.id
+    ).slice(0, 8); // Take max 8 products
+    
+    console.log("✅ [PAGE] Filtered products count:", filteredProducts.length);
+  }
+
+  // Generate structured data
   const productSchema = generateProductSchema({
     id: product.id,
     name: product.name,
-    description: product.description,
+    description: product.description || product.short_description,
     price: product.price,
-    image: product.image || undefined,
-    brand: product.brandName,
-    category: product.categoryName,
-    availability: product.quantity > 0 ? "in_stock" : "out_of_stock",
-    offer: product.offer
-      ? {
-          price_after: product.offer.price_after,
-          discount_percentage: product.offer.discount_percentage,
-        }
-      : undefined,
+    image: product.image,
+    brand: product.type,
+    category: product.category,
+    availability: product.active ? "in_stock" : "out_of_stock",
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "الرئيسية", url: "/" },
-    { name: "المنتجات", url: "/products" },
-    {
-      name: product.categoryName,
-      url: `/products?category=${product.categoryName}`,
-    },
+    { name: "Home", url: "/" },
+    { name: "Products", url: "/products" },
+    { name: product.category, url: `/products?category=${encodeURIComponent(product.category)}` },
     { name: product.name },
   ]);
 
-  // Add review schemas if available
-  const allComments = [
-    ...product.user_comments.map((comment) => ({
-      rating: comment.rate,
-      comment: comment.comment,
-      author: comment.user_name,
-      date: new Date().toISOString(),
-    })),
-    ...product.doctors_comments.map((comment) => ({
-      rating: comment.rate,
-      comment: comment.comment,
-      author: `د. ${comment.user_name}`,
-      date: new Date().toISOString(),
-    })),
-  ];
+  const structuredData = [productSchema, breadcrumbSchema];
 
-  const reviewSchemas =
-    allComments.length > 0 ? generateReviewSchema(allComments) : [];
-  const structuredData = [productSchema, breadcrumbSchema, ...reviewSchemas];
+  console.log("🎉 [PAGE] Page preparation completed successfully!");
 
   return (
     <>
       {/* Structured Data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData),
-        }}
-      />
-
-      {/* Additional SEO Meta Tags */}
-      <link
-        rel="canonical"
-        href={getProductCanonicalUrl(product.id, product.name)}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <link rel="canonical" href={getProductCanonicalUrl(product.id, product.name)} />
 
       <section className="space-y-12 pt-6 px-4 sm:px-8">
-        {/* Breadcrumb Navigation for SEO */}
+        {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="text-sm text-gray-600">
-          <ol className="flex items-center space-x-2 rtl:space-x-reverse">
-            <li>
-              <Link href="/" className="hover:text-primary">
-                الرئيسية
-              </Link>
-            </li>
+          <ol className="flex items-center space-x-2 rtl:space-x-reverse flex-wrap">
+            <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
             <span>/</span>
-            <li>
-              <Link href="/products" className="hover:text-primary">
-                المنتجات
-              </Link>
-            </li>
+            <li><Link href="/products" className="hover:text-primary transition-colors">Products</Link></li>
             <span>/</span>
-            <li>
-              <Link
-                href={`/products?category=${product.categoryName}`}
-                className="hover:text-primary"
-              >
-                {product.categoryName}
-              </Link>
-            </li>
+            <li><Link href={`/products?category=${encodeURIComponent(product.category)}`} className="hover:text-primary transition-colors">{product.category}</Link></li>
             <span>/</span>
-            <li className="text-gray-900 font-medium" aria-current="page">
-              {product.name}
-            </li>
+            <li className="text-gray-900 font-medium">{product.name}</li>
           </ol>
         </nav>
 
         {/* Product Name as H1 for SEO */}
-        <h1 className="sr-only">
-          {product.name} - {product.brandName} | فاليديريا
-        </h1>
+        <h1 className="sr-only">{product.name} - {product.type} | Valideria</h1>
 
         {/* Main Info */}
-        <ProductMainInfo product={product as Product} />
+        <ProductMainInfo product={product} />
 
-        {/* Ratings and Comments */}
-        {/* <ProductRatingsComments product={product} />
-
-        {product.similar_products && product.similar_products.length > 0 && (
-          <section>
-            <h2 className="text-2xl font-bold mb-6">المنتجات المشابهة</h2>
+        {/* You May Also Like Section */}
+        {filteredProducts.length > 0 ? (
+          <section className="mt-16">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">You May Also Like</h2>
+                <p className="text-gray-600">Other products you might be interested in</p>
+              </div>
+              <Link 
+                href="/latest-products" 
+                className="text-primary hover:text-primary-dark font-medium flex items-center gap-2 transition-colors"
+              >
+                View All
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
             <ProductSwiper
-              products={product.similar_products}
-              headLine="المنتجات المشابهة"
+              products={filteredProducts}
+              headLine=""
+              showAll={false}
             />
           </section>
-        )} */}
+        ) : (
+          <div className="mt-16 text-center py-8 bg-gray-50 rounded-lg">
+            <p className="text-gray-600">Check out our latest products</p>
+            <Link 
+              href="/latest-products" 
+              className="inline-block mt-4 text-primary hover:text-primary-dark font-medium"
+            >
+              View Latest Products →
+            </Link>
+          </div>
+        )}
+
+        {/* Latest Products Section */}
+        <section className="mt-16">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Latest Products</h2>
+              <p className="text-gray-600">Discover our newest arrivals</p>
+            </div>
+            <Link 
+              href="/latest-products" 
+              className="text-primary hover:text-primary-dark font-medium flex items-center gap-2 transition-colors"
+            >
+              Browse All
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+          <ProductSwiper
+            products={alternativeProductsResponse.products?.slice(0, 8) || []}
+            headLine=""
+            showAll={false}
+          />
+        </section>
       </section>
     </>
   );

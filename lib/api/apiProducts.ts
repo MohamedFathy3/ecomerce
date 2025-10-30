@@ -1,6 +1,6 @@
 "use server";
 
-import { addRate, Brand, category, Product, ProductItem } from "@/types";
+import { addRate, Brand, category, Product, ProductItem,OfferPeriod } from "@/types";
 import { api } from "../axios";
 import { AxiosError } from "axios";
 import { delay } from "../utils";
@@ -12,7 +12,24 @@ import { auth } from "../auth";
 // Get All Categories
 export async function getAllCategories() {
   try {
-    const response = await api.get("home/categories");
+    const response = await api.get("front/categories");
+    const categories: category[] = response.data.data;
+    return categories;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.error("Error fetching categories:", error.response);
+    }
+    return [];
+  }
+}
+
+
+
+
+
+export async function getAllLatestOffers() {
+  try {
+    const response = await api.get("front/latest-offer");
     const categories: category[] = response.data.data;
     return categories;
   } catch (error) {
@@ -43,9 +60,23 @@ export async function getBrandsBytitle(title?: string) {
   }
 }
 
+
+
+export async function getproduct() {
+  try {
+    const response = await api.get(`front/cards?sort=latest`);
+    const products: ProductItem[] = response.data.data;
+    console.log("Products fetched:", response);
+    return products;
+  } catch (error) {
+    console.error("Error fetching products by title:", error);
+    return [];
+  }
+}
+
 export async function getProductsBytitle(title: string) {
   try {
-    const response = await api.get(`home/products/${title}`);
+    const response = await api.get(`front/cards/${title}`);
     const products: ProductItem[] = response.data.data;
     return products;
   } catch (error) {
@@ -58,7 +89,7 @@ export async function getProductsBytitle(title: string) {
 export async function getSearchProducts(categoryId: string, keyword: string) {
   try {
     console.log("Searching products with:", { categoryId, keyword });
-    const response = await api.get(`header/search`, {
+    const response = await api.get(`front/search-cards`, {
       params: { category_id: categoryId, keyword: keyword },
     });
     // console.log("Search API response:", response.data.data.products);
@@ -102,46 +133,104 @@ interface filterParams {
   sortBy?: string;
 }
 export async function getFilteredProducts(filterParams: filterParams = {}) {
-  // await delay(300000);
   try {
-    const response = await api.get(`home/products/filter`, {
+    console.log("🔍 [API] Sending request to /front/search-cards");
+    console.log("🔍 [API] Filter params:", filterParams);
+    
+    const response = await api.get(`front/search-cards`, {
       params: {
         price_min: filterParams.price_min || "",
         price_max: filterParams.price_max || "",
-        user_rating_min: filterParams.user_rating_min || "",
-        pharmacist_rating_min: filterParams.pharmacist_rating_min || "",
         keyword: filterParams.keyword || "",
-        category_id: filterParams.categoryId || "",
-        brand_id: filterParams.brandId || "",
+        category_id: filterParams.categoryId  || "", // أضفت category_id
         in_stock: filterParams.inStock || "",
       },
     });
-    // console.log("Api response:", response.data.data);
-    const productsData = response.data.data;
+    
+    // Debug الـ response بالكامل
+    console.log("📡 [API] Full response:", response);
+    console.log("📡 [API] response.data:", response.data);
+    console.log("📡 [API] response.data.data:", response.data.data);
+    console.log("📡 [API] response.data.products:", response.data.products);
+    
+    // الـ response بيكون في أحد هذه الهياكل:
+    // 1. { result: "Success", data: [...], message: "...", status: 200 }
+    // 2. { success: true, data: { products: [...], pagination: {...} } }
+    // 3. { success: true, products: [...], pagination: {...} }
+    
+    let products = [];
+    let pagination = null;
+    
+    if (response.data.result === "Success" && Array.isArray(response.data.data)) {
+      // الهيكل الأول
+      products = response.data.data;
+      console.log("📊 [API] Using result->data structure, products count:", products.length);
+    } 
+    else if (response.data.data && Array.isArray(response.data.data.products)) {
+      // الهيكل الثاني
+      products = response.data.data.products;
+      pagination = response.data.data.pagination;
+      console.log("📊 [API] Using data->products structure, products count:", products.length);
+    }
+    else if (Array.isArray(response.data.products)) {
+      // الهيكل الثالث
+      products = response.data.products;
+      pagination = response.data.pagination;
+      console.log("📊 [API] Using direct products structure, products count:", products.length);
+    }
+    else if (Array.isArray(response.data)) {
+      // إذا الـ response.data نفسه array
+      products = response.data;
+      console.log("📊 [API] Using response.data as array, products count:", products.length);
+    }
+    else {
+      console.log("❌ [API] Unknown response structure:", response.data);
+    }
+    
     return {
       success: true,
-      products: productsData.products as ProductItem[],
-      pagination: productsData.pagination,
+      products: products,
+      pagination: pagination,
       message: "Filtered products retrieved successfully",
     };
+    
   } catch (error) {
+    console.error("❌ [API] Error fetching filtered products:", error);
+    
     if (error instanceof AxiosError) {
-      console.error("Error fetching filtered request:", error.request.message);
-      console.log("Error response data:", error.response);
+      console.error("❌ [API] Axios error request:", error.request);
+      console.error("❌ [API] Axios error response:", error.response?.data);
     }
+    
     return {
       success: false,
       message: "Failed to retrieve filtered products",
-      products: null,
+      products: [],
+      pagination: null,
     };
   }
 }
 
 // Get a single product by ID
 
+
+export async function Offer() {
+  try {
+    const response = await api.get(`front/offers`);
+    const products: OfferPeriod[] = response.data.data;
+    console.log("Products fetched:", response);
+    return products;
+  } catch (error) {
+    console.error("Error fetching products by title:", error);
+    return [];
+  }
+}
+
+
+
 export async function getProduct(productId: string) {
   try {
-    const response = await api.get(`products/${productId}`);
+    const response = await api.get(`front/cards/${productId}`);
     const product: Product = response.data.data;
     return product;
   } catch (error) {
@@ -185,6 +274,43 @@ export async function rateProduct(
   } catch (error) {
     console.error("Error rating product:", error);
     return { success: false, message: "Error rating product" };
+  }
+}
+export async function getAlternativeProducts(limit: number = 8) {
+  try {
+    console.log("🔄 [API] Fetching alternative products...");
+    
+    const response = await api.get(`front/cards`, {
+      params: {
+        limit: limit,
+        sort: 'latest'
+      }
+    });
+
+    console.log("📡 [API] Alternative products response:", response.data);
+
+    if (response.data.result === "Success" && Array.isArray(response.data.data)) {
+      console.log("✅ [API] Number of alternative products:", response.data.data.length);
+      
+      return {
+        success: true,
+        products: response.data.data,
+        message: "Alternative products retrieved successfully"
+      };
+    }
+    
+    return {
+      success: false,
+      products: [],
+      message: "No alternative products found"
+    };
+  } catch (error) {
+    console.error("❌ [API] Error fetching alternative products:", error);
+    return {
+      success: false,
+      products: [],
+      message: "Failed to fetch alternative products"
+    };
   }
 }
 

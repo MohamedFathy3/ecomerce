@@ -117,8 +117,9 @@ const ChangePassword = () => {
         )}
 
         <div className="mt-8 flex justify-end">
-          <Button disabled={form.formState.isSubmitting} type="submit">
-            {form.formState.isSubmitting ? <SpinnerMini /> : "حفظ التغييرات"}
+          {/* disabled={form.formState.isSubmitting}  */}
+<Button disabled={true} type="submit">
+            {form.formState.isSubmitting ? <SpinnerMini /> : " come soon"}
           </Button>
         </div>
       </form>

@@ -6,9 +6,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const accountTabs = [
-  { name: "البيانات الشخصية", href: "/account/profile" },
-  { name: "العناوين", href: "/account/addresses" },
-  { name: "الطلبات", href: "/account/orders" },
+  { name: " profileData", href: "/account/profile" },
+  // { name: " addresses", href: "/account/addresses" },
+  // { name: " orders", href: "/account/orders" },
   // { name: "المرتجعات", href: "/account/refund" },
   // { name: "طرق الدفع", href: "/account/payment-methods" },
   // { name: "المحفظة", href: "/account/wallet" },
@@ -54,7 +54,7 @@ const AccountNav = () => {
           </span>
         </div>
         <h2 className="mt-4 text-xl font-semibold text-accent-foreground">
-          {profile?.first_name} {profile?.last_name}
+          {profile?.name} 
         </h2>
       </div>
       <nav className="space-y-2 text-sm font-medium text-accent-foreground">

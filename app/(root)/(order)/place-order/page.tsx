@@ -45,7 +45,7 @@ export default function OrderPlacementPage() {
           ))}
         </div>
 
-        {step === 1 && <ChooseLocationTab onNext={() => setStep(2)} />}
+        {/* {step === 1 && <ChooseLocationTab onNext={() => setStep(2)} />}
 
         {step === 3 && (
           <ShippingMethodTab
@@ -59,7 +59,7 @@ export default function OrderPlacementPage() {
             onBack={() => setStep(1)}
             onNext={() => setStep(3)}
           />
-        )}
+        )} */}
       </div>
     </OrderPovider>
   );

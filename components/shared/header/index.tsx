@@ -12,6 +12,7 @@ import { getCartData } from "@/lib/api/apiCart";
 import { category } from "@/types";
 import { getAllCategories } from "@/lib/api/apiProducts";
 import HeaderPages from "./headerPages";
+import { User } from "@/types";
 
 const Header = async () => {
   const session = await auth();
@@ -42,7 +43,7 @@ const Header = async () => {
             <HeaderButtons session={session}>
               <HeaderCart session={session} />
             </HeaderButtons>
-            <UserButton user={user} />
+<UserButton user={user as User} />
             <div className=" col-start-1 col-span-1">
               <HeaderMenu session={session} />
             </div>

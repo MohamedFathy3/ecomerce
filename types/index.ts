@@ -45,17 +45,26 @@ export type User = {
   id: string;
   email: string;
   token?: string;
-  firstName: string;
-  lastName: string;
-  age: number;
-  gender: string;
-  language: string;
-  governorate: string;
-  phone: string;
-  emailVerified: boolean;
-  profileImage: string | null;
+  name?: string;
+  lastName?: string; // مش موجود في الـ response
+  age?: number;      // مش موجود في الـ response  
+  gender?: string;   // مش موجود في الـ response
+  language?: string; // مش موجود في الـ response
+  governorate?: string; // مش موجود في الـ response
+  phone?: string;
+  emailVerified?: boolean; // مش موجود في الـ response
+  profileImage?: string | null;
   currency_code?: string | null;
-  is_doctor?: boolean;
+  is_doctor?: boolean; // مش موجود في الـ response
+  
+  // الحقول الجديدة اللي موجودة في الـ response:
+  role?: string;
+  avatar?: string | null;
+  favorites?: any[];
+  orders?: any[];
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
 };
 export type UserProfile = z.infer<typeof profileSchema> & {
   currency_code?: string | null;
@@ -70,7 +79,6 @@ export type UserAddress = z.infer<typeof userAddressSchema> & {
 export type CardFormData = z.infer<typeof cardSchema>;
 
 export type Cart = z.infer<typeof insertCartSchema>;
-export type CartItem = z.infer<typeof cartItemSchema>;
 export type ShippingMethod = {
   id: number;
   value: string;
@@ -87,8 +95,10 @@ export type TaxInfo = {
 };
 
 export type OfferPeriod = {
-  start_date: string;
-  end_date: string;
+  title: string;
+  description: string;
+  card:string;
+  avatar:string;
 };
 
 export type ProductOffer = {
@@ -139,8 +149,18 @@ export type ProductItem = {
   offer_discount?: number | null;
   currency: string;
   currency_symbol: string;
-};
+  discount?: string ;
+  old_price?: number | null;
+short_description?:string;
+gallery:string;
 
+};
+export type Conectus = {
+  name:string;
+  email:string;
+  phone:string;
+  message:string;
+}
 export type ProductItemCompare = {
   id: number;
   name: string;
@@ -180,10 +200,28 @@ export type Product = {
   form: string;
   strength: string;
   price: number;
+  category: string;
+  ///////
+  type_silicone: string;
+  hardness: string;
+  bio:string
+  time_in_ear:string;
+  end_curing:string;
+  viscosity:string;
+  color:string;
+  packaging:string;
+  item_number:string;
+  mix_gun:string;
+  mix_canules:string;
+  short_description:string;
+  currency:string;
+  link_video:string;
+  active:boolean
+  ////
   quantity: number;
   brand_id: number;
   category_id: number;
-  image: string | null;
+  image: string;
   average_rating: {
     user: number;
     count_user_rate: number;
@@ -203,6 +241,10 @@ export type Product = {
   user_comments: Comment[];
   doctors_comments: Comment[];
   similar_products: ProductItem[];
+  discount?: number | null;
+  old_price?: number ;
+  currency_symbol: string;
+  CURRENCY_CODE?: string;
 };
 
 export type addRate = {
@@ -221,11 +263,10 @@ export type FavoriteItem = {
 
 export type category = {
   id: string;
-  position: number | null;
   name: string;
-  show_home: boolean;
-  createdAt: string;
-  updatedAt: string;
+  slug: string;
+  active: boolean;
+  createdAt: string | null;
   deletedAt: string | null;
   deleted: boolean;
   image: string;
@@ -245,32 +286,66 @@ export type Brand = {
 };
 
 export type CartProductItem = {
-  product_id: number;
+  id: number;
   name: string;
-  base_price: number;
-  final_price: number;
-  tax_amount: number;
+  type: string;
+  slug: string;
+  type_silicone: string;
+  hardness: string;
+  bio: string;
+  time_in_ear: string;
+  end_curing: string;
+  viscosity: string;
+  color: string;
+  packaging: string;
+  item_number: string;
+  mix_gun: string;
+  mix_canules: string;
+  description: string;
+  short_description: string;
+  old_price: string;
+  discount: string;
+  price: string;
+  currency: string;
+  link_video: string;
+  image: string | null;
+  gallery: string | null;
   quantity: number;
-  total: number;
-  free_quantity: number;
-  price_after_discount: number;
+  category_id: number;
+  admin_id: number;
+  active: boolean;
+  deleted_at: string | null;
+  created_at: string;
+  updated_at: string;
 };
 
-export type CartPharmacy = {
-  pharmacy_id: number;
-  pharmacy_name: string;
-  pharmacy_image: string;
-  items: CartProductItem[];
-  total: number;
-  coupon_discount: number;
-  total_after_coupon: number;
-  coupon_id: string | null;
-  promocoded: string | null;
+export type CartItem = {
+  id: number;
+  user_id: number;
+  card_id: number;
+  quantity: number;
+  created_at: string;
+  updated_at: string;
+  card: CartProductItem;
 };
 
 export type CartData = {
-  pharmacies: CartPharmacy[];
+  items: CartItem[];
+  total: number;
+  items_count: number;
+  total_price: number;
 };
+
+export type CartPharmacy = {
+  user_id: number;
+  card_id: number;
+  quantity: number,
+
+  card: CartProductItem[];
+  total: number;
+
+};
+
 
 export type pagination = {
   current_page: number;

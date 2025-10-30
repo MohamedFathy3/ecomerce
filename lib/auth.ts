@@ -47,42 +47,53 @@ export const config = {
         email: { type: "email" },
         password: { type: "password" },
       },
-      async authorize(credentials) {
-        if (!credentials) return null;
+   async authorize(credentials) {
+  if (!credentials) return null;
 
-        try {
-          // Call Laravel login endpoint
-          const response = await api.post("login", {
-            email: credentials.email,
-            password: credentials.password,
-          });
+  try {
+    console.log('🔐 Attempting login with:', { email: credentials.email });
+    
+    // ✅ استخدم الـ endpoint الصحيح
+    const response = await api.post("front/login", {
+      email: credentials.email,
+      password: credentials.password,
+    });
 
-          // Check if the response indicates success
-          if (response.data && response.data.result === "Success") {
-            const user = {
-              id: response.data.data.user.id,
-              firstName: response.data.data.user.first_name,
-              lastName: response.data.data.user.last_name,
-              email: response.data.data.user.email,
-              token: response.data.data.token, // Store the token for later use
-              age: response.data.data.user.age,
-              gender: response.data.data.user.gender,
-              language: response.data.data.user.language,
-              currency_code: response.data.data.user.currency_code,
-              governorate: response.data.data.user.governorate,
-              phone: response.data.data.user.phone,
-              emailVerified: response.data.data.user.is_verified === 1,
-              profileImage: response.data.data.user.profile_image,
-              is_doctor: response.data.data.user.is_doctor,
-            };
+    console.log('✅ Login API response:', response.data);
 
-            return user;
-          }
-          return null;
-        } catch (error: any) {
-          return null;
-        }
-      },
+    // ✅ طابق الـ response structure
+    if (response.data && response.data.result === "Success") {
+      const userData = response.data.data;
+      
+      const user = {
+        id: userData.id.toString(),
+        name: userData.name, // ✅ غير من firstName لـ name
+        firstName: userData.name, // احتفظ بيها علشان التوافق
+        lastName: "", // ممكن تبقى فاضية
+        email: userData.email,
+        token: response.data.token, // ✅ التوكن هنا في response.data.token
+        phone: userData.phone,
+        // الحقول التانية إذا مش موجودة في الـ response
+        age: 0,
+        gender: "",
+        language: "en",
+        governorate: "",
+        emailVerified: true,
+        profileImage: userData.avatar,
+        currency_code: "USD", // افتراضي
+      };
+
+      console.log('✅ User object created:', user);
+      return user;
+    }
+    
+    console.log('❌ Login failed - no success result');
+    return null;
+  } catch (error: any) {
+    console.log('❌ Login API error:', error.response?.data || error.message);
+    return null;
+  }
+},
     }),
   ],
   callbacks: {

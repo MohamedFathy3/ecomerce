@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import RegisterDoctor from "./registerDoctor";
 import RegisterUser from "./registerUser";
 import { Button } from "@/components/ui/button";
 
@@ -32,7 +31,7 @@ const RegisterPage = () => {
     );
   }
 
-  return userType === "doctor" ? <RegisterDoctor /> : <RegisterUser />;
+  return userType === "doctor" ? null: <RegisterUser />;
 };
 
 export default RegisterPage;

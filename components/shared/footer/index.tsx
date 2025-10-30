@@ -10,67 +10,66 @@ const Footer = () => {
       <div className="wrapper">
         <div className="menus-wrapper">
           <div className="menu">
-            <h4 className="title">الدعم</h4>
-
+            <h4 className="title">Support</h4>
             <div className="space-y-3">
-              <div>111 بيجوي ساراني، داكا، DH 1515، بنغلاديش.</div>
+              <div>111 Bigway Street, Dhaka, DH 1515, Bangladesh</div>
               <div>exclusive@gmail.com</div>
               <div>+88015-88888-9999</div>
             </div>
           </div>
 
           <div className="menu">
-            <h4 className="title">الحساب</h4>
+            <h4 className="title">Account</h4>
             <div className="space-y-3">
-              <Link href="" className="">
-                تسجيل الدخول / التسجيل
+              <Link href="/login" className="">
+                Login / Register
               </Link>
-              <Link href="" className="">
-                العربة
+              <Link href="/cart" className="">
+                Cart
               </Link>
-              <Link href="" className="">
-                قائمة الرغبات
+              <Link href="/wishlist" className="">
+                Wishlist
               </Link>
-              <Link href="" className="">
-                تسوق
+              <Link href="/products" className="">
+                Shop
               </Link>
             </div>
           </div>
 
           <div className="menu">
-            <h4 className="title">رابط سريع</h4>
+            <h4 className="title">Quick Links</h4>
             <div className="space-y-3">
-              <Link href="" className="">
-                سياسة الخصوصية
+              <Link href="/privacy" className="">
+                Privacy Policy
               </Link>
-              <Link href="" className="">
-                شروط الاستخدام
+              <Link href="/terms" className="">
+                Terms of Use
               </Link>
-              <Link href="" className="">
-                الأسئلة الشائعة
+              <Link href="/faq" className="">
+                FAQ
               </Link>
-              <Link href="" className="">
-                اتصل
+              <Link href="/contact" className="">
+                Contact
               </Link>
             </div>
           </div>
 
           <div className="flex flex-col gap-5">
-            <h4 className="text-xl font-medium">تحميل التطبيق</h4>
+            <h4 className="text-xl font-medium">Download App</h4>
 
             <div className="!space-y-2">
               <p className="text-xs font-medium">
-                وفّر 3 دولار مع تطبيق جديد للمستخدمين فقط
+                Save $3 with the new user app only
               </p>
 
               <div className="flex gap-3">
                 <div className="flex items-center flex-col gap-1">
-                  <Link href="" className="overflow-hidden">
+                  <Link href="#" className="overflow-hidden">
                     <Image
                       src="/images/logos/googlePlay.png"
                       width={90}
                       height={36}
-                      alt=""
+                      alt="Get it on Google Play"
                       className="w-24 h-9 object-contain bg-black rounded-lg"
                     />
                   </Link>
@@ -78,17 +77,17 @@ const Footer = () => {
                     src="/images/uploads/qr-code.jpg"
                     width={80}
                     height={80}
-                    alt=""
+                    alt="QR Code for Google Play"
                     className="w-20 p-1 bg-white"
                   />
                 </div>
                 <div className="flex items-center flex-col gap-1">
-                  <Link href="" className="overflow-hidden">
+                  <Link href="#" className="overflow-hidden">
                     <Image
                       src="/images/logos/appStore.png"
                       width={90}
                       height={36}
-                      alt=""
+                      alt="Download on App Store"
                       className="w-24 h-9 object-contain bg-black rounded-lg"
                     />
                   </Link>
@@ -96,7 +95,7 @@ const Footer = () => {
                     src="/images/uploads/qr-code.jpg"
                     width={80}
                     height={80}
-                    alt=""
+                    alt="QR Code for App Store"
                     className="w-20 p-1 bg-white"
                   />
                 </div>
@@ -104,16 +103,16 @@ const Footer = () => {
             </div>
 
             <div className="flex items-center gap-6 px-4">
-              <Link href="">
+              <Link href="#" aria-label="LinkedIn">
                 <Linkedin />
               </Link>
-              <Link href="">
+              <Link href="#" aria-label="Instagram">
                 <Instagram />
               </Link>
-              <Link href="">
+              <Link href="#" aria-label="Twitter">
                 <Twitter />
               </Link>
-              <Link href="">
+              <Link href="#" aria-label="Facebook">
                 <Facebook />
               </Link>
             </div>

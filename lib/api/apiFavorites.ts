@@ -14,7 +14,7 @@ export const getFavorites = async () => {
   }
   const token = session?.user?.token || session?.accessToken;
   try {
-    const response = await api.get("/favorites", {
+    const response = await api.get("/front/favorite", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -61,9 +61,10 @@ export const addToFavorites = async (
   const productId = formInputs.get("productId");
   try {
     const response = await api.post(
-      "/favorites/add",
+      "/front/favorite",
       {
-        product_id: productId,
+        card_id: productId,
+        methed:'add'
       },
       {
         headers: {
