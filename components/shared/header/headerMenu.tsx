@@ -113,7 +113,7 @@ const HeaderMenu = ({ session }: { session: any }) => {
   return (
     <nav className="lg:hidden">
       <Sheet>
-        <SheetTrigger className="align-middle  p-1 rounded-md text-stone-500 ">
+        <SheetTrigger className="align-middle  p-1 rounded-md text-[#e30a02] ">
           <MenuIcon />
         </SheetTrigger>
         <SheetContent className="flex flex-col items-start p-4 overflow-auto">

@@ -38,8 +38,6 @@ const AddToCart = ({
 }) => {
   const pathName = usePathname();
   const router = useRouter();
-  const [inCart, setInCart] = useState(false);
-  const [inCartCount, setInCartCount] = useState(0);
   const [mounted, setMounted] = useState(false);
   const { data: session } = useSession();
 
@@ -48,12 +46,16 @@ const AddToCart = ({
 
   const queryClient = useQueryClient();
 
+  // Get current quantity from cart
+  const currentCartItem = cart?.items?.find((item) => item.card_id === productId);
+  const currentQuantity = currentCartItem?.quantity || 0;
+  const isInCart = currentQuantity > 0;
+
   // Handle Add to Cart mutation
   const { mutate: cartAddMutation, isPending: isAddPending } = useMutation({
     mutationFn: async () => {
       const response = await addToCart(productId, 1);
       
-      // Handle specific error cases
       if (!response.success) {
         if (response.message?.includes('No query results for model')) {
           throw new Error('Product not found');
@@ -68,8 +70,6 @@ const AddToCart = ({
     },
     onSuccess: (response) => {
       if (response && response.success) {
-        setInCartCount(1);
-        setInCart(true);
         showToast("Item added to cart successfully");
         queryClient.invalidateQueries({ queryKey: ["cart"] });
       }
@@ -99,7 +99,8 @@ const AddToCart = ({
   // Handle Plus mutation
   const { mutate: cartPlusMutation, isPending: isPlusPending } = useMutation({
     mutationFn: async () => {
-      const response = await updateCartItem(productId, inCartCount + 1);
+      const newQuantity = currentQuantity + 1;
+      const response = await updateCartItem(productId, newQuantity);
       
       if (!response.success) {
         if (response.message?.includes('No query results for model')) {
@@ -112,7 +113,6 @@ const AddToCart = ({
     },
     onSuccess: (response) => {
       if (response && response.success) {
-        setInCartCount((prev) => prev + 1);
         showToast("Item updated in cart successfully");
         queryClient.invalidateQueries({ queryKey: ["cart"] });
       }
@@ -136,8 +136,11 @@ const AddToCart = ({
   // Handle Minus mutation
   const { mutate: cartMinusMutation, isPending: isMinusPending } = useMutation({
     mutationFn: async () => {
-      if (inCartCount > 1) {
-        const response = await updateCartItem(productId, inCartCount - 1);
+      const newQuantity = currentQuantity - 1;
+      
+      if (newQuantity > 0) {
+        // Update quantity if still above 0
+        const response = await updateCartItem(productId, newQuantity);
         
         if (!response.success) {
           if (response.message?.includes('No query results for model')) {
@@ -148,6 +151,7 @@ const AddToCart = ({
         
         return response;
       } else {
+        // Remove item if quantity becomes 0
         const response = await removeCartItem(productId);
         
         if (!response.success) {
@@ -162,12 +166,8 @@ const AddToCart = ({
     },
     onSuccess: (response) => {
       if (response && response.success) {
-        setInCartCount((prev) => Math.max(prev - 1, 0));
         showToast("Item updated in cart successfully");
         queryClient.invalidateQueries({ queryKey: ["cart"] });
-        if (inCartCount === 1) {
-          setInCart(false);
-        }
       }
     },
     onError: (error: Error) => {
@@ -176,21 +176,9 @@ const AddToCart = ({
     },
   });
 
-  // Check if product is in cart
   useEffect(() => {
-    if (cart && cart.items && !data?.notAuthenticated) {
-      const cartItem = cart.items.find((item) => item.card_id === productId);
-      
-      if (cartItem) {
-        setInCart(true);
-        setInCartCount(cartItem.quantity);
-      } else {
-        setInCart(false);
-        setInCartCount(0);
-      }
-    }
     setMounted(true);
-  }, [cart, productId, data?.notAuthenticated]);
+  }, []);
 
   function showToast(message: string) {
     toast.success(message, {
@@ -244,7 +232,7 @@ const AddToCart = ({
   }
 
   // If product is already in cart, show quantity controls
-  if (inCart) {
+  if (isInCart) {
     return (
       <div className="flex items-center gap-2 border rounded-md px-2 py-1">
         <Button
@@ -252,22 +240,22 @@ const AddToCart = ({
           size="icon"
           onClick={() => cartMinusMutation()}
           className="w-6 h-6 text-lg text-red-500 hover:bg-red-100"
-          disabled={isMinusPending || isPlusPending || inCartCount < 1}
+          disabled={isMinusPending || isPlusPending || currentQuantity <= 1}
         >
-          -
+          {isMinusPending ? <SpinnerMini /> : "-"}
         </Button>
         <span className="text-sm font-medium w-6 text-center dark:text-white">
-          {isMinusPending || isPlusPending ? <SpinnerMini /> : inCartCount}
+          {currentQuantity}
         </span>
-        {inCartCount < stock && (
+        {currentQuantity < stock && (
           <Button
             variant="ghost"
             size="icon"
             onClick={() => cartPlusMutation()}
             className="w-6 h-6 text-lg text-green-600 hover:bg-green-100"
-            disabled={isMinusPending || isPlusPending || inCartCount >= stock}
+            disabled={isMinusPending || isPlusPending || currentQuantity >= stock}
           >
-            +
+            {isPlusPending ? <SpinnerMini /> : "+"}
           </Button>
         )}
       </div>

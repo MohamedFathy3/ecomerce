@@ -1,4 +1,5 @@
 const en = {
+  // 🏠 General UI
   welcome: "Welcome",
   cart: "Cart",
   viewCart: "View Cart",
@@ -7,6 +8,12 @@ const en = {
   currentLang: "En",
   currentLanguage: "English",
   offers: "Offers",
+
+  // 📊 AboutStats section
+  annualSales: "Annual Sales",
+  activeCustomers: "Active Customers on our Website",
+  monthlyProductSales: "Monthly Product Sales",
+  activeVisitors: "Active Visitors on our Website",
 };
 
 export default en;

@@ -1,6 +1,5 @@
 "use server";
 import en, { Locale } from "./en";
-import ar from "./ar";
 import { auth } from "@/lib/auth";
 
 const getLocaleStrings = async (): Promise<Locale> => {

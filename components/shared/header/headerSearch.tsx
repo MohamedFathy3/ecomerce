@@ -58,28 +58,31 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
 
   return (
     <div className="relative">
-      <div className="!border-gray-300 border rounded-md bg-secondary h-9 md:h-10 flex-center overflow-hidden">
-        <div className="flex-center py-2 flex-grow-1">
+      <div className="border border-[#e30a02] rounded-md bg-white dark:bg-slate-800 h-9 md:h-10 flex items-center overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div className="flex items-center flex-1 h-full">
           <Select
             onValueChange={(value) => {
               setCategoryId(value);
             }}
             value={categoryId || "all"}
           >
-            <SelectTrigger className="!text-froreground bg-white w-36 border-none shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 ">
+            <SelectTrigger className="w-32 md:w-36 h-full bg-transparent border-0 border-r border-[#e30a02] rounded-none focus:ring-0 focus:ring-offset-0 px-3">
               <SelectValue
                 placeholder="All Categories"
-                className="text-gray-500"
+                className="text-gray-600 dark:text-gray-300 text-sm"
               />
             </SelectTrigger>
-            <SelectContent className="max-h-72 overflow-y-auto">
+            <SelectContent className="max-h-72 overflow-y-auto bg-white dark:bg-slate-800 border border-[#e30a02]">
               <SelectGroup>
-                <SelectLabel>Categories</SelectLabel>
-                <SelectItem value="all">All Categories</SelectItem>
+                <SelectLabel className="text-[#e30a02] font-semibold">Categories</SelectLabel>
+                <SelectItem value="all" className="text-gray-700 dark:text-gray-300 hover:bg-[#e30a02]/10 focus:bg-[#e30a02]/10">
+                  All Categories
+                </SelectItem>
                 {categories.map((category) => (
                   <SelectItem
                     key={category.id.toString()}
                     value={category.id.toString()}
+                    className="text-gray-700 dark:text-gray-300 hover:bg-[#e30a02]/10 focus:bg-[#e30a02]/10"
                   >
                     {category.name}
                   </SelectItem>
@@ -90,7 +93,7 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
 
           <Input
             type="text"
-            className="h-full bg-white shadow-none border-0 border-s !border-stone-300 dark:!border-stone-700 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 leading-0 !text-base text-gray-700 dark:text-white"
+            className="h-full bg-transparent border-0 shadow-none rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 text-sm text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 flex-1 px-3"
             placeholder="Search for products..."
             onChange={(e) => {
               setKeyword(e.target.value.trim());
@@ -113,54 +116,52 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
             router.push(`/products?category=${categoryId}&keyword=${keyword}`);
             setShowModalSearch(false);
           }}
-          className="h-full rounded-sm shadow-none"
+          className="h-full bg-[#e30a02] hover:bg-[#e30a02]/90 text-white rounded-none px-3 md:px-4 shadow-none border-l border-[#e30a02]"
         >
-          <Search />
+          <Search className="h-4 w-4 md:h-5 md:w-5" />
         </Button>
       </div>
-      {/* Search Results */}
+      
+      {/* Search Results Modal */}
       {showModalSearch && (
-        <>
-          <div
-            className="fixed z-10 top-18 left-0 w-screen h-screen right-0 mt-2  bg-background/10 shadow-lg backdrop-blur-sm"
-            onClick={() => setKeyword("")}
-          ></div>
-          <div className="absolute z-20 top-8 left-0 right-0 mt-2 rounded-md bg-background/30 shadow-lg overflow-hidden border backdrop-blur-sm">
-            {isPending ? (
-              <div className="flex-center py-4">
-             
-              </div>
-            ) : (
-              <>
-                {products.length > 0 ? (
-                  <div className="bg-background/90 py-2 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                    {products.map((product) => (
-                      <Link
-                        key={product.id}
-                        href={`/products?category=${categoryId}&keyword=${product.name}`}
-                        className=""
-                        onClick={() => {
-                          setIsItemSelected(true);
-                          setKeyword(product.name);
-                          setShowModalSearch(false);
-                        }}
-                      >
-                        <div className="font-semibold flex items-center gap-2 hover:bg-muted px-3 py-2 cursor-pointer">
-                          <Search className="w-4 h-4 text-gray-500" />
-                          <span className="text-gray-500">{product.name}</span>
-                        </div>
-                      </Link>
-                    ))}
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-800 border border-[#e30a02] rounded-md shadow-lg z-50 max-h-80 overflow-y-auto">
+          {isPending ? (
+            <div className="flex justify-center items-center py-4">
+              <SpinnerMini />
+            </div>
+          ) : products.length > 0 ? (
+            <div className="py-2">
+              {products.map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/products/${product.id}`}
+                  className="flex items-center px-4 py-3 hover:bg-[#e30a02]/10 border-b border-gray-100 dark:border-slate-700 last:border-b-0 transition-colors duration-200"
+                  onClick={() => {
+                    setShowModalSearch(false);
+                    setKeyword("");
+                    setIsItemSelected(true);
+                  }}
+                >
+                  <div className="flex-1">
+                    <h3 className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                      {product.name}
+                    </h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                      {product.categoryName}
+                    </p>
                   </div>
-                ) : (
-                  <div className="p-4 text-gray-500 bg-background">
-                    No results found
+                  <div className="text-[#e30a02] font-semibold text-sm">
+                    ${product.price}
                   </div>
-                )}
-              </>
-            )}
-          </div>
-        </>
+                </Link>
+              ))}
+            </div>
+          ) : keyword.trim() !== "" ? (
+            <div className="text-center py-4 text-gray-500 dark:text-gray-400 text-sm">
+              No products found
+            </div>
+          ) : null}
+        </div>
       )}
     </div>
   );

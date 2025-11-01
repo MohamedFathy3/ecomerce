@@ -80,7 +80,7 @@
     @apply flex flex-1 gap-3;
 
     .feature-icon {
-      @apply text-yellow-500 dark:text-yellow-400; /* الذهبي */
+      @apply text-[#d39435] dark:text-[#d39435]; /* الذهبي الجديد */
     }
 
     .feature-title {
@@ -96,11 +96,11 @@
     @apply transition duration-300 ease-in-out fixed lg:hidden bottom-0 left-0 right-0 border-t border-gray-200 z-50 bg-white/90 backdrop-blur-sm dark:bg-slate-800/90 dark:border-slate-700;
 
     .nav-item {
-      @apply text-gray-600/60 dark:text-yellow-300/30 flex flex-col space-y-0.5 transition-colors duration-200 ease-out items-center hover:text-red-600;
+      @apply text-gray-600/60 dark:text-[#d39435]/30 flex flex-col space-y-0.5 transition-colors duration-200 ease-out items-center hover:text-[#e30a02];
 
       &.active {
         .lucide {
-          @apply !text-red-600;
+          @apply !text-[#e30a02];
         }
       }
 
@@ -109,7 +109,7 @@
       }
 
       .lucide {
-        @apply !text-4xl dark:text-yellow-300/20;
+        @apply !text-4xl dark:text-[#d39435]/20;
       }
     }
   }
@@ -159,8 +159,8 @@ html[dir="rtl"] {
     width: 60px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid #fde51d; /* الذهبي */
-    border-right-color: #c00201; /* الأحمر */
+    border: 8px solid #d39435; /* الذهبي الجديد */
+    border-right-color: #e30a02; /* الأحمر الجديد */
     animation: rotate 1s infinite linear;
   }
 
@@ -169,7 +169,7 @@ html[dir="rtl"] {
     width: 20px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 2px solid #c00201; /* الأحمر */
+    border: 2px solid #e30a02; /* الأحمر الجديد */
     border-right-color: transparent;
     animation: rotate 1s infinite linear;
   }
@@ -248,7 +248,7 @@ html[dir="rtl"] {
 :root {
   --radius: 0.625rem;
 
-  /* الأحمر كـ primary والذهبي كـ secondary */
+  /* الأحمر الجديد #e30a02 كـ primary والذهبي الجديد #d39435 كـ secondary */
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
@@ -256,40 +256,40 @@ html[dir="rtl"] {
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
   
-  /* الأحمر كاللون الأساسي */
-  --primary: oklch(0.60 0.20 27.325); /* #c00201 */
+  /* الأحمر الجديد #e30a02 كاللون الأساسي */
+  --primary: #e30a02; /* #e30a02 */
   --primary-foreground: oklch(1 0 0);
   
-  /* الذهبي كلون ثانوي */
-  --secondary: oklch(0.95 0.12 90); /* #fde51d */
-  --secondary-foreground: oklch(0.20 0.05 90);
+  /* الذهبي الجديد #d39435 كلون ثانوي */
+  --secondary: oklch(0.75 0.12 70); /* #d39435 */
+  --secondary-foreground: oklch(0.20 0.05 70);
 
   --muted: oklch(0.97 0.01 90);
   --muted-foreground: oklch(0.55 0.05 90);
-  --accent: oklch(0.92 0.08 90); /* ذهبي فاتح */
-  --accent-foreground: oklch(0.20 0.05 90);
+  --accent: oklch(0.85 0.08 70); /* ذهبي فاتح */
+  --accent-foreground: oklch(0.20 0.05 70);
   
-  /* الأحمر لل destructive */
-  --destructive: oklch(0.60 0.22 27.325); /* #e30a02 */
+  /* الأحمر الجديد لل destructive */
+  --destructive: #e30a02; /* #e30a02 */
   --border: oklch(0.92 0.02 90);
   --input: oklch(0.92 0.02 90);
-  --ring: oklch(0.60 0.20 27.325); /* الأحمر */
+  --ring: #e30a02; /* الأحمر الجديد */
 
   /* الألوان المخصصة للرسوم البيانية */
-  --chart-1: oklch(0.60 0.20 27.325); /* الأحمر */
-  --chart-2: oklch(0.95 0.12 90); /* الذهبي */
+  --chart-1: #e30a02; /* الأحمر الجديد */
+  --chart-2: oklch(0.75 0.12 70); /* الذهبي الجديد */
   --chart-3: oklch(0.70 0.15 180);
   --chart-4: oklch(0.58 0.18 320);
   --chart-5: oklch(0.62 0.16 240);
 
   --sidebar: oklch(0.98 0.005 90);
-  --sidebar-foreground: oklch(0.60 0.20 27.325); /* الأحمر */
-  --sidebar-primary: oklch(0.60 0.20 27.325); /* الأحمر */
+  --sidebar-foreground: #e30a02; /* الأحمر الجديد */
+  --sidebar-primary: #e30a02; /* الأحمر الجديد */
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.95 0.12 90); /* الذهبي */
-  --sidebar-accent-foreground: oklch(0.20 0.05 90);
+  --sidebar-accent: oklch(0.75 0.12 70); /* الذهبي الجديد */
+  --sidebar-accent-foreground: oklch(0.20 0.05 70);
   --sidebar-border: oklch(0.92 0.02 90);
-  --sidebar-ring: oklch(0.60 0.20 27.325); /* الأحمر */
+  --sidebar-ring: #e30a02; /* الأحمر الجديد */
 }
 
 /*  ---break--- */
@@ -302,12 +302,12 @@ html[dir="rtl"] {
   --popover: oklch(0.15 0.03 90);
   --popover-foreground: oklch(0.98 0.005 90);
   
-  /* الأحمر في الوضع الداكن */
-  --primary: oklch(0.70 0.18 27.325); /* أحمر أفتح في الدارك */
+  /* الأحمر الجديد في الوضع الداكن */
+  --primary: #e30a02; /* أحمر أفتح في الدارك */
   --primary-foreground: oklch(0.15 0.03 90);
   
-  /* الذهبي في الوضع الداكن */
-  --secondary: oklch(0.90 0.10 90); /* ذهبي داكن */
+  /* الذهبي الجديد في الوضع الداكن */
+  --secondary: oklch(0.70 0.10 70); /* ذهبي داكن */
   --secondary-foreground: oklch(0.98 0.005 90);
 
   --muted: oklch(0.20 0.04 90);
@@ -315,26 +315,26 @@ html[dir="rtl"] {
   --accent: oklch(0.25 0.05 90);
   --accent-foreground: oklch(0.98 0.005 90);
   
-  /* الأحمر لل destructive في الدارك */
-  --destructive: oklch(0.65 0.20 27.325);
+  /* الأحمر الجديد لل destructive في الدارك */
+  --destructive: #e30a02;
   --border: oklch(0.25 0.05 90);
   --input: oklch(0.25 0.05 90);
-  --ring: oklch(0.70 0.18 27.325); /* الأحمر */
+  --ring: #e30a02; /* الأحمر الجديد */
 
-  --chart-1: oklch(0.70 0.18 27.325); /* الأحمر */
-  --chart-2: oklch(0.90 0.10 90); /* الذهبي */
+  --chart-1: #e30a02; /* الأحمر الجديد */
+  --chart-2: oklch(0.70 0.10 70); /* الذهبي الجديد */
   --chart-3: oklch(0.70 0.15 180);
   --chart-4: oklch(0.60 0.18 320);
   --chart-5: oklch(0.65 0.16 240);
 
   --sidebar: oklch(0.15 0.03 90);
-  --sidebar-foreground: oklch(0.90 0.10 90); /* الذهبي */
-  --sidebar-primary: oklch(0.90 0.10 90); /* الذهبي */
+  --sidebar-foreground: oklch(0.70 0.10 70); /* الذهبي الجديد */
+  --sidebar-primary: oklch(0.70 0.10 70); /* الذهبي الجديد */
   --sidebar-primary-foreground: oklch(0.15 0.03 90);
   --sidebar-accent: oklch(0.20 0.04 90);
-  --sidebar-accent-foreground: oklch(0.90 0.10 90); /* الذهبي */
+  --sidebar-accent-foreground: oklch(0.70 0.10 70); /* الذهبي الجديد */
   --sidebar-border: oklch(0.25 0.05 90);
-  --sidebar-ring: oklch(0.90 0.10 90); /* الذهبي */
+  --sidebar-ring: oklch(0.70 0.10 70); /* الذهبي الجديد */
 }
 
 /*  ---break--- */

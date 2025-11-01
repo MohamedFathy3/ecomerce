@@ -153,6 +153,7 @@ export type ProductItem = {
   old_price?: number | null;
 short_description?:string;
 gallery:string;
+  categoryName: string;
 
 };
 export type Conectus = {

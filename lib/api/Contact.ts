@@ -1,4 +1,4 @@
-// lib/api/apiContact.ts
+// lib/api/Contact.ts
 import { api } from "../axios";
 import { AxiosError } from "axios";
 

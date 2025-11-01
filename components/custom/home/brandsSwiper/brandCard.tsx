@@ -28,7 +28,7 @@ const BrandCard = ({ item }: { item: Brand | category }) => {
             src={image || "/images/no-image.jpg"}
             fill
             alt=""
-            className="aspect-square rounded-full border border-[#e7000b] object-cover"
+            className="aspect-square rounded-full border border-[#e30a02] object-cover"
           />
         </div>
 

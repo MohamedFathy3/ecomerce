@@ -41,7 +41,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <FeatureCards />
+      {/* <FeatureCards /> */}
       {/* {offersProducts && offersProducts.length > 0 && (
         <ProductSwiper
           headLine={locals.offers}
@@ -49,7 +49,12 @@ export default async function Home() {
           showAll
         />
       )} */}
-
+ <BrandSwiper
+        items={homeCategories}
+        headLine="Browse all"
+        highlight="Categories"
+        subHeadign="Choose from a wide range of medicines, health products, and personal care products – everything you need in one place."
+      />
         {Offe && Offe.length > 0 && (
         <OfferSection
           offers={Offe}
@@ -58,12 +63,7 @@ export default async function Home() {
         />
       )}
 
-      <BrandSwiper
-        items={homeCategories}
-        headLine="Browse all"
-        highlight="Categories"
-        subHeadign="Choose from a wide range of medicines, health products, and personal care products – everything you need in one place."
-      />
+     
         <ProductSwiper
           products={product}
           headLine="Unique Products"

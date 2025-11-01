@@ -19,13 +19,24 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 
-// تعريف النوع لـ profileData
+// تعريف النوع بناءً على الخطأ
+interface ProfileData {
+  language: string;
+  email?: string;
+  name?: string;
+}
+
 interface ProfileResponse {
   success: boolean;
-  data?: {
-    language: string;
-    // أضف الخصائص الأخرى إذا كنت تعرفها
-  };
+  data?: ProfileData;
+  message?: string;
+  notAuthenticated?: boolean;
+}
+
+interface UseGetProfileReturn {
+  profile: ProfileResponse | undefined;
+  isLoadoingProfile: boolean;
+  profileError: Error | null;
 }
 
 // تعديل الكود الخاص بتغيير اللغة
@@ -37,12 +48,12 @@ const HeaderButtons = ({
   session: Session | null;
 }) => {
   const { theme, setTheme } = useTheme();
-  const { profileData, isLoadoingProfile } = useGetProfile();
+  const { profile, isLoadoingProfile } = useGetProfile() as UseGetProfileReturn;
   const queryClient = useQueryClient();
   const [language, setLanguage] = useState("en");
 
-  // Type assertion لـ profileData
-  const typedProfileData = profileData as ProfileResponse;
+  // Type assertion لـ profile
+  const profileData = profile as ProfileResponse;
 
   // قائمة اللغات التي نريدها فقط (إزالة العربية)
   const availableLanguages = ["en", "nl", "de", "fr"]; // الإنجليزي، الهولندي، الألماني، الفرنسي
@@ -55,16 +66,16 @@ const HeaderButtons = ({
 
   // عند تحميل البروفايل أو اللغة المحفوظة
   useEffect(() => {
-    if (typedProfileData?.success && typedProfileData.data?.language) {
-      setLanguage(typedProfileData.data.language);
-      setDocumentLanguage(typedProfileData.data.language);
-      localStorage.setItem("Lan", typedProfileData.data.language);
+    if (profileData?.success && profileData.data?.language) {
+      setLanguage(profileData.data.language);
+      setDocumentLanguage(profileData.data.language);
+      localStorage.setItem("Lan", profileData.data.language);
     } else {
       const savedLang = localStorage.getItem("Lan") || "en";
       setLanguage(savedLang);
       setDocumentLanguage(savedLang);
     }
-  }, [typedProfileData]);
+  }, [profileData]);
 
   // تغيير اللغة
   const handleChangeLanguage = async (newLang: string) => {

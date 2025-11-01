@@ -14,7 +14,6 @@ const Footer = () => {
             <div className="space-y-3">
               <div>111 Bigway Street, Dhaka, DH 1515, Bangladesh</div>
               <div>exclusive@gmail.com</div>
-              <div>+88015-88888-9999</div>
             </div>
           </div>
 
@@ -55,52 +54,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-5">
-            <h4 className="text-xl font-medium">Download App</h4>
-
-            <div className="!space-y-2">
-              <p className="text-xs font-medium">
-                Save $3 with the new user app only
-              </p>
-
-              <div className="flex gap-3">
-                <div className="flex items-center flex-col gap-1">
-                  <Link href="#" className="overflow-hidden">
-                    <Image
-                      src="/images/logos/googlePlay.png"
-                      width={90}
-                      height={36}
-                      alt="Get it on Google Play"
-                      className="w-24 h-9 object-contain bg-black rounded-lg"
-                    />
-                  </Link>
-                  <Image
-                    src="/images/uploads/qr-code.jpg"
-                    width={80}
-                    height={80}
-                    alt="QR Code for Google Play"
-                    className="w-20 p-1 bg-white"
-                  />
-                </div>
-                <div className="flex items-center flex-col gap-1">
-                  <Link href="#" className="overflow-hidden">
-                    <Image
-                      src="/images/logos/appStore.png"
-                      width={90}
-                      height={36}
-                      alt="Download on App Store"
-                      className="w-24 h-9 object-contain bg-black rounded-lg"
-                    />
-                  </Link>
-                  <Image
-                    src="/images/uploads/qr-code.jpg"
-                    width={80}
-                    height={80}
-                    alt="QR Code for App Store"
-                    className="w-20 p-1 bg-white"
-                  />
-                </div>
-              </div>
-            </div>
+           
 
             <div className="flex items-center gap-6 px-4">
               <Link href="#" aria-label="LinkedIn">
@@ -120,7 +74,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="p-5 flex-center border-t">
-        {currentYear} &copy; {APP_NAME}. All rights reserved.
+        {currentYear} &copy; forma. All rights reserved.
       </div>
     </footer>
   );
