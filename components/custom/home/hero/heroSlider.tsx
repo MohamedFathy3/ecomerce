@@ -52,7 +52,22 @@ const HeroSlider = () => {
             />
           </div>
         </SwiperSlide>
-        
+          <SwiperSlide>
+  <div className="image-container relative w-full h-full">
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      className="w-full h-full object-cover object-center"
+      preload="auto"
+      style={{ width: '100%', height: '100%' }}
+    >
+      <source src="/images/banners/WhatsApp Video 2025-11-05 at 3.37.51 PM.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</SwiperSlide>
           <SwiperSlide>
           <div className="image-container">
             <Image
@@ -115,22 +130,7 @@ const HeroSlider = () => {
     </video>
   </div>
 </SwiperSlide>
-  <SwiperSlide>
-  <div className="image-container relative w-full h-full">
-    <video
-      autoPlay
-      muted
-      loop
-      playsInline
-      className="w-full h-full object-cover object-center"
-      preload="auto"
-      style={{ width: '100%', height: '100%' }}
-    >
-      <source src="/images/banners/WhatsApp Video 2025-11-05 at 3.37.51 PM.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
-</SwiperSlide>
+
       </Swiper>
     </div>
   );

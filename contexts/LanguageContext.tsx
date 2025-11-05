@@ -28,7 +28,7 @@ const translations: Record<Locale, any> = {
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Locale>('en');
+  const [language, setLanguageState] = useState<Locale>('nl');
 
   // دالة للبحث في الترجمه
   const t = (key: string): string => {
