@@ -173,7 +173,7 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
           <ProductAddCart product={product} />
           
           <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <ButtonFavorite inFavorites={inFavorites} productId={product.id} />
+            {/* <ButtonFavorite inFavorites={inFavorites} productId={product.id} /> */}
             <ButtonShare />
           </div>
         </div>
@@ -220,11 +220,11 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
                 <div className="space-y-4">
                   {technicalSpecs.map((spec, index) => (
                     <div key={index} className="flex items-center justify-between py-3 border-b border-[#d39435]/10 last:border-b-0">
-                      <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                      <div className="flex items-center gap-3 text-[#e30a02]  dark:text-[#e30a02] ">
                         {spec.icon}
                         <span className="font-medium">{spec.label}</span>
                       </div>
-                      <span className="text-[#e30a02] font-semibold text-right">
+                      <span className="font-semibold text-right">
                         {spec.value || "N/A"}
                       </span>
                     </div>
@@ -247,11 +247,11 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
                 <div className="space-y-4">
                   {appearanceSpecs.map((spec, index) => (
                     <div key={index} className="flex items-center justify-between py-3 border-b border-[#d39435]/10 last:border-b-0">
-                      <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                      <div className="flex items-center gap-3 text-[#e30a02] dark:text-[#e30a02]">
                         {spec.icon}
                         <span className="font-medium">{spec.label}</span>
                       </div>
-                      <span className="text-[#e30a02] font-semibold text-right">
+                      <span className=" font-semibold text-right">
                         {spec.value || "N/A"}
                       </span>
                     </div>

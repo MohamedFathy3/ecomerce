@@ -5,13 +5,15 @@ import React from "react";
 
 const HeaderLogo = () => {
   return (
-    <div className="flex-start">
-      <Link href="/" className="relative w-20 md:w-14 aspect-square">
+    <div className="flex items-center">
+      <Link href="/" className="block">
         <Image
-          src="/images/logos/logo.png"
-          fill
-          className="object-contain object-center"
-          alt={`${APP_NAME} "logo"`}
+          src="/images/logos/logo.svg"
+          width={180} // 👈 حجم اللوجو
+          height={70}
+          className="object-contain object-left"
+          alt={`${APP_NAME} logo`}
+          priority
         />
       </Link>
     </div>

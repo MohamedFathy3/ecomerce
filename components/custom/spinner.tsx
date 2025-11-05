@@ -1,7 +1,7 @@
 function Spinner() {
   return (
     <div className="w-full h-full flex-center dark:bg-white">
-      <img src="/images/banners/loding.gif" alt="Loading..." />
+      <img src="/images/banners/logo.gif" alt="Loading..." />
     </div>
   );
 }
