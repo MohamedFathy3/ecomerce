@@ -1,5 +1,4 @@
 import { getAllCategories } from "@/lib/api/apiProducts";
-import { pharmacyCategories } from "@/lib/sampleData";
 import { category } from "@/types";
 import Link from "next/link";
 import React from "react";
