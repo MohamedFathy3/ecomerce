@@ -216,5 +216,52 @@
     "account": "Account",
     "favorites": "Favorieten",
     "notifications": "Notificaties"
+  },
+  "checkout": {
+    "shippingInfo": "Verzendinformatie",
+    "orderSummary": "Besteloverzicht",
+    "fullName": "Volledige Naam",
+    "email": "E-mailadres",
+    "phone": "Telefoonnummer",
+    "street": "Straat",
+    "houseNumber": "Huisnummer",
+    "city": "Stad",
+    "postalCode": "Postcode",
+    "country": "Land",
+    "paymentMethod": "Betalingsmethode",
+    "promoCode": "Promotiecode",
+    "quantity": "Aantal",
+    "totalItems": "Totaal Artikelen",
+    "productsTotal": "Producten Totaal",
+    "totalAmount": "Totaalbedrag",
+    "off": "KORTING",
+    "noImage": "Geen Afbeelding",
+    "processing": "Verwerken...",
+    "pay": "Betalen",
+    "backToCart": "Terug naar Winkelwagen",
+    "placeholders": {
+      "fullName": "Jan Jansen",
+      "email": "uw@email.nl",
+      "phone": "+31 123 456 789",
+      "street": "Hoofdstraat",
+      "houseNumber": "123",
+      "city": "Amsterdam",
+      "postalCode": "1234 AB"
+    },
+    "paymentOptions": {
+      "card": "Credit/Debit Card",
+      "wallet": "E-Wallet",
+      "bank": "Bankoverschrijving"
+    },
+    "success": {
+      "title": "Bestelling Geslaagd!",
+      "message": "Uw bestelling",
+      "redirecting": "Doorverwijzen naar startpagina...",
+      "continueShopping": "Verder Winkelen"
+    },
+    "errors": {
+      "orderFailed": "Bestelling aanmaken mislukt. Probeer het opnieuw.",
+      "generic": "Er is een fout opgetreden tijdens het afrekenen. Probeer het opnieuw."
+    }
   }
 }

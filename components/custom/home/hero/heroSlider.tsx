@@ -33,7 +33,7 @@ const HeroSlider = () => {
         <SwiperSlide>
           <div className="image-container">
             <Image
-              src="/images/banners/gt3.jpeg"
+              src="/images/banners/last.jpeg"
               fill
               alt="hero"
               className="object-cover object-center"
@@ -68,17 +68,7 @@ const HeroSlider = () => {
     </video>
   </div>
 </SwiperSlide>
-          <SwiperSlide>
-          <div className="image-container">
-            <Image
-              src="/images/banners/gt3.jpeg"
-              fill
-              alt="hero"
-              className="object-cover object-center"
-              priority={true}
-            />
-          </div>
-        </SwiperSlide>
+       
         <SwiperSlide>
           <div className="image-container">
             <Image

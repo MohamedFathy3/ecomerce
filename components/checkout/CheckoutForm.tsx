@@ -6,13 +6,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrencyEGP } from "@/lib/utils";
 import { CartItem } from "@/types";
-import { createOrder, createPayment, clearCart } from "@/lib/api/apiOrders";
 import Image from "next/image";
 import Link from "next/link";
-import { useQueryClient } from "@tanstack/react-query";
+import { useLanguage } from '@/contexts/LanguageContext';
+import { processCheckout } from '@/app/actions/checkout';
 
 // Popup Component
-const SuccessPopup = ({ orderNumber, onClose }: { orderNumber: string; onClose: () => void }) => {
+const SuccessPopup = ({ orderNumber, onClose, t }: { orderNumber: string; onClose: () => void; t: (key: string) => string }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center animate-in zoom-in-95">
@@ -22,19 +22,16 @@ const SuccessPopup = ({ orderNumber, onClose }: { orderNumber: string; onClose: 
           </svg>
         </div>
         
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Order Successful!</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('checkout.success.title')}</h2>
         <p className="text-gray-600 mb-4">
-          Your order <span className="font-semibold text-[#e30a02]">#{orderNumber}</span> has been placed successfully.
-        </p>
-        <p className="text-sm text-gray-500 mb-6">
-          Redirecting to home page...
+          {t('checkout.success.message')} <span className="font-semibold text-[#e30a02]">#{orderNumber}</span>
         </p>
         
         <button
           onClick={onClose}
           className="w-full bg-[#e30a02] text-white py-3 rounded-lg hover:bg-[#e30a02]/90 transition-colors font-medium"
         >
-          Continue Shopping
+          {t('checkout.success.continueShopping')}
         </button>
       </div>
     </div>
@@ -47,17 +44,19 @@ interface CheckoutFormProps {
 
 export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
   const [formData, setFormData] = useState({
+    full_name: "",
     email: "",
     phone: "",
     address_line: "",
+    house_number: "",
     city: "",
-    state: "",
     zip_code: "",
+    country: "Netherlands",
     payment_method: "card",
     promo_code: ""
   });
@@ -79,6 +78,7 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
   const handleSuccessPopupClose = () => {
     setShowSuccessPopup(false);
     router.push('/');
+    router.refresh(); // تحديث الصفحة
   };
 
   const handleCheckout = async (e: React.FormEvent) => {
@@ -86,68 +86,37 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
     setIsLoading(true);
 
     try {
-      console.log("🔄 [Checkout] Starting checkout process...");
+      console.log("🔄 [Client] Starting checkout process...");
 
-      // Step 1: Create Order
-      const orderData = {
-        ...formData,
-        cards: cartItems.map(item => ({
-          id: item.card.id,
-          qty: item.quantity
-        }))
-      };
-
-      console.log("📦 [Checkout] Order data:", orderData);
-
-      const orderResult = await createOrder(orderData);
+      // استخدام Server Action
+      const result = await processCheckout(formData, cartItems);
       
-      if (!orderResult.success || !orderResult.order_number) {
-        alert(orderResult.message || "Failed to create order. Please try again.");
+      if (!result.success) {
+        alert(result.message || t('checkout.errors.orderFailed'));
         return;
       }
 
-      const orderNum = orderResult.order_number;
-      console.log("✅ [Checkout] Order created successfully. Order Number:", orderNum);
-
-      // Step 2: Create Payment (اختياري - حسب نظام الدفع)
-      const paymentData = {
-        amount: totalPrice,
-        currency: "EGP",
-        order_id: orderNum,
-        description: `Order #${orderNum} - ${totalItems} items`,
-        redirect_url: `${window.location.origin}/payment-success`,
-        transaction_type: "Retail",
-        email: formData.email,
-        country: "EG",
-        webhook_url: `${window.location.origin}/api/webhooks/payment`
-      };
-
-      console.log("💳 [Checkout] Payment data:", paymentData);
-
-      // Step 3: Clear Cart بعد ما الطلب ينجح
-      console.log("🗑️ [Checkout] Clearing cart...");
-      await clearCart();
-
-      // Step 4: Invalidate React Query Cache - ده اللي هيمسح الـ cart من الـ cache
-      console.log("🔄 [Checkout] Invalidating cart query...");
-      await queryClient.invalidateQueries({ queryKey: ["cart"] });
-      
-      // Optional: يمكنك إضافة إعادة جلب البيانات فوراً
-      await queryClient.refetchQueries({ queryKey: ["cart"] });
-
-      console.log("✅ [Checkout] Cart cache invalidated successfully");
-
-      // Step 5: Show Success Popup
-      setOrderNumber(orderNum);
+      // عرض نافذة النجاح
+      setOrderNumber(result.order_number!);
       setShowSuccessPopup(true);
 
     } catch (error) {
-      console.error("❌ [Checkout] Checkout error:", error);
-      alert("An error occurred during checkout. Please try again.");
+      console.error("❌ [Client] Checkout error:", error);
+      alert(t('checkout.errors.generic'));
     } finally {
       setIsLoading(false);
     }
   };
+
+  // قائمة البلاد
+  const countries = [
+    { value: "Netherlands", label: "Netherlands" },
+    { value: "Belgium", label: "Belgium" },
+    { value: "Germany", label: "Germany" },
+    { value: "France", label: "France" },
+    { value: "Spain", label: "Spain" },
+    { value: "Italy", label: "Italy" }
+  ];
 
   return (
     <>
@@ -155,7 +124,8 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
       {showSuccessPopup && (
         <SuccessPopup 
           orderNumber={orderNumber} 
-          onClose={handleSuccessPopupClose} 
+          onClose={handleSuccessPopupClose}
+          t={t}
         />
       )}
 
@@ -166,12 +136,31 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
           {/* Checkout Form */}
           <Card className="bg-white dark:bg-slate-800 shadow-sm md:shadow-md rounded-lg md:rounded-xl border border-gray-200 dark:border-slate-700">
             <CardContent className="p-4 md:p-6">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Shipping Information</h2>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
+                {t('checkout.shippingInfo')}
+              </h2>
               
               <div className="space-y-4">
+                {/* Full Name */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Email Address *
+                    {t('checkout.fullName')} *
+                  </label>
+                  <input
+                    type="text"
+                    name="full_name"
+                    required
+                    value={formData.full_name}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                    placeholder={t('checkout.placeholders.fullName')}
+                  />
+                </div>
+
+                {/* Email Address */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    {t('checkout.email')} *
                   </label>
                   <input
                     type="email"
@@ -180,13 +169,14 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                    placeholder="your@email.com"
+                    placeholder={t('checkout.placeholders.email')}
                   />
                 </div>
 
+                {/* Phone Number */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Phone Number *
+                    {t('checkout.phone')} *
                   </label>
                   <input
                     type="tel"
@@ -195,13 +185,14 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                     value={formData.phone}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                    placeholder="+20 123 456 7890"
+                    placeholder={t('checkout.placeholders.phone')}
                   />
                 </div>
 
+                {/* Street Address */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Address Line *
+                    {t('checkout.street')} *
                   </label>
                   <input
                     type="text"
@@ -210,14 +201,31 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                     value={formData.address_line}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                    placeholder="123 Main Street"
+                    placeholder={t('checkout.placeholders.street')}
+                  />
+                </div>
+
+                {/* House Number */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    {t('checkout.houseNumber')} *
+                  </label>
+                  <input
+                    type="text"
+                    name="house_number"
+                    required
+                    value={formData.house_number}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                    placeholder={t('checkout.placeholders.houseNumber')}
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* City */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      City *
+                      {t('checkout.city')} *
                     </label>
                     <input
                       type="text"
@@ -226,44 +234,51 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                       value={formData.city}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                      placeholder="Cairo"
+                      placeholder={t('checkout.placeholders.city')}
                     />
                   </div>
 
+                  {/* Postal Code */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      State *
+                      {t('checkout.postalCode')} *
                     </label>
                     <input
                       type="text"
-                      name="state"
+                      name="zip_code"
                       required
-                      value={formData.state}
+                      value={formData.zip_code}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                      placeholder="Cairo"
+                      placeholder={t('checkout.placeholders.postalCode')}
                     />
                   </div>
                 </div>
 
+                {/* Country Dropdown */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    ZIP Code *
+                    {t('checkout.country')} *
                   </label>
-                  <input
-                    type="text"
-                    name="zip_code"
+                  <select
+                    name="country"
                     required
-                    value={formData.zip_code}
+                    value={formData.country}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                    placeholder="12345"
-                  />
+                  >
+                    {countries.map((country) => (
+                      <option key={country.value} value={country.value}>
+                        {country.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
+                {/* Payment Method */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Payment Method *
+                    {t('checkout.paymentMethod')} *
                   </label>
                   <select
                     name="payment_method"
@@ -272,15 +287,16 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
                   >
-                    <option value="card">Credit/Debit Card</option>
-                    <option value="wallet">E-Wallet</option>
-                    <option value="bank">Bank Transfer</option>
+                    <option value="card">{t('checkout.paymentOptions.card')}</option>
+                    <option value="wallet">{t('checkout.paymentOptions.wallet')}</option>
+                    <option value="bank">{t('checkout.paymentOptions.bank')}</option>
                   </select>
                 </div>
 
+                {/* Promo Code */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Promo Code (Optional)
+                    {t('checkout.promoCode')}
                   </label>
                   <input
                     type="text"
@@ -288,7 +304,7 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                     value={formData.promo_code}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                    placeholder="SUMMER2024"
+                    placeholder={t('checkout.placeholders.promoCode')}
                   />
                 </div>
               </div>
@@ -299,7 +315,9 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
           <div className="space-y-6">
             <Card className="bg-white dark:bg-slate-800 shadow-sm md:shadow-md rounded-lg md:rounded-xl border border-gray-200 dark:border-slate-700">
               <CardContent className="p-4 md:p-6">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Order Summary</h3>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                  {t('checkout.orderSummary')}
+                </h3>
                 
                 <div className="space-y-4">
                   {cartItems.map((item) => (
@@ -315,7 +333,9 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                           />
                         ) : (
                           <div className="w-12 h-12 rounded-lg bg-gray-200 dark:bg-slate-600 flex items-center justify-center border">
-                            <span className="text-gray-500 dark:text-gray-400 text-xs">No Image</span>
+                            <span className="text-gray-500 dark:text-gray-400 text-xs">
+                              {t('checkout.noImage')}
+                            </span>
                           </div>
                         )}
                       </div>
@@ -326,7 +346,7 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                         </h4>
                         <div className="flex items-center gap-2 mt-1">
                           <span className="text-sm text-gray-600 dark:text-gray-400">
-                            Qty: {item.quantity}
+                            {t('checkout.quantity')}: {item.quantity}
                           </span>
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                             {formatCurrencyEGP(parseFloat(item.card.price))}
@@ -340,7 +360,7 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                         </div>
                         {item.card.discount && parseFloat(item.card.discount) > 0 && (
                           <Badge className="bg-[#e30a02] text-white text-xs mt-1">
-                            {item.card.discount}% OFF
+                            {item.card.discount}% {t('checkout.off')}
                           </Badge>
                         )}
                       </div>
@@ -351,17 +371,17 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                 <div className="mt-6 pt-4 border-t border-gray-200 dark:border-slate-600">
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Total Items:</span>
+                      <span className="text-gray-600 dark:text-gray-400">{t('checkout.totalItems')}:</span>
                       <span className="font-medium">{totalItems}</span>
                     </div>
                     
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Products Total:</span>
+                      <span className="text-gray-600 dark:text-gray-400">{t('checkout.productsTotal')}:</span>
                       <span className="font-medium">{formatCurrencyEGP(totalPrice)}</span>
                     </div>
 
                     <div className="flex justify-between text-lg font-bold pt-2 border-t border-gray-200 dark:border-slate-600">
-                      <span className="text-gray-900 dark:text-white">Total Amount:</span>
+                      <span className="text-gray-900 dark:text-white">{t('checkout.totalAmount')}:</span>
                       <span className="text-[#e30a02]">
                         {formatCurrencyEGP(totalPrice)}
                       </span>
@@ -374,14 +394,14 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                   disabled={isLoading}
                   className="w-full mt-6 bg-[#e30a02] text-white py-3 rounded-lg hover:bg-[#e30a02]/90 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? "Processing..." : `Pay ${formatCurrencyEGP(totalPrice)}`}
+                  {isLoading ? t('checkout.processing') : `${t('checkout.pay')} ${formatCurrencyEGP(totalPrice)}`}
                 </button>
 
                 <Link
                   href="/cart"
                   className="block w-full mt-3 bg-gray-200 dark:bg-slate-600 text-gray-700 dark:text-gray-300 text-center py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-500 transition-colors font-medium"
                 >
-                  Back to Cart
+                  {t('checkout.backToCart')}
                 </Link>
               </CardContent>
             </Card>

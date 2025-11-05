@@ -214,6 +214,54 @@
     "account": "Compte",
     "favorites": "Favoris",
     "notifications": "Notifications"
+  },
+
+    "checkout": {
+    "shippingInfo": "Informations de Livraison",
+    "orderSummary": "Résumé de la Commande",
+    "fullName": "Nom Complet",
+    "email": "Adresse E-mail",
+    "phone": "Numéro de Téléphone",
+    "street": "Rue",
+    "houseNumber": "Numéro de Maison",
+    "city": "Ville",
+    "postalCode": "Code Postal",
+    "country": "Pays",
+    "paymentMethod": "Méthode de Paiement",
+    "promoCode": "Code Promo",
+    "quantity": "Quantité",
+    "totalItems": "Articles Totaux",
+    "productsTotal": "Total Produits",
+    "totalAmount": "Montant Total",
+    "off": "REMISE",
+    "noImage": "Aucune Image",
+    "processing": "Traitement en cours...",
+    "pay": "Payer",
+    "backToCart": "Retour au Panier",
+    "placeholders": {
+      "fullName": "Jean Dupont",
+      "email": "votre@email.fr",
+      "phone": "+33 123 456 789",
+      "street": "Rue Principale",
+      "houseNumber": "123",
+      "city": "Paris",
+      "postalCode": "75000"
+    },
+    "paymentOptions": {
+      "card": "Carte de Crédit/Débit",
+      "wallet": "Portefeuille Électronique",
+      "bank": "Virement Bancaire"
+    },
+    "success": {
+      "title": "Commande Réussie !",
+      "message": "Votre commande",
+      "redirecting": "Redirection vers la page d'accueil...",
+      "continueShopping": "Continuer les Achats"
+    },
+    "errors": {
+      "orderFailed": "Échec de la création de la commande. Veuillez réessayer.",
+      "generic": "Une erreur est survenue lors du paiement. Veuillez réessayer."
+    }
   }
 
 }

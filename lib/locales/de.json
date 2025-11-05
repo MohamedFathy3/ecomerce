@@ -218,5 +218,52 @@
     "account": "Konto",
     "favorites": "Favoriten",
     "notifications": "Benachrichtigungen"
+  },
+  "checkout": {
+    "shippingInfo": "Versandinformationen",
+    "orderSummary": "Bestellübersicht",
+    "fullName": "Vollständiger Name",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefonnummer",
+    "street": "Straße",
+    "houseNumber": "Hausnummer",
+    "city": "Stadt",
+    "postalCode": "Postleitzahl",
+    "country": "Land",
+    "paymentMethod": "Zahlungsmethode",
+    "promoCode": "Aktionscode",
+    "quantity": "Menge",
+    "totalItems": "Gesamtartikel",
+    "productsTotal": "Produktsumme",
+    "totalAmount": "Gesamtbetrag",
+    "off": "RABATT",
+    "noImage": "Kein Bild",
+    "processing": "Wird verarbeitet...",
+    "pay": "Bezahlen",
+    "backToCart": "Zurück zum Warenkorb",
+    "placeholders": {
+      "fullName": "Max Mustermann",
+      "email": "ihre@email.de",
+      "phone": "+49 123 456 789",
+      "street": "Hauptstraße",
+      "houseNumber": "123",
+      "city": "Berlin",
+      "postalCode": "12345"
+    },
+    "paymentOptions": {
+      "card": "Kredit-/Debitkarte",
+      "wallet": "E-Wallet",
+      "bank": "Banküberweisung"
+    },
+    "success": {
+      "title": "Bestellung Erfolgreich!",
+      "message": "Ihre Bestellung",
+      "redirecting": "Weiterleitung zur Startseite...",
+      "continueShopping": "Weiter Einkaufen"
+    },
+    "errors": {
+      "orderFailed": "Bestellung konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+      "generic": "Beim Checkout ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    }
   }
 }

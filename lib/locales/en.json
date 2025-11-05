@@ -212,5 +212,52 @@
     "account": "Account",
     "favorites": "Favorites",
     "notifications": "Notifications"
+  },
+  "checkout": {
+    "shippingInfo": "Shipping Information",
+    "orderSummary": "Order Summary",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "street": "Street",
+    "houseNumber": "House Number",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "country": "Country",
+    "paymentMethod": "Payment Method",
+    "promoCode": "Promo Code",
+    "quantity": "Qty",
+    "totalItems": "Total Items",
+    "productsTotal": "Products Total",
+    "totalAmount": "Total Amount",
+    "off": "OFF",
+    "noImage": "No Image",
+    "processing": "Processing...",
+    "pay": "Pay",
+    "backToCart": "Back to Cart",
+    "placeholders": {
+      "fullName": "John Doe",
+      "email": "your@email.com",
+      "phone": "+31 123 456 789",
+      "street": "Main Street",
+      "houseNumber": "123",
+      "city": "Amsterdam",
+      "postalCode": "1234 AB"
+    },
+    "paymentOptions": {
+      "card": "Credit/Debit Card",
+      "wallet": "E-Wallet",
+      "bank": "Bank Transfer"
+    },
+    "success": {
+      "title": "Order Successful!",
+      "message": "Your order",
+      "redirecting": "Redirecting to home page...",
+      "continueShopping": "Continue Shopping"
+    },
+    "errors": {
+      "orderFailed": "Failed to create order. Please try again.",
+      "generic": "An error occurred during checkout. Please try again."
+    }
   }
 }
