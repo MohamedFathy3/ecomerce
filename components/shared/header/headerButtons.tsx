@@ -25,7 +25,7 @@ const HeaderButtons = ({
   const { language, setLanguage } = useLanguage();
   const router = useRouter();
 
-  const availableLanguages = ["en", "nl", "de", "fr"] as const;
+  const availableLanguages = ["nl", "en", "de", "fr"] as const;
 
   useEffect(() => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

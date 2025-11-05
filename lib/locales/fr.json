@@ -30,5 +30,117 @@
       "content": "Nous collaborons avec des artistes, des sculpteurs et des familles qui souhaitent rendre leurs souvenirs éternels. Nos créations allient art, science et humanité, pour que votre empreinte devienne éternelle."
     },
     "closing": "Parce que certains souvenirs méritent d'être touchés. Forma – laissez une empreinte qui ne s'efface jamais."
+  }, 
+"footer": {
+    "support": "Support",
+    "address": "111 Bigway Street, Dhaka, DH 1515, Bangladesh",
+    "email": "exclusive@gmail.com",
+    "account": "Compte",
+    "loginRegister": "Connexion / Inscription",
+    "cart": "Panier",
+    "wishlist": "Liste de souhaits",
+    "shop": "Boutique",
+    "quickLinks": "Liens rapides",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfUse": "Conditions d'utilisation",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "copyright": "Tous droits réservés."
+  },
+   "privacy": {
+    "title": "Formashop – Politique de Confidentialité et Conditions de Vente",
+    "sections": {
+      "privacy": {
+        "title": "Politique de Confidentialité",
+        "introduction": {
+          "title": "Introduction",
+          "content": "Chez Formashop, nous respectons votre vie privée et protégeons vos données personnelles conformément aux lois néerlandaises et européennes sur la protection des données (RGPD). Cette politique explique comment nous collectons, utilisons, stockons et protégeons vos informations."
+        },
+        "dataCollection": {
+          "title": "Collecte des Données",
+          "content": "Nous collectons uniquement les informations nécessaires au traitement de vos commandes et à l'assistance client :",
+          "items": [
+            "Nom, adresse, e-mail, numéro de téléphone",
+            "Détails de paiement et de facturation",
+            "Historique des commandes et informations de livraison",
+            "Données techniques (adresse IP, type de navigateur, cookies)"
+          ]
+        },
+        "dataUsage": {
+          "title": "Utilisation des Données",
+          "content": "Vos données sont utilisées pour :",
+          "items": [
+            "Traiter et livrer les commandes",
+            "Fournir un service client",
+            "Améliorer notre site web et nos produits",
+            "Respecter les obligations légales"
+          ]
+        },
+        "dataRetention": {
+          "title": "Durée de Conservation",
+          "content": "Les données personnelles sont conservées pendant sept (7) ans, comme l'exige la loi néerlandaise à des fins comptables et fiscales, sauf suppression anticipée autorisée par la loi."
+        },
+        "dataSharing": {
+          "title": "Partage des Données",
+          "content": "Vos données peuvent être partagées avec des prestataires de confiance tels que les services de paiement et de livraison. Nous ne vendons ni n'échangeons vos données personnelles à des tiers."
+        },
+        "yourRights": {
+          "title": "Vos Droits",
+          "content": "Vous pouvez demander l'accès, la rectification ou la suppression de vos données à tout moment en nous contactant à info@formashop.nl."
+        },
+        "security": {
+          "title": "Sécurité",
+          "content": "Nous utilisons le cryptage SSL, des pare-feux et des serveurs sécurisés pour protéger vos informations contre tout accès non autorisé."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "Les cookies sont utilisés pour améliorer votre expérience de navigation. Vous pouvez les désactiver dans les paramètres de votre navigateur."
+        },
+        "children": {
+          "title": "Enfants",
+          "content": "Nous ne ciblons pas et ne collectons pas sciemment de données concernant des personnes en dessous de l'âge légal."
+        },
+        "updates": {
+          "title": "Mises à jour",
+          "content": "Cette politique peut être mise à jour périodiquement. Les changements seront publiés sur cette page."
+        }
+      },
+      "terms": {
+        "title": "Conditions de Vente",
+        "general": {
+          "title": "Généralités",
+          "content": "Tous les prix incluent les taxes applicables, sauf indication contraire. Les commandes ne sont confirmées qu'après réception du paiement complet."
+        },
+        "shipping": {
+          "title": "Expédition",
+          "content": "Les commandes sont expédiées dès que possible. Les délais de livraison dépendent du produit et de la destination. Les clients sont responsables de fournir des informations d'expédition exactes."
+        },
+        "returns": {
+          "title": "Retours & Remboursements",
+          "content": "Nous n'acceptons pas les retours pour les produits reçus en bon état et conformes à leur description et photos en ligne. Les remboursements sont accordés uniquement si :",
+          "items": [
+            "Le mauvais article a été reçu",
+            "L'article est défectueux en raison de notre erreur"
+          ],
+          "note": "Les clients doivent nous contacter dans les 48 heures suivant la réception, avec des photos ou une vidéo à l'appui. Nous pouvons demander le retour du produit pour inspection avant d'approuver un remboursement."
+        },
+        "payments": {
+          "title": "Paiements",
+          "content": "Toutes les transactions sont traitées de manière sécurisée via des prestataires de paiement certifiés."
+        },
+        "liability": {
+          "title": "Responsabilité",
+          "content": "Notre responsabilité maximale est limitée à la valeur totale de la commande. Nous ne sommes pas responsables des retards causés par les transporteurs ou par un cas de force majeure."
+        },
+        "jurisdiction": {
+          "title": "Juridiction",
+          "content": "Toutes les ventes et litiges sont régis par la loi néerlandaise. Les tribunaux compétents des Pays-Bas ont compétence exclusive."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "Pour toute question : info@formashop.nl"
+        }
+      }
+    }
   }
 }

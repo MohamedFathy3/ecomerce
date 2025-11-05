@@ -30,5 +30,117 @@
       "content": "We collaborate with artists, sculptors, and families who wish to preserve their memories in a meaningful way. Our creations unite art, science, and humanity, ensuring your mark remains eternal."
     },
     "closing": "Because some memories are meant to be touched. Forma – crafting impressions that never fade."
+  },
+  "footer": {
+    "support": "Support",
+    "address": "111 Bigway Street, Dhaka, DH 1515, Bangladesh",
+    "email": "exclusive@gmail.com",
+    "account": "Account",
+    "loginRegister": "Login / Register",
+    "cart": "Cart",
+    "wishlist": "Wishlist",
+    "shop": "Shop",
+    "quickLinks": "Quick Links",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "copyright": "All rights reserved."
+  },
+   "privacy": {
+    "title": "Formashop – Privacy Policy & Terms of Sale",
+    "sections": {
+      "privacy": {
+        "title": "Privacy Policy",
+        "introduction": {
+          "title": "Introduction",
+          "content": "At Formashop, we respect your privacy and protect your personal data in accordance with Dutch and European data protection laws (GDPR). This policy explains how we collect, use, store, and protect your information."
+        },
+        "dataCollection": {
+          "title": "Data Collection",
+          "content": "We only collect information necessary for processing your orders and customer support:",
+          "items": [
+            "Name, address, email, phone number",
+            "Payment and billing details",
+            "Order history and delivery information",
+            "Technical data (IP address, browser type, cookies)"
+          ]
+        },
+        "dataUsage": {
+          "title": "Data Usage",
+          "content": "Your data is used to:",
+          "items": [
+            "Process and deliver orders",
+            "Provide customer service",
+            "Improve our website and products",
+            "Comply with legal obligations"
+          ]
+        },
+        "dataRetention": {
+          "title": "Data Retention",
+          "content": "Personal data is retained for seven (7) years, as required by Dutch law for accounting and tax purposes, unless earlier deletion is permitted by law."
+        },
+        "dataSharing": {
+          "title": "Data Sharing",
+          "content": "Your data may be shared with trusted providers such as payment and delivery services. We do not sell or exchange your personal data with third parties."
+        },
+        "yourRights": {
+          "title": "Your Rights",
+          "content": "You can request access, correction, or deletion of your data at any time by contacting us at info@formashop.nl."
+        },
+        "security": {
+          "title": "Security",
+          "content": "We use SSL encryption, firewalls, and secure servers to protect your information from unauthorized access."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "Cookies are used to improve your browsing experience. You can disable them in your browser settings."
+        },
+        "children": {
+          "title": "Children",
+          "content": "We do not target or knowingly collect data from individuals below the legal age."
+        },
+        "updates": {
+          "title": "Updates",
+          "content": "This policy may be updated periodically. Changes will be published on this page."
+        }
+      },
+      "terms": {
+        "title": "Terms of Sale",
+        "general": {
+          "title": "General",
+          "content": "All prices include applicable taxes, unless otherwise indicated. Orders are only confirmed after receipt of full payment."
+        },
+        "shipping": {
+          "title": "Shipping",
+          "content": "Orders are shipped as soon as possible. Delivery times depend on the product and destination. Customers are responsible for providing accurate shipping information."
+        },
+        "returns": {
+          "title": "Returns & Refunds",
+          "content": "We do not accept returns for products received in good condition and matching their online description and photos. Refunds are only granted if:",
+          "items": [
+            "The wrong item was received",
+            "The item is defective due to our error"
+          ],
+          "note": "Customers must contact us within 48 hours of receipt, with supporting photos or video. We may request return of the product for inspection before approving a refund."
+        },
+        "payments": {
+          "title": "Payments",
+          "content": "All transactions are processed securely through certified payment providers."
+        },
+        "liability": {
+          "title": "Liability",
+          "content": "Our maximum liability is limited to the total value of the order. We are not responsible for delays caused by carriers or force majeure."
+        },
+        "jurisdiction": {
+          "title": "Jurisdiction",
+          "content": "All sales and disputes are governed by Dutch law. The competent courts of the Netherlands have exclusive jurisdiction."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "For any questions: info@formashop.nl"
+        }
+      }
+    }
   }
 }

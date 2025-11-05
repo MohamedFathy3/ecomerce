@@ -27,7 +27,7 @@ export const ServerTranslate = async ({
 }: ServerTranslateProps) => {
   // جيب اللغه من cookies
   const cookieStore = await cookies();
-  const language = cookieStore.get('Lan')?.value || 'en';
+  const language = cookieStore.get('Lan')?.value || 'nl';
   
   // دالة الترجمه
   const t = (key: string): string => {

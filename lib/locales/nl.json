@@ -30,5 +30,118 @@
       "content": "Wij werken met kunstenaars, beeldhouwers en families die herinneringen tastbaar willen maken. Onze producten combineren kunst, wetenschap en menselijkheid, waardoor jouw afdruk voor altijd blijft bestaan."
     },
     "closing": "Want sommige herinneringen verdienen het om aangeraakt te worden. Forma – waar jouw verhaal vorm krijgt."
+  },
+   "footer": {
+    "support": "Ondersteuning",
+    "address": "111 Bigway Street, Dhaka, DH 1515, Bangladesh",
+    "email": "exclusive@gmail.com",
+    "account": "Account",
+    "loginRegister": "Inloggen / Registreren",
+    "cart": "Winkelwagen",
+    "wishlist": "Verlanglijst",
+    "shop": "Winkel",
+    "quickLinks": "Snelle Links",
+    "privacyPolicy": "Privacybeleid",
+    "termsOfUse": "Gebruiksvoorwaarden",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "copyright": "Alle rechten voorbehouden."
+  },
+  "privacy": {
+    "title": "Formashop – Privacybeleid & Verkoopvoorwaarden",
+    "sections": {
+      "privacy": {
+        "title": "Privacybeleid",
+        "introduction": {
+          "title": "Inleiding",
+          "content": "Bij Formashop respecteren wij uw privacy en beschermen wij uw persoonsgegevens in overeenstemming met de Nederlandse en Europese gegevensbeschermingswetten (AVG). Dit beleid legt uit hoe wij uw gegevens verzamelen, gebruiken, opslaan en beschermen."
+        },
+        "dataCollection": {
+          "title": "Gegevensverzameling",
+          "content": "Wij verzamelen alleen informatie die nodig is voor de verwerking van uw bestellingen en klantenondersteuning:",
+          "items": [
+            "Naam, adres, e-mail, telefoonnummer",
+            "Betalings- en factuurgegevens",
+            "Bestelgeschiedenis en bezorginformatie",
+            "Technische gegevens (IP-adres, browsertype, cookies)"
+          ]
+        },
+        "dataUsage": {
+          "title": "Gegevensgebruik",
+          "content": "Uw gegevens worden gebruikt voor:",
+          "items": [
+            "Verwerken en bezorgen van bestellingen",
+            "Klantenservice verlenen",
+            "Onze website en producten verbeteren",
+            "Voldoen aan wettelijke verplichtingen"
+          ]
+        },
+        "dataRetention": {
+          "title": "Gegevensbewaring",
+          "content": "Persoonsgegevens worden zeven (7) jaar bewaard, zoals vereist door de Nederlandse wet voor boekhoudkundige en fiscale doeleinden, tenzij eerdere verwijdering door de wet is toegestaan."
+        },
+        "dataSharing": {
+          "title": "Gegevensdeling",
+          "content": "Uw gegevens kunnen worden gedeeld met vertrouwde providers zoals betalings- en bezorgdiensten. Wij verkopen of wisselen uw persoonsgegevens niet uit met derden."
+        },
+        "yourRights": {
+          "title": "Uw Rechten",
+          "content": "U kunt te allen tijde toegang, correctie of verwijdering van uw gegevens aanvragen door contact met ons op te nemen via info@formashop.nl."
+        },
+        "security": {
+          "title": "Beveiliging",
+          "content": "Wij gebruiken SSL-versleuteling, firewalls en beveiligde servers om uw informatie te beschermen tegen ongeautoriseerde toegang."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "Cookies worden gebruikt om uw browse-ervaring te verbeteren. U kunt ze uitschakelen in uw browserinstellingen."
+        },
+        "children": {
+          "title": "Kinderen",
+          "content": "Wij richten ons niet op en verzamelen niet bewust gegevens van personen onder de wettelijke leeftijd."
+        },
+        "updates": {
+          "title": "Updates",
+          "content": "Dit beleid kan periodiek worden bijgewerkt. Wijzigingen worden op deze pagina gepubliceerd."
+        }
+      },
+      "terms": {
+        "title": "Verkoopvoorwaarden",
+        "general": {
+          "title": "Algemeen",
+          "content": "Alle prijzen zijn inclusief van toepassing zijnde belastingen, tenzij anders aangegeven. Bestellingen worden alleen bevestigd na ontvangst van volledige betaling."
+        },
+        "shipping": {
+          "title": "Verzending",
+          "content": "Bestellingen worden zo snel mogelijk verzonden. Levertijden zijn afhankelijk van het product en de bestemming. Klanten zijn verantwoordelijk voor het verstrekken van nauwkeurige verzendinformatie."
+        },
+        "returns": {
+          "title": "Retourneren & Terugbetalingen",
+          "content": "Wij accepteren geen retouren voor producten die in goede staat zijn ontvangen en overeenkomen met hun online beschrijving en foto's. Terugbetalingen worden alleen verleend als:",
+          "items": [
+            "Het verkeerde artikel is ontvangen",
+            "Het artikel defect is door onze fout"
+          ],
+          "note": "Klanten moeten ons binnen 48 uur na ontvangst contacteren, met ondersteunende foto's of video. Wij kunnen de terugzending van het product voor inspectie verzoeken voordat een terugbetaling wordt goedgekeurd."
+        },
+        "payments": {
+          "title": "Betalingen",
+          "content": "Alle transacties worden veilig verwerkt via gecertificeerde betalingsproviders."
+        },
+        "liability": {
+          "title": "Aansprakelijkheid",
+          "content": "Onze maximale aansprakelijkheid is beperkt tot de totale waarde van de bestelling. Wij zijn niet verantwoordelijk voor vertragingen veroorzaakt door vervoerders of overmacht."
+        },
+        "jurisdiction": {
+          "title": "Rechtsgebied",
+          "content": "Alle verkopen en geschillen vallen onder Nederlands recht. De bevoegde rechtbanken van Nederland hebben exclusieve bevoegdheid."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "Voor vragen: info@formashop.nl"
+        }
+      }
+    }
   }
+
 }

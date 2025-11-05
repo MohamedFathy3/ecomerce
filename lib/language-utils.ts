@@ -12,8 +12,8 @@ export async function getLanguageFromStorage(): Promise<string> {
     // أو جيب من localStorage simulation
     // ده هيحتاج middleware أو حاجة تانيه
     
-    return 'en'; // افتراضي
+    return 'nl'; // افتراضي
   } catch (error) {
-    return 'en';
+    return 'nl';
   }
 }

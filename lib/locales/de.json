@@ -30,5 +30,119 @@
       "content": "Wir arbeiten mit Künstlern, Bildhauern und Familien, die Erinnerungen unvergänglich machen möchten. Unsere Werke vereinen Kunst, Wissenschaft und Menschlichkeit, um deine Spur für immer lebendig zu halten."
     },
     "closing": "Manche Erinnerungen verdienen es, berührt zu werden. Forma – wir erschaffen bleibende Spuren."
+  },
+   "footer": {
+    "support": "Ondersteuning",
+    "address": "111 Bigway Street, Dhaka, DH 1515, Bangladesh",
+    "email": "exclusive@gmail.com",
+    "account": "Account",
+    "loginRegister": "Inloggen / Registreren",
+    "cart": "Winkelwagen",
+    "wishlist": "Verlanglijst",
+    "shop": "Winkel",
+    "quickLinks": "Snelle Links",
+    "privacyPolicy": "Privacybeleid",
+    "termsOfUse": "Gebruiksvoorwaarden",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "copyright": "Alle rechten voorbehouden."
+  },
+ 
+  "privacy": {
+    "title": "Formashop – Datenschutzrichtlinie & Verkaufsbedingungen",
+    "sections": {
+      "privacy": {
+        "title": "Datenschutzrichtlinie",
+        "introduction": {
+          "title": "Einführung",
+          "content": "Bei Formashop respektieren wir Ihre Privatsphäre und schützen Ihre persönlichen Daten gemäß den niederländischen und europäischen Datenschutzgesetzen (DSGVO). Diese Richtlinie erklärt, wie wir Ihre Informationen sammeln, verwenden, speichern und schützen."
+        },
+        "dataCollection": {
+          "title": "Datenerfassung",
+          "content": "Wir sammeln nur Informationen, die für die Bearbeitung Ihrer Bestellungen und den Kundensupport notwendig sind:",
+          "items": [
+            "Name, Adresse, E-Mail, Telefonnummer",
+            "Zahlungs- und Rechnungsdaten",
+            "Bestellverlauf und Lieferinformationen",
+            "Technische Daten (IP-Adresse, Browsertyp, Cookies)"
+          ]
+        },
+        "dataUsage": {
+          "title": "Datennutzung",
+          "content": "Ihre Daten werden verwendet für:",
+          "items": [
+            "Bearbeitung und Lieferung von Bestellungen",
+            "Kundenservice",
+            "Verbesserung unserer Website und Produkte",
+            "Erfüllung gesetzlicher Verpflichtungen"
+          ]
+        },
+        "dataRetention": {
+          "title": "Datenspeicherung",
+          "content": "Personenbezogene Daten werden sieben (7) Jahre aufbewahrt, wie vom niederländischen Recht für Buchhaltungs- und Steuerzwecke vorgeschrieben, sofern keine frühere Löschung gesetzlich zulässig ist."
+        },
+        "dataSharing": {
+          "title": "Datenaustausch",
+          "content": "Ihre Daten können mit vertrauenswürdigen Anbietern wie Zahlungs- und Lieferdiensten geteilt werden. Wir verkaufen oder tauschen Ihre persönlichen Daten nicht mit Dritten aus."
+        },
+        "yourRights": {
+          "title": "Ihre Rechte",
+          "content": "Sie können jederzeit Zugang, Berichtigung oder Löschung Ihrer Daten anfordern, indem Sie uns unter info@formashop.nl kontaktieren."
+        },
+        "security": {
+          "title": "Sicherheit",
+          "content": "Wir verwenden SSL-Verschlüsselung, Firewalls und sichere Server, um Ihre Informationen vor unbefugtem Zugriff zu schützen."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "Cookies werden verwendet, um Ihr Surf-Erlebnis zu verbessern. Sie können sie in Ihren Browsereinstellungen deaktivieren."
+        },
+        "children": {
+          "title": "Kinder",
+          "content": "Wir zielen nicht auf und sammeln nicht wissentlich Daten von Personen unter dem gesetzlichen Alter."
+        },
+        "updates": {
+          "title": "Aktualisierungen",
+          "content": "Diese Richtlinie kann regelmäßig aktualisiert werden. Änderungen werden auf dieser Seite veröffentlicht."
+        }
+      },
+      "terms": {
+        "title": "Verkaufsbedingungen",
+        "general": {
+          "title": "Allgemeines",
+          "content": "Alle Preise enthalten anfallende Steuern, sofern nicht anders angegeben. Bestellungen werden nur nach Eingang der vollständigen Zahlung bestätigt."
+        },
+        "shipping": {
+          "title": "Versand",
+          "content": "Bestellungen werden so schnell wie möglich versendet. Die Lieferzeiten hängen vom Produkt und Zielort ab. Kunden sind für die Bereitstellung genauer Versandinformationen verantwortlich."
+        },
+        "returns": {
+          "title": "Rückgaben & Erstattungen",
+          "content": "Wir akzeptieren keine Rückgaben für Produkte, die in gutem Zustand eintreffen und ihrer Online-Beschreibung und Fotos entsprechen. Erstattungen werden nur gewährt, wenn:",
+          "items": [
+            "Das falsche Artikel erhalten wurde",
+            "Der Artikel aufgrund unseres Fehlers defekt ist"
+          ],
+          "note": "Kunden müssen uns innerhalb von 48 Stunden nach Erhalt mit unterstützenden Fotos oder Video kontaktieren. Wir können die Rücksendung des Produkts zur Inspektion anfordern, bevor eine Erstattung genehmigt wird."
+        },
+        "payments": {
+          "title": "Zahlungen",
+          "content": "Alle Transaktionen werden sicher über zertifizierte Zahlungsanbieter abgewickelt."
+        },
+        "liability": {
+          "title": "Haftung",
+          "content": "Unsere maximale Haftung ist auf den Gesamtwert der Bestellung beschränkt. Wir sind nicht verantwortlich für Verzögerungen, die durch Transportunternehmen oder höhere Gewalt verursacht werden."
+        },
+        "jurisdiction": {
+          "title": "Gerichtsstand",
+          "content": "Alle Verkäufe und Streitigkeiten unterliegen niederländischem Recht. Die zuständigen Gerichte der Niederlande haben ausschließliche Zuständigkeit."
+        },
+        "contact": {
+          "title": "Kontakt",
+          "content": "Bei Fragen: info@formashop.nl"
+        }
+      }
+    }
   }
+
 }

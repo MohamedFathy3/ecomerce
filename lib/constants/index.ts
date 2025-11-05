@@ -1,4 +1,4 @@
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "hamad";
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "FORMA";
 export const APP_DESCRIPTION =
   process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
   "Prostore is your one-stop online shop for the latest electronics, fashion, and home essentials. Enjoy fast shipping, secure checkout, and unbeatable deals every day.";

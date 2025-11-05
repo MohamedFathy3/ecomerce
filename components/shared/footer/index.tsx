@@ -2,6 +2,7 @@ import { APP_NAME } from "@/lib/constants";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ServerTranslate } from '@/components/ServerTranslate';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,52 +11,56 @@ const Footer = () => {
       <div className="wrapper">
         <div className="menus-wrapper">
           <div className="menu">
-            <h4 className="title">Support</h4>
+            <h4 className="title">
+              <ServerTranslate textKey="footer.support" />
+            </h4>
             <div className="space-y-3">
-              <div>111 Bigway Street, Dhaka, DH 1515, Bangladesh</div>
-              <div>exclusive@gmail.com</div>
+              <div><ServerTranslate textKey="footer.address" /></div>
+              <div><ServerTranslate textKey="footer.email" /></div>
             </div>
           </div>
 
           <div className="menu">
-            <h4 className="title">Account</h4>
+            <h4 className="title">
+              <ServerTranslate textKey="footer.account" />
+            </h4>
             <div className="space-y-3">
               <Link href="/login" className="">
-                Login / Register
+                <ServerTranslate textKey="footer.loginRegister" />
               </Link>
               <Link href="/cart" className="">
-                Cart
+                <ServerTranslate textKey="footer.cart" />
               </Link>
               <Link href="/wishlist" className="">
-                Wishlist
+                <ServerTranslate textKey="footer.wishlist" />
               </Link>
               <Link href="/products" className="">
-                Shop
+                <ServerTranslate textKey="footer.shop" />
               </Link>
             </div>
           </div>
 
           <div className="menu">
-            <h4 className="title">Quick Links</h4>
+            <h4 className="title">
+              <ServerTranslate textKey="footer.quickLinks" />
+            </h4>
             <div className="space-y-3">
-              <Link href="/privacy" className="">
-                Privacy Policy
+              <Link href="/privacy-terms" className="">
+                <ServerTranslate textKey="footer.privacyPolicy" />
               </Link>
               <Link href="/terms" className="">
-                Terms of Use
+                <ServerTranslate textKey="footer.termsOfUse" />
               </Link>
               <Link href="/faq" className="">
-                FAQ
+                <ServerTranslate textKey="footer.faq" />
               </Link>
               <Link href="/contact" className="">
-                Contact
+                <ServerTranslate textKey="footer.contact" />
               </Link>
             </div>
           </div>
 
           <div className="flex flex-col gap-5">
-           
-
             <div className="flex items-center gap-6 px-4">
               <Link href="#" aria-label="LinkedIn">
                 <Linkedin />
@@ -74,7 +79,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="p-5 flex-center border-t">
-        {currentYear} &copy; forma. All rights reserved.
+        {currentYear} &copy; {APP_NAME}. <ServerTranslate textKey="footer.copyright" />
       </div>
     </footer>
   );
