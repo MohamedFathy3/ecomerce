@@ -1,4 +1,15 @@
 {
+  "common": {
+    "welcome": "Welkom",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "home": "Home",
+    "shop": "Winkel",
+    "categories": "Categorieën",
+    "search": "Zoeken",
+    "cart": "Winkelwagen",
+    "profile": "Profiel"
+  },
   "about": {
     "title": "Over Ons",
     "subtitle": "Niet elk geschenk is hetzelfde. Sommige fluisteren wat woorden nooit kunnen zeggen.",

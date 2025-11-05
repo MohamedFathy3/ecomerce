@@ -75,7 +75,6 @@ const HeaderButtons = ({
 
   return (
     <div className="flex-center text-stone-700 dark:text-stone-400 !hidden lg:!flex">
-      {session && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="gap-1 p-0">
@@ -94,7 +93,6 @@ const HeaderButtons = ({
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-      )}
 
       <Button
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
