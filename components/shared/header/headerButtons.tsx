@@ -28,6 +28,7 @@ const HeaderButtons = ({
   const availableLanguages = ["en", "nl", "de", "fr"] as const;
 
   useEffect(() => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const savedLang = localStorage.getItem("Lan") as any;
     if (savedLang && availableLanguages.includes(savedLang)) {
       setLanguage(savedLang);
@@ -35,9 +36,11 @@ const HeaderButtons = ({
   }, [setLanguage]);
 
   const handleChangeLanguage = async (newLang: string) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (!availableLanguages.includes(newLang as any)) return;
     
     // غير اللغة في localStorage (للكلينت)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setLanguage(newLang as any);
     localStorage.setItem('Lan', newLang);
     
