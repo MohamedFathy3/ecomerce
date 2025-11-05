@@ -8,9 +8,9 @@ const HeaderLogo = () => {
     <div className="flex items-center">
       <Link href="/" className="block">
         <Image
-          src="/images/logos/logo.svg"
+          src="/images/logos/logo.webp"
           width={180} // 👈 حجم اللوجو
-          height={70}
+          height={50}
           className="object-contain object-left"
           alt={`${APP_NAME} logo`}
           priority
