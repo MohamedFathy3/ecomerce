@@ -24,9 +24,9 @@ const Header = async () => {
   }
   return (
     <>
-      <header className="border-b sticky top-0 start-0 end-0 bg-background z-50">
+      <header className="border-b sticky top-0 start-0 end-0 bg-background z-50" style={{height:"124px"}}>
         <div className="wrapper">
-          <div className="!grid grid-cols-4 grid-row-2 sm:!flex flex-between sm:gap-2">
+          <div className="!grid grid-cols-4 grid-row-2 sm:!flex flex-between sm:gap-2" style={{position:"relative", bottom:'24px'}}>
             <div className="flex items-center gap-2 col-start-2 col-span-3 row-start-1 row-span-1">
               {user ? (
                 <div className="ms-auto sm:ms-0 sm:hidden text-gray-600 text-sm dark:text-gray-300 ">

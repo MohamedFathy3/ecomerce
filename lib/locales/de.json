@@ -1,0 +1,34 @@
+{
+  "common": {
+    "welcome": "Willkommen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "home": "Startseite",
+    "shop": "Einkaufen",
+    "categories": "Kategorien",
+    "search": "Suchen",
+    "cart": "Warenkorb",
+    "profile": "Profil"
+  },
+  "about": {
+    "title": "Über Uns",
+    "subtitle": "Nicht jedes Geschenk ist gleich. Manche flüstern, was Worte nie sagen können.",
+    "mission": {
+      "title": "Unsere Mission",
+      "content": "Bei Forma glauben wir, dass jeder Abdruck eine Geschichte erzählt, jede Berührung eine Erinnerung bewahrt und jedes Herz jemanden hat, der für immer einen Platz verdient. Wir verwandeln kostbare Momente in zeitlose Kunstwerke, die die Seele berühren und ewig bestehen bleiben."
+    },
+    "process": {
+      "title": "Unser Prozess",
+      "content": "Mit hochwertigem deutschen Silikon, vollständig hautverträglich, erstellen wir präzise Abdrücke von Körperteilen – wie die Hand eines geliebten Menschen, den Fingerabdruck eines Kindes oder die sanfte Hand einer Mutter – und formen sie zu Schmuck oder 3D-Skulpturen voller Emotionen."
+    },
+    "quality": {
+      "title": "Qualität & Kunst",
+      "content": "Jede Kreation wird mit der Präzision eines Künstlers, der Leidenschaft eines Liebenden und der Eleganz von Gold hergestellt. Es ist nicht nur ein Geschenk… Es ist ein Symbol für Liebe, Erinnerung und Ewigkeit."
+    },
+    "collaboration": {
+      "title": "Zusammenarbeit",
+      "content": "Wir arbeiten mit Künstlern, Bildhauern und Familien zusammen, die Erinnerungen greifbar machen wollen. Unsere Produkte vereinen Kunst, Wissenschaft und Menschlichkeit und sorgen dafür, dass Ihr Abdruck für immer bestehen bleibt."
+    },
+    "closing": "Denn einige Erinnerungen verdienen es, berührt zu werden. Forma – wo Ihre Geschichte Gestalt annimmt."
+  }
+}

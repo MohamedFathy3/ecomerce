@@ -1,0 +1,34 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "save": "Save",
+    "cancel": "Cancel",
+    "home": "Home",
+    "shop": "Shop",
+    "categories": "Categories",
+    "search": "Search",
+    "cart": "Cart",
+    "profile": "Profile"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Not every gift is the same. Some whisper what words can never say.",
+    "mission": {
+      "title": "Our Mission",
+      "content": "At Forma, we believe that every imprint tells a story, every touch preserves a memory, and every heart has someone who deserves a place forever. We transform precious moments into timeless artworks that touch the soul and last eternally."
+    },
+    "process": {
+      "title": "Our Process",
+      "content": "With high-quality German silicone, completely safe for the skin, we create accurate molds of body parts — such as a loved one's hand, a child's fingerprint, or a mother's gentle hand — and shape them into jewelry or 3D sculptures filled with emotion."
+    },
+    "quality": {
+      "title": "Quality & Art",
+      "content": "Each creation is made with the precision of an artist, the passion of a lover, and the elegance of gold. It's not just a gift… It's a symbol of love, memory, and eternity."
+    },
+    "collaboration": {
+      "title": "Collaboration",
+      "content": "We work with artists, sculptors, and families who want to make memories tangible. Our products combine art, science, and humanity, making your imprint last forever."
+    },
+    "closing": "Because some memories deserve to be touched. Forma – where your story takes shape."
+  }
+}

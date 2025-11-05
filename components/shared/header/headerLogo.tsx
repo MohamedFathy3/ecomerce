@@ -9,9 +9,9 @@ const HeaderLogo = () => {
       <Link href="/" className="block">
         <Image
           src="/images/logos/logo.webp"
-          width={180} // 👈 حجم اللوجو
-          height={50}
-          className="object-contain object-left"
+          width={180}
+          height={100}
+          className="object-content object-left"
           alt={`${APP_NAME} logo`}
           priority
         />

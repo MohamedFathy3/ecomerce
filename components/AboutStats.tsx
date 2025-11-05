@@ -6,25 +6,21 @@ import { useState, useEffect } from "react";
 
 const stats = [
   {
-    label: "إجمالي المبيعات السنوية",
     value: 15,
     color: "text-[#e30a02]",
     icon: <Briefcase className="w-8 h-8 text-white " />,
   },
   {
-    label: "العملاء النشطون على موقعنا",
     value: 700,
     color: "text-[#e30a02]",
     icon: <Users className="w-8 h-8 text-white " />,
   },
   {
-    label: "مبيعات المنتجات الشهرية",
     value: 5000,
     color: "text-[#e30a02]",
     icon: <ShoppingCart className="w-8 h-8 text-white " />,
   },
   {
-    label: "الزائرون النشطون على موقعنا",
     value: 3000,
     color: "text-[#e30a02]",
     icon: <Globe className="w-8 h-8 text-white " />,
@@ -66,9 +62,7 @@ const AboutStats = () => {
             <h3 className={`text-2xl font-bold ${stat.color}`}>
               {count} {/* This will display the dynamically increasing number */}
             </h3>
-            <p className="text-sm text-muted-foreground mt-2 font-medium">
-              {stat.label}
-            </p>
+          
           </CardContent>
         </Card>
       ))}

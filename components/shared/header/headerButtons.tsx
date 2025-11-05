@@ -1,45 +1,19 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useGetProfile } from "@/hooks/useGetProfile";
-import { updateUserLanguage } from "@/lib/api/apiUser";
-import { useQueryClient } from "@tanstack/react-query";
 import { Globe, Moon, Sun } from "lucide-react";
 import { Session } from "next-auth";
-import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
-import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useRouter } from "next/navigation";
 
-// تعريف النوع بناءً على الخطأ
-interface ProfileData {
-  language: string;
-  email?: string;
-  name?: string;
-}
-
-interface ProfileResponse {
-  success: boolean;
-  data?: ProfileData;
-  message?: string;
-  notAuthenticated?: boolean;
-}
-
-interface UseGetProfileReturn {
-  profile: ProfileResponse | undefined;
-  isLoadoingProfile: boolean;
-  profileError: Error | null;
-}
-
-// تعديل الكود الخاص بتغيير اللغة
 const HeaderButtons = ({
   children,
   session,
@@ -48,70 +22,56 @@ const HeaderButtons = ({
   session: Session | null;
 }) => {
   const { theme, setTheme } = useTheme();
-  const { profile, isLoadoingProfile } = useGetProfile() as UseGetProfileReturn;
-  const queryClient = useQueryClient();
-  const [language, setLanguage] = useState("en");
+  const { language, setLanguage } = useLanguage();
+  const router = useRouter();
 
-  // Type assertion لـ profile
-  const profileData = profile as ProfileResponse;
+  const availableLanguages = ["en", "nl", "de", "fr"] as const;
 
-  // قائمة اللغات التي نريدها فقط (إزالة العربية)
-  const availableLanguages = ["en", "nl", "de", "fr"]; // الإنجليزي، الهولندي، الألماني، الفرنسي
-
-  // ضبط اللغة في المستند
-  const setDocumentLanguage = (newLang: string) => {
-    document.documentElement.lang = newLang;
-    document.documentElement.dir = "ltr"; // كل اللغات هنا لليسار لليمين
-  };
-
-  // عند تحميل البروفايل أو اللغة المحفوظة
   useEffect(() => {
-    if (profileData?.success && profileData.data?.language) {
-      setLanguage(profileData.data.language);
-      setDocumentLanguage(profileData.data.language);
-      localStorage.setItem("Lan", profileData.data.language);
-    } else {
-      const savedLang = localStorage.getItem("Lan") || "en";
+    const savedLang = localStorage.getItem("Lan") as any;
+    if (savedLang && availableLanguages.includes(savedLang)) {
       setLanguage(savedLang);
-      setDocumentLanguage(savedLang);
     }
-  }, [profileData]);
+  }, [setLanguage]);
 
-  // تغيير اللغة
   const handleChangeLanguage = async (newLang: string) => {
-    if (!availableLanguages.includes(newLang)) return; // تأكد من أن اللغة في القائمة المتاحة
-
-    // تغيير اللغة في الواجهة
-    setLanguage(newLang);
-    setDocumentLanguage(newLang);
-    localStorage.setItem("Lan", newLang);
-
-    // تحديث السيرفر في الخلفية
+    if (!availableLanguages.includes(newLang as any)) return;
+    
+    // غير اللغة في localStorage (للكلينت)
+    setLanguage(newLang as any);
+    localStorage.setItem('Lan', newLang);
+    
+    // غير اللغة في cookies (للسيرفر)
     try {
-      const response = await updateUserLanguage(newLang);
-      if (response?.success) {
-        console.log("✅ Language updated on server");
+      const response = await fetch('/api/language', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ language: newLang }),
+      });
+      
+      if (response.ok) {
+        // إعادة تحميل الصفحة بعد ما ال cookie اتحط
         setTimeout(() => {
-          queryClient.invalidateQueries({ queryKey: ["profile"] });
-        }, 1000);
-      } else {
-        console.log("⚠️ Server update failed");
+          router.refresh();
+        }, 100);
       }
     } catch (error) {
-      console.log("Error updating language:", error);
+      console.log('Error setting language cookie:', error);
+      // لو ال API فشل، عمل refresh عادي
+      setTimeout(() => {
+        router.refresh();
+      }, 100);
     }
   };
 
-  // ضبط الثيم الافتراضي ليكون Light
   useEffect(() => {
     if (!theme) setTheme("light");
   }, [theme, setTheme]);
 
-  if (isLoadoingProfile) return null;
-
   return (
     <div className="flex-center text-stone-700 dark:text-stone-400 !hidden lg:!flex">
-      {/* زر اللغة */}
       {session && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -133,7 +93,6 @@ const HeaderButtons = ({
         </DropdownMenu>
       )}
 
-      {/* زر الثيم */}
       <Button
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         variant="ghost"

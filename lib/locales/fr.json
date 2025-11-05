@@ -1,0 +1,34 @@
+{
+  "common": {
+    "welcome": "Bienvenue",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "home": "Accueil",
+    "shop": "Boutique",
+    "categories": "Catégories",
+    "search": "Rechercher",
+    "cart": "Panier",
+    "profile": "Profil"
+  },
+  "about": {
+    "title": "À Propos",
+    "subtitle": "Chaque cadeau n'est pas pareil. Certains murmurent ce que les mots ne peuvent jamais dire.",
+    "mission": {
+      "title": "Notre Mission",
+      "content": "Chez Forma, nous croyons que chaque empreinte raconte une histoire, chaque toucher préserve un souvenir et chaque cœur a quelqu'un qui mérite une place pour toujours. Nous transformons les moments précieux en œuvres d'art intemporelles qui touchent l'âme et durent éternellement."
+    },
+    "process": {
+      "title": "Notre Processus",
+      "content": "Avec du silicone allemand de haute qualité, complètement sans danger pour la peau, nous créons des moules précis de parties du corps — comme la main d'un être cher, l'empreinte digitale d'un enfant ou la main douce d'une mère — et les transformons en bijoux ou sculptures 3D pleines d'émotion."
+    },
+    "quality": {
+      "title": "Qualité & Art",
+      "content": "Chaque création est réalisée avec la précision d'un artiste, la passion d'un amoureux et l'élégance de l'or. Ce n'est pas qu'un cadeau… C'est un symbole d'amour, de mémoire et d'éternité."
+    },
+    "collaboration": {
+      "title": "Collaboration",
+      "content": "Nous travaillons avec des artistes, des sculpteurs et des familles qui souhaitent rendre les souvenirs tangibles. Nos produits combinent art, science et humanité, faisant durer votre empreinte pour toujours."
+    },
+    "closing": "Car certains souvenirs méritent d'être touchés. Forma – où votre histoire prend forme."
+  }
+}
