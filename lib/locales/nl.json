@@ -8,7 +8,10 @@
     "categories": "Categorieën",
     "search": "Zoeken",
     "cart": "Winkelwagen",
-    "profile": "Profiel"
+    "profile": "Profiel",
+        "showAll":"showAll",
+        "details":"details"
+
   },
   "about": {
     "title": "Over Ons",
@@ -142,6 +145,76 @@
         }
       }
     }
+  },
+  "home": {
+    "hero": {
+      "title": "Welkom bij Forma",
+      "subtitle": "Transformeer uw kostbare momenten in tijdloze kunst",
+      "cta": "Nu Winkelen"
+    },
+    "categories": {
+      "headline": "Blader door alle",
+      "highlight": "Categorieën",
+      "subheading": "Kies uit een breed scala aan medicijnen, gezondheidsproducten en persoonlijke verzorgingsproducten – alles wat u nodig heeft op één plek."
+    },
+    "offers": {
+      "headline": "Exclusieve Aanbiedingen"
+    },
+    "products": {
+      "unique": "Unieke Producten",
+      "topRated": "Best Beoordeelde Producten",
+      "topSelling": "Best Verkochte Producten",
+      "offers": "Speciale Aanbiedingen"
+    },
+    "brands": {
+      "headline": "Blader door alle",
+      "highlight": "Merken",
+      "subheading": "Kies uit een breed scala aan medicijnen, gezondheidsproducten en persoonlijke verzorgingsproducten – alles wat u nodig heeft op één plek.",
+      "topRated": "Best Beoordeelde Merken"
+    }
   }
+,
 
+  "contact": {
+    "title": "Neem Contact Op",
+    "description": "We horen graag van u! Of u nu een vraag heeft, feedback wilt geven of gewoon hallo wilt zeggen — ons team staat voor u klaar. Vul het formulier in en we nemen zo snel mogelijk contact met u op.",
+    "followUs": "Volg Ons",
+    "formTitle": "Stuur een Bericht",
+    "namePlaceholder": "Volledige Naam",
+    "emailPlaceholder": "E-mailadres",
+    "phonePlaceholder": "Telefoonnummer", 
+    "messagePlaceholder": "Uw Bericht",
+    "sendButton": "Verstuur Bericht",
+    "sending": "Versturen..."
+
+}
+,
+"navigation": {
+    "headerPages": {
+      "home": "Home",
+      "about": "Over Ons",
+      "contact": "Contact",
+      "categories": "Categorieën"
+    },
+    "pharmacyCategories": {
+      "painRelief": "Pijnbestrijding",
+      "coldFlu": "Verkoudheid & Griep",
+      "vitamins": "Vitaminen & Supplementen",
+      "personalCare": "Persoonlijke Verzorging",
+      "babyCare": "Babyverzorging",
+      "skincare": "Huidverzorging",
+      "hairCare": "Haarverzorging", 
+      "oralCare": "Mondverzorging"
+    }
+  },
+  "auth": {
+    "signin": "Inloggen",
+    "signup": "Registreren",
+    "signout": "Uitloggen"
+  },
+  "user": {
+    "account": "Account",
+    "favorites": "Favorieten",
+    "notifications": "Notificaties"
+  }
 }

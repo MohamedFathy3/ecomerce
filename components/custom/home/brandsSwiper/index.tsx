@@ -1,5 +1,4 @@
 import React from "react";
-import ProductCard from "../../product/productCard";
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Link from "next/link";
-
+import { ServerTranslate } from '@/components/ServerTranslate';
 import BrandCard from "./brandCard";
 import { Brand, category } from "@/types";
 
@@ -28,11 +27,13 @@ const BrandSwiper = ({
       <div className="wrapper !px-8">
         <div className="w-11/12 md:w-8/12 mx-auto ">
           <h3 className="text-gray-700 mx-auto text-center mb-4 font-semibold text-2xl lg:text-3xl dark:text-slate-400">
-            <span>{headLine}</span>{" "}
-            <span className="text-[#e30a02]">{highlight}</span>
+            <ServerTranslate textKey={headLine} />{" "}
+            <span className="text-[#e30a02]">
+              <ServerTranslate textKey={highlight} />
+            </span>
           </h3>
           <p className="text-gray-500 font-medium lg:font-semibold text-base lg:text-lg dark:text-slate-500 text-center mb-6">
-            {subHeadign}
+            <ServerTranslate textKey={subHeadign} />
           </p>
         </div>
 

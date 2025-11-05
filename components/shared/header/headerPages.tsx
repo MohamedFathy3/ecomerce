@@ -1,11 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { headerPages } from "@/lib/sampleData";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const HaederPages = () => {
+const HeaderPages = () => {
   const pathName = usePathname();
+  const { t } = useLanguage();
+
+  const headerPages = [
+    { title: t('navigation.headerPages.home'), path: "/" },
+    { title: t('navigation.headerPages.about'), path: "/about" },
+    { title: t('navigation.headerPages.contact'), path: "/contact-us" },
+    { title: t('navigation.headerPages.categories'), path: "/#categories-section" },
+  ];
+
   return (
     <div className="items-center hidden lg:flex">
       {headerPages.map((ele) => (
@@ -28,4 +37,4 @@ const HaederPages = () => {
   );
 };
 
-export default HaederPages;
+export default HeaderPages;

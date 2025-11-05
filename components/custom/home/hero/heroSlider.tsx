@@ -33,7 +33,7 @@ const HeroSlider = () => {
         <SwiperSlide>
           <div className="image-container">
             <Image
-              src="/images/banners/KMgT.gif"
+              src="/images/banners/gt3.jpeg"
               fill
               alt="hero"
               className="object-cover object-center"
@@ -44,7 +44,7 @@ const HeroSlider = () => {
         <SwiperSlide>
           <div className="image-container">
             <Image
-              src="/images/banners/art.webp"
+              src="/images/banners/gt5.jpeg"
               fill
               alt="hero"
               className="object-cover object-center"
@@ -56,7 +56,7 @@ const HeroSlider = () => {
           <SwiperSlide>
           <div className="image-container">
             <Image
-              src="/images/banners/gaf.gif"
+              src="/images/banners/gt3.jpeg"
               fill
               alt="hero"
               className="object-cover object-center"
@@ -67,7 +67,31 @@ const HeroSlider = () => {
         <SwiperSlide>
           <div className="image-container">
             <Image
-              src="/images/banners/baner3.webp"
+              src="/images/banners/gt.jpeg"
+              fill
+              alt="hero"
+              className="object-cover object-center"
+              priority={true}
+            />
+          </div>
+        </SwiperSlide>
+
+          <SwiperSlide>
+          <div className="image-container">
+            <Image
+              src="/images/banners/get2.jpeg"
+              fill
+              alt="hero"
+              className="object-cover object-center"
+              priority={true}
+            />
+          </div>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <div className="image-container">
+            <Image
+              src="/images/banners/g.jpeg"
               fill
               alt="hero"
               className="object-cover object-center"
@@ -76,27 +100,37 @@ const HeroSlider = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="image-container">
-            <Image
-              src="/images/banners/baner4.jpg"
-              fill
-              alt="hero"
-              className="object-cover object-center"
-              priority={true}
-            />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="image-container">
-            <Image
-              src="/images/banners/aft.gif"
-              fill
-              alt="hero"
-              className="object-cover object-center"
-              priority={true}
-            />
-          </div>
-        </SwiperSlide>
+  <div className="image-container relative w-full h-full">
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      className="w-full h-full object-cover object-center"
+      preload="auto"
+      style={{ width: '100%', height: '100%' }}
+    >
+      <source src="/images/banners/WhatsApp Video 2025-11-05 at 3.37.50 PM.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</SwiperSlide>
+  <SwiperSlide>
+  <div className="image-container relative w-full h-full">
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      className="w-full h-full object-cover object-center"
+      preload="auto"
+      style={{ width: '100%', height: '100%' }}
+    >
+      <source src="/images/banners/WhatsApp Video 2025-11-05 at 3.37.51 PM.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</SwiperSlide>
       </Swiper>
     </div>
   );

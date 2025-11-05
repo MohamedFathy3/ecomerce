@@ -11,6 +11,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ProductItem } from "@/types";
+import { ServerTranslate } from '@/components/ServerTranslate';
 
 const ProductSwiper = ({
   headLine,
@@ -27,12 +28,12 @@ const ProductSwiper = ({
         <div className="w-11/12 mx-auto">
           <div className="flex justify-between gap-6 items-center mb-4">
             <h3 className="text-gray-700 font-semibold text-xl lg:text-3xl dark:text-slate-400">
-              {headLine}
+              <ServerTranslate textKey={headLine} />
             </h3>
             {showAll && (
               <Link href="/products">
                 <Button variant="link" className="text-primary">
-                  عرض الكل
+                  <ServerTranslate textKey="common.showAll" />
                   <ArrowRight className="w-4 h-4 ms-1 auto-dir" />
                 </Button>
               </Link>

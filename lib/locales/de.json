@@ -8,7 +8,10 @@
     "categories": "Kategorien",
     "search": "Suchen",
     "cart": "Warenkorb",
-    "profile": "Profil"
+    "profile": "Profil",
+        "showAll":"showAll",
+        "details":"details"
+
   },
   "about": {
     "title": "Über Uns",
@@ -144,5 +147,76 @@
       }
     }
   }
+,
+"home": {
+    "hero": {
+      "title": "Willkommen bei Forma",
+      "subtitle": "Verwandeln Sie Ihre kostbaren Momente in zeitlose Kunst",
+      "cta": "Jetzt Einkaufen"
+    },
+    "categories": {
+      "headline": "Alle durchsuchen",
+      "highlight": "Kategorien",
+      "subheading": "Wählen Sie aus einer Vielzahl von Medikamenten, Gesundheitsprodukten und Körperpflegeprodukten – alles, was Sie brauchen, an einem Ort."
+    },
+    "offers": {
+      "headline": "Exklusive Angebote"
+    },
+    "products": {
+      "unique": "Einzigartige Produkte",
+      "topRated": "Bestbewertete Produkte",
+      "topSelling": "Meistverkaufte Produkte",
+      "offers": "Sonderangebote"
+    },
+    "brands": {
+      "headline": "Alle durchsuchen",
+      "highlight": "Marken",
+      "subheading": "Wählen Sie aus einer Vielzahl von Medikamenten, Gesundheitsprodukten und Körperpflegeprodukten – alles, was Sie brauchen, an einem Ort.",
+      "topRated": "Bestbewertete Marken"
+    }
+  },
 
+
+
+  "contact": {
+    "title": "Kontakt Aufnehmen",
+    "description": "Wir freuen uns von Ihnen zu hören! Ob Sie eine Frage haben, Feedback geben möchten oder einfach Hallo sagen wollen — unser Team ist für Sie da. Füllen Sie das Formular aus und wir melden uns so schnell wie möglich bei Ihnen.",
+    "followUs": "Folgen Sie Uns",
+    "formTitle": "Nachricht Senden",
+    "namePlaceholder": "Vollständiger Name",
+    "emailPlaceholder": "E-Mail-Adresse",
+    "phonePlaceholder": "Telefonnummer",
+    "messagePlaceholder": "Ihre Nachricht",
+    "sendButton": "Nachricht Senden",
+    "sending": "Wird gesendet..."
+ 
+},
+  "navigation": {
+    "headerPages": {
+      "home": "Startseite",
+      "about": "Über Uns",
+      "contact": "Kontakt",
+      "categories": "Kategorien"
+    },
+    "pharmacyCategories": {
+      "painRelief": "Schmerzlinderung",
+      "coldFlu": "Erkältung & Grippe",
+      "vitamins": "Vitamine & Nahrungsergänzung",
+      "personalCare": "Körperpflege",
+      "babyCare": "Baby Pflege",
+      "skincare": "Hautpflege",
+      "hairCare": "Haarpflege",
+      "oralCare": "Mundpflege"
+    }
+  },
+   "auth": {
+    "signin": "Anmelden",
+    "signup": "Registrieren", 
+    "signout": "Abmelden"
+  },
+  "user": {
+    "account": "Konto",
+    "favorites": "Favoriten",
+    "notifications": "Benachrichtigungen"
+  }
 }

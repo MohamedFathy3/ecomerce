@@ -8,7 +8,9 @@
     "categories": "Categories",
     "search": "Search",
     "cart": "Cart",
-    "profile": "Profile"
+    "profile": "Profile",
+    "showAll":"showAll",
+    "details":"details"
   },
   "about": {
     "title": "About Us",
@@ -142,5 +144,73 @@
         }
       }
     }
+ 
+  },
+   "home": {
+    "hero": {
+      "title": "Welcome to Forma",
+      "subtitle": "Transform your precious moments into timeless art",
+      "cta": "Shop Now"
+    },
+    "categories": {
+      "headline": "Browse all",
+      "highlight": "Categories",
+      "subheading": "Choose from a wide range of medicines, health products, and personal care products – everything you need in one place."
+    },
+    "offers": {
+      "headline": "Exclusive Offers"
+    },
+    "products": {
+      "unique": "Unique Products",
+      "topRated": "Top Rated Products",
+      "topSelling": "Top Selling Products",
+      "offers": "Special Offers"
+    },
+    "brands": {
+      "headline": "Browse all",
+      "highlight": "Brands",
+      "subheading": "Choose from a wide range of medicines, health products, and personal care products – everything you need in one place.",
+      "topRated": "Top Rated Brands"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "description": "We'd love to hear from you! Whether you have a question, feedback, or just want to say hello — our team is here to help. Fill out the form and we'll get back to you as soon as possible.",
+    "followUs": "Follow Us",
+    "formTitle": "Send a Message",
+    "namePlaceholder": "Full Name",
+    "emailPlaceholder": "Email Address", 
+    "phonePlaceholder": "Phone Number",
+    "messagePlaceholder": "Your Message",
+    "sendButton": "Send Message",
+    "sending": "Sending..."
+  },
+   "navigation": {
+    "headerPages": {
+      "home": "Home",
+      "about": "About", 
+      "contact": "Contact Us",
+      "categories": "Categories"
+    },
+    "pharmacyCategories": {
+      "painRelief": "Pain Relief",
+      "coldFlu": "Cold & Flu",
+      "vitamins": "Vitamins & Supplements",
+      "personalCare": "Personal Care",
+      "babyCare": "Baby Care", 
+      "skincare": "Skincare",
+      "hairCare": "Hair Care",
+      "oralCare": "Oral Care"
+    }
+  },
+  "auth": {
+    "signin": "Sign In",
+    "signup": "Sign Up", 
+    "signout": "Sign Out"
+  },
+  "user": {
+    "account": "Account",
+    "favorites": "Favorites",
+    "notifications": "Notifications"
   }
 }

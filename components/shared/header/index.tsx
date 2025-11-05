@@ -24,7 +24,7 @@ const Header = async () => {
   }
   return (
     <>
-      <header className="border-b sticky top-0 start-0 end-0 bg-background z-50" style={{height:"124px"}}>
+      <header className="border-b sticky top-0 start-0 end-0 bg-background z-50" style={{height:"100px"}}>
         <div className="wrapper">
           <div className="!grid grid-cols-4 grid-row-2 sm:!flex flex-between sm:gap-2" style={{position:"relative", bottom:'24px'}}>
             <div className="flex items-center gap-2 col-start-2 col-span-3 row-start-1 row-span-1">

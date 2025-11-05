@@ -8,7 +8,10 @@
     "categories": "Catégories",
     "search": "Rechercher",
     "cart": "Panier",
-    "profile": "Profil"
+    "profile": "Profil",
+        "showAll":"showAll",
+        "details":"details"
+
   },
   "about": {
     "title": "À Propos de Nous",
@@ -142,5 +145,75 @@
         }
       }
     }
+  },
+  "home": {
+    "hero": {
+      "title": "Bienvenue chez Forma",
+      "subtitle": "Transformez vos moments précieux en art intemporel",
+      "cta": "Acheter Maintenant"
+    },
+    "categories": {
+      "headline": "Parcourir tout",
+      "highlight": "Catégories",
+      "subheading": "Choisissez parmi une large gamme de médicaments, produits de santé et produits de soins personnels – tout ce dont vous avez besoin au même endroit."
+    },
+    "offers": {
+      "headline": "Offres Exclusives"
+    },
+    "products": {
+      "unique": "Produits Uniques",
+      "topRated": "Produits les Mieux Notés",
+      "topSelling": "Produits les Plus Vendus",
+      "offers": "Offres Spéciales"
+    },
+    "brands": {
+      "headline": "Parcourir tout",
+      "highlight": "Marques",
+      "subheading": "Choisissez parmi une large gamme de médicaments, produits de santé et produits de soins personnels – tout ce dont vous avez besoin au même endroit.",
+      "topRated": "Marques les Mieux Notées"
+    }
+  },
+
+ 
+  "contact": {
+    "title": "Contactez-Nous",
+    "description": "Nous aimerions avoir de vos nouvelles ! Que vous ayez une question, des commentaires ou que vous souhaitiez simplement dire bonjour — notre équipe est là pour vous aider. Remplissez le formulaire et nous vous répondrons dès que possible.",
+    "followUs": "Suivez-Nous",
+    "formTitle": "Envoyer un Message",
+    "namePlaceholder": "Nom Complet",
+    "emailPlaceholder": "Adresse E-mail",
+    "phonePlaceholder": "Numéro de Téléphone",
+    "messagePlaceholder": "Votre Message",
+    "sendButton": "Envoyer le Message",
+    "sending": "Envoi en cours..."
+  },
+   "navigation": {
+    "headerPages": {
+      "home": "Accueil",
+      "about": "À Propos",
+      "contact": "Contact",
+      "categories": "Catégories"
+    },
+    "pharmacyCategories": {
+      "painRelief": "Soulagement de la Douleur",
+      "coldFlu": "Rhume & Grippe",
+      "vitamins": "Vitamines & Compléments",
+      "personalCare": "Soins Personnels",
+      "babyCare": "Soins Bébé",
+      "skincare": "Soins de la Peau",
+      "hairCare": "Soins des Cheveux",
+      "oralCare": "Soins Bucco-dentaires"
+    }
+  },
+    "auth": {
+    "signin": "Se Connecter",
+    "signup": "S'inscrire",
+    "signout": "Se Déconnecter"
+  },
+  "user": {
+    "account": "Compte",
+    "favorites": "Favoris",
+    "notifications": "Notifications"
   }
+
 }

@@ -2,11 +2,14 @@
 
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
+import { Facebook, Instagram, Mail } from "lucide-react";
+import { useLanguage } from '@/contexts/LanguageContext';
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ContactForm({ action }: { action: any }) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
+  const { t } = useLanguage();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,7 +24,7 @@ export default function ContactForm({ action }: { action: any }) {
   }
 
   return (
-    <section className="min-h-screen  text-white flex items-center justify-center px-4 py-12">
+    <section className="min-h-screen  flex items-center justify-center px-4 py-12">
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
         
         {/* Left Section – Contact Info */}
@@ -32,17 +35,46 @@ export default function ContactForm({ action }: { action: any }) {
           className="space-y-6"
         >
           <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-400 to-red-600 bg-clip-text text-transparent">
-            Get in Touch
+            {t('contact.title')}
           </h1>
-          <p className="text-gray-300 leading-relaxed">
-            We’d love to hear from you! Whether you have a question, feedback, or just want to say hello — 
-            our team is here to help. Fill out the form and we’ll get back to you as soon as possible.
+          <p className="text-black leading-relaxed">
+            {t('contact.description')}
           </p>
 
-          <div className="space-y-3 mt-6">
-            <p className="text-gray-400">📍 6th October City, Egypt</p>
-            <p className="text-gray-400">📞 +20 123 456 789</p>
-            <p className="text-gray-400">✉️ contact@yourcompany.com</p>
+          <div className="space-y-4 mt-6">
+            {/* Email */}
+            <div className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-yellow-400" />
+              <a 
+                href="mailto:info@formashop.nl" 
+                className=" hover:text-yellow-400 transition-colors"
+              >
+                info@formashop.nl
+              </a>
+            </div>
+
+            {/* Social Media */}
+            <div className="space-y-3">
+              <p className="text-gray-400 font-medium">{t('contact.followUs')}</p>
+              <div className="flex gap-4">
+                <a 
+                  href="https://www.facebook.com/people/Forma-Shop/61583053477324/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 hover:bg-blue-700 p-3 rounded-lg transition-all"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a 
+                  href="https://www.instagram.com/formashop.nl/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-pink-600 hover:bg-pink-700 p-3 rounded-lg transition-all"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -54,31 +86,33 @@ export default function ContactForm({ action }: { action: any }) {
           transition={{ duration: 0.6 }}
           className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-8 space-y-4"
         >
-          <h2 className="text-2xl font-semibold text-yellow-400 mb-4">Send a Message</h2>
+          <h2 className="text-2xl font-semibold text-yellow-400 mb-4">
+            {t('contact.formTitle')}
+          </h2>
 
           <input
             name="name"
-            placeholder="Full Name"
+            placeholder={t('contact.namePlaceholder')}
             className="w-full bg-transparent border border-gray-500 focus:border-yellow-400 text-white placeholder-gray-400 p-3 rounded-lg outline-none transition-all"
             required
           />
           <input
             name="email"
             type="email"
-            placeholder="Email Address"
+            placeholder={t('contact.emailPlaceholder')}
             className="w-full bg-transparent border border-gray-500 focus:border-yellow-400 text-white placeholder-gray-400 p-3 rounded-lg outline-none transition-all"
             required
           />
           <input
             name="phone"
-            placeholder="Phone Number"
+            placeholder={t('contact.phonePlaceholder')}
             className="w-full bg-transparent border border-gray-500 focus:border-yellow-400 text-white placeholder-gray-400 p-3 rounded-lg outline-none transition-all"
           />
           <textarea
             name="message"
-            placeholder="Your Message"
+            placeholder={t('contact.messagePlaceholder')}
             rows={4}
-            className="w-full bg-transparent border border-gray-500 focus:border-yellow-400 text-white placeholder-gray-400 p-3 rounded-lg outline-none transition-all"
+            className="w-full bg-transparent  text-black border border-gray-500 focus:border-yellow-400  placeholder-gray-400 p-3 rounded-lg outline-none transition-all"
             required
           />
 
@@ -91,7 +125,7 @@ export default function ContactForm({ action }: { action: any }) {
                 : "bg-gradient-to-r from-yellow-500 to-red-600 hover:opacity-90"
             }`}
           >
-            {loading ? "Sending..." : "Send Message"}
+            {loading ? t('contact.sending') : t('contact.sendButton')}
           </button>
 
           {result && (

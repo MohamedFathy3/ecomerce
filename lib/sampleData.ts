@@ -1,19 +1,27 @@
-import { title } from "process";
+"use client";
 
-export const pharmacyCategories = [
-  { name: "Pain Relief", href: "?category=pain-relief" },
-  { name: "Cold & Flu", href: "?category=cold-flu" },
-  { name: "Vitamins & Supplements", href: "?category=vitamins" },
-  { name: "Personal Care", href: "?category=personal-care" },
-  { name: "Baby Care", href: "?category=baby-care" },
-  { name: "Skincare", href: "?category=skincare" },
-  { name: "Hair Care", href: "?category=hair-care" },
-  { name: "Oral Care", href: "?category=oral-care" },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
-export const headerPages = [
-  { title: "Home", path: "/" },
-  { title: "About", path: "/about" },
-  { title: "Contact Us", path: "/contact-us" },
-  { title: "Categories", path: "/#categories-section" },
-];
+export const useNavigationData = () => {
+  const { t } = useLanguage();
+
+  const headerPages = [
+    { title: t('navigation.headerPages.home'), path: "/" },
+    { title: t('navigation.headerPages.about'), path: "/about" },
+    { title: t('navigation.headerPages.contact'), path: "/contact-us" },
+    { title: t('navigation.headerPages.categories'), path: "/#categories-section" },
+  ];
+
+  const pharmacyCategories = [
+    { name: t('navigation.pharmacyCategories.painRelief'), href: "?category=pain-relief" },
+    { name: t('navigation.pharmacyCategories.coldFlu'), href: "?category=cold-flu" },
+    { name: t('navigation.pharmacyCategories.vitamins'), href: "?category=vitamins" },
+    { name: t('navigation.pharmacyCategories.personalCare'), href: "?category=personal-care" },
+    { name: t('navigation.pharmacyCategories.babyCare'), href: "?category=baby-care" },
+    { name: t('navigation.pharmacyCategories.skincare'), href: "?category=skincare" },
+    { name: t('navigation.pharmacyCategories.hairCare'), href: "?category=hair-care" },
+    { name: t('navigation.pharmacyCategories.oralCare'), href: "?category=oral-care" },
+  ];
+
+  return { headerPages, pharmacyCategories };
+};

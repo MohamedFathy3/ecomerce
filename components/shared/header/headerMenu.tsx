@@ -38,7 +38,7 @@ import React, { ReactNode, useEffect, useState, useTransition } from "react";
 import profileImg from "/public/images/uploads/profile.png";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { pharmacyCategories } from "@/lib/sampleData";
+// import { pharmacyCategories } from "@/lib/sampleData";
 import { getAllCategories } from "@/lib/api/apiProducts";
 import { category } from "@/types";
 import { signOut, useSession } from "next-auth/react";

@@ -14,7 +14,6 @@ import {
   getAlternativeProducts
 } from "@/lib/api/apiProducts";
 import { auth } from "@/lib/auth";
-import getLocaleStrings from "@/localization";
 import { homeSEO } from "@/lib/seo";
 
 export const metadata = homeSEO;
@@ -23,7 +22,7 @@ export default async function Home() {
   const session = await auth();
   console.log("token:", session?.accessToken);
   console.log("user data:", session?.user);
-  const locals = await getLocaleStrings();
+  
   // Get Products
   const offersProducts = await getProductsBytitle("offers");
   const uniqueProducts = await getProductsBytitle("features");
@@ -37,64 +36,70 @@ export default async function Home() {
   const Offe = await Offer();
   const latestProducts = await getAlternativeProducts(8);
 
-
   return (
     <>
       <Hero />
       {/* <FeatureCards /> */}
+      
       {/* {offersProducts && offersProducts.length > 0 && (
         <ProductSwiper
-          headLine={locals.offers}
+          headLine="home.products.offers"
           products={offersProducts}
           showAll
         />
       )} */}
+      
       <div id="categories-section">
- <BrandSwiper
-        items={homeCategories}
-        headLine="Browse all"
-        highlight="Categories"
-        subHeadign="Choose from a wide range of medicines, health products, and personal care products – everything you need in one place."
-      />
+        <BrandSwiper
+          items={homeCategories}
+          headLine="home.categories.headline"
+          highlight="home.categories.highlight"
+          subHeadign="home.categories.subheading"
+        />
       </div>
-        {Offe && Offe.length > 0 && (
+      
+      {Offe && Offe.length > 0 && (
         <OfferSection
           offers={Offe}
-          headLine="Exclusive Offers"
+          headLine="home.offers.headline"
           showAll
         />
       )}
 
-     
-        <ProductSwiper
-          products={product}
-          headLine="Unique Products"
-          showAll
-        />  
+      <ProductSwiper
+        products={product}
+        headLine="home.products.unique"
+        showAll
+      />  
+      
       {/* <BrandSwiper
         items={brandCategories}
-        headLine="Browse all"
-        highlight="Brands"
-        subHeadign="Choose from a wide range of medicines, health products, and personal care products – everything you need in one place."
+        headLine="home.brands.headline"
+        highlight="home.brands.highlight"
+        subHeadign="home.brands.subheading"
       /> */}
+      
       {/* {topRatesProducts && topRatesProducts.length > 0 && (
         <ProductSwiper
           products={topRatesProducts}
-          headLine="Top Rated Products"
+          headLine="home.products.topRated"
           showAll
         />
       )} */}
+      
       {/* <Banner /> */}
+      
       {/* <BrandSwiper
         items={brandCategories}
-        headLine="Top"
-        highlight="Rated Brands"
+        headLine="home.brands.headline"
+        highlight="home.brands.topRated"
         subHeadign=""
-      />
-      {topSellingProducts && topSellingProducts.length > 0 && (
+      /> */}
+      
+      {/* {topSellingProducts && topSellingProducts.length > 0 && (
         <ProductSwiper
           products={topSellingProducts}
-          headLine="Top Selling Products"
+          headLine="home.products.topSelling"
           showAll
         />
       )} */}

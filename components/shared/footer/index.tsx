@@ -62,18 +62,30 @@ const Footer = () => {
 
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-6 px-4">
-              <Link href="#" aria-label="LinkedIn">
+              <Link href="#" aria-label="LinkedIn"  target="_blank">
                 <Linkedin />
               </Link>
-              <Link href="#" aria-label="Instagram">
+              <Link href="https://www.instagram.com/formashop.nl/" aria-label="Instagram" target="_blank">
                 <Instagram />
               </Link>
               <Link href="#" aria-label="Twitter">
                 <Twitter />
               </Link>
-              <Link href="#" aria-label="Facebook">
+              <Link href="https://www.facebook.com/people/Forma-Shop/61583053477324/" aria-label="Facebook"  target="_blank">
                 <Facebook />
               </Link>
+               <Link href="https://www.tiktok.com/tag/tecktik" target="_blank">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 256 256"
+          width="24"
+          height="24"
+          fill="currentColor"
+          className=" dark:hover:text-white transition"
+        >
+          <path d="M200.5 81.6a59 59 0 0 1-35.3-11.8v68.6a53.9 53.9 0 1 1-48-53.7v24.5a28 28 0 1 0 20 26.9V24a8 8 0 0 1 8-8h20a8 8 0 0 1 8 8 35 35 0 0 0 35 35 8 8 0 0 1 8 8v14.6a8 8 0 0 1-8 8Z" />
+        </svg>
+      </Link>
             </div>
           </div>
         </div>
