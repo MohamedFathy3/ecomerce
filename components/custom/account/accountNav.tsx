@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 const accountTabs = [
   { name: " profileData", href: "/account/profile" },
   // { name: " addresses", href: "/account/addresses" },
-  // { name: " orders", href: "/account/orders" },
+  { name: " orders", href: "/account/orders" },
   // { name: "المرتجعات", href: "/account/refund" },
   // { name: "طرق الدفع", href: "/account/payment-methods" },
   // { name: "المحفظة", href: "/account/wallet" },

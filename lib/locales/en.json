@@ -259,5 +259,36 @@
       "orderFailed": "Failed to create order. Please try again.",
       "generic": "An error occurred during checkout. Please try again."
     }
+  },
+"register": {
+  "title": "Sign Up", 
+  "description": "Create your account, enter your information below.",
+  "name": "Name",
+  "email": "Email Address",
+  "phone": "Phone",
+  "password": "Password",
+  "register": "Register",
+  "haveAccount": "Already have an account?",
+  "signIn": "Sign In"
+},
+"orders": {
+  "title": "My Orders",
+  "subtitle": "View your order history and track your purchases",
+  "empty": "You haven't placed any orders yet",
+  "startShopping": "Start Shopping",
+  "order": "Order",
+  "items": "items",
+  "customerInfo": "Customer Information",
+  "shippingAddress": "Shipping Address",
+  "orderItems": "Order Items",
+  "viewDetails": "View Details",
+  "status": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "confirmed": "Confirmed",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
   }
+}
+
 }

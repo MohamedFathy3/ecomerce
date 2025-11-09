@@ -66,7 +66,7 @@ const RegisterUser = () => {
       <CardHeader className="space-y-4">
         <Link href="/" className="flex-center">
           <Image
-            src="/images/logos/Logo.svg"
+            src="/images/logos/logo.svg"
             width={100}
             height={100}
             alt={`${APP_NAME} logo`}

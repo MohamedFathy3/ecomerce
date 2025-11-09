@@ -263,5 +263,36 @@
       "orderFailed": "Bestelling aanmaken mislukt. Probeer het opnieuw.",
       "generic": "Er is een fout opgetreden tijdens het afrekenen. Probeer het opnieuw."
     }
+  },
+   "register": {
+  "title": "Account Aanmaken",
+  "description": "Maak uw account aan, voer uw gegevens hieronder in.",
+  "name": "Naam",
+  "email": "E-mailadres", 
+  "phone": "Telefoon",
+  "password": "Wachtwoord",
+  "register": "Registreren",
+  "haveAccount": "Heeft u al een account?",
+  "signIn": "Inloggen"
+}
+,
+"orders": {
+  "title": "Mijn Bestellingen",
+  "subtitle": "Bekijk uw bestelgeschiedenis en volg uw aankopen",
+  "empty": "U heeft nog geen bestellingen geplaatst",
+  "startShopping": "Start met Winkelen",
+  "order": "Bestelling",
+  "items": "artikelen",
+  "customerInfo": "Klantinformatie",
+  "shippingAddress": "Verzendadres",
+  "orderItems": "Bestelde Artikelen",
+  "viewDetails": "Details Bekijken",
+  "status": {
+    "pending": "In behandeling",
+    "processing": "Wordt verwerkt",
+    "confirmed": "Bevestigd",
+    "delivered": "Geleverd",
+    "cancelled": "Geannuleerd"
   }
+}
 }

@@ -265,5 +265,35 @@
       "orderFailed": "Bestellung konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
       "generic": "Beim Checkout ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
     }
+  },
+"register": {
+  "title": "Registrieren",
+  "description": "Erstellen Sie Ihr Konto, geben Sie Ihre Informationen unten ein.",
+  "name": "Name",
+  "email": "E-Mail-Adresse",
+  "phone": "Telefon", 
+  "password": "Passwort",
+  "register": "Registrieren",
+  "haveAccount": "Haben Sie bereits ein Konto?",
+  "signIn": "Anmelden"
+},
+"orders": {
+  "title": "Meine Bestellungen",
+  "subtitle": "Sehen Sie sich Ihre Bestellhistorie an und verfolgen Sie Ihre Einkäufe",
+  "empty": "Sie haben noch keine Bestellungen aufgegeben",
+  "startShopping": "Einkaufen Starten",
+  "order": "Bestellung",
+  "items": "Artikel",
+  "customerInfo": "Kundeninformationen",
+  "shippingAddress": "Lieferadresse",
+  "orderItems": "Bestellte Artikel",
+  "viewDetails": "Details Anzeigen",
+  "status": {
+    "pending": "Ausstehend",
+    "processing": "In Bearbeitung",
+    "confirmed": "Bestätigt",
+    "delivered": "Geliefert",
+    "cancelled": "Storniert"
   }
+}
 }

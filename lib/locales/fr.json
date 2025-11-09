@@ -262,6 +262,36 @@
       "orderFailed": "Échec de la création de la commande. Veuillez réessayer.",
       "generic": "Une erreur est survenue lors du paiement. Veuillez réessayer."
     }
+  },
+  "register": {
+  "title": "S'inscrire",
+  "description": "Créez votre compte, entrez vos informations ci-dessous.",
+  "name": "Nom",
+  "email": "Adresse e-mail",
+  "phone": "Téléphone",
+  "password": "Mot de passe",
+  "register": "S'inscrire",
+  "haveAccount": "Vous avez déjà un compte?",
+  "signIn": "Se connecter"
+},
+"orders": {
+  "title": "Mes Commandes",
+  "subtitle": "Consultez votre historique de commandes et suivez vos achats",
+  "empty": "Vous n'avez pas encore passé de commande",
+  "startShopping": "Commencer les Achats",
+  "order": "Commande",
+  "items": "articles",
+  "customerInfo": "Informations Client",
+  "shippingAddress": "Adresse de Livraison",
+  "orderItems": "Articles Commandés",
+  "viewDetails": "Voir les Détails",
+  "status": {
+    "pending": "En attente",
+    "processing": "En traitement",
+    "confirmed": "Confirmée",
+    "delivered": "Livrée",
+    "cancelled": "Annulée"
   }
+}
 
 }
