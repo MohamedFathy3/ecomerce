@@ -38,13 +38,16 @@ import React, { ReactNode, useEffect, useState, useTransition } from "react";
 import profileImg from "/public/images/uploads/profile.png";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-// import { pharmacyCategories } from "@/lib/sampleData";
 import { getAllCategories } from "@/lib/api/apiProducts";
 import { category } from "@/types";
 import { signOut, useSession } from "next-auth/react";
 import { signOutUser } from "@/lib/api/apiUser";
 import { revalidate } from "@/lib/api/actions";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+// تعريف نوع اللغات المتاحة
+type AvailableLanguage = "nl" | "en" | "de" | "fr";
 
 const headerPages = [
   { title: "Home", path: "/", icon: <Home /> },
@@ -54,18 +57,9 @@ const headerPages = [
 
 const accountPages = [
   { title: "Personal Info", path: "/account/profile", icon: <UserCircle /> },
-  { title: "Addresses", path: "/account/addresses", icon: <MapPin /> },
-  { title: "Returns", path: "/account/refund", icon: <RotateCcw /> },
-  {
-    title: "Payment Methods",
-    path: "/account/payment-methods",
-    icon: <CreditCard />,
-  },
-  { title: "Wallet", path: "/account/wallet", icon: <Wallet /> },
-  { title: "Compare Products", path: "/account/compare", icon: <PanelLeft /> },
   { title: "Favorites", path: "/favorites", icon: <Heart /> },
-  // { title: "Settings", path: "/settings", icon: <Settings /> },
 ];
+
 const HeaderMenu = ({ session }: { session: any }) => {
   const { theme, setTheme } = useTheme();
   const [pending, startTransition] = useTransition();
@@ -76,6 +70,8 @@ const HeaderMenu = ({ session }: { session: any }) => {
   );
   const [initials, setInitials] = useState<string>("");
   const pathName = usePathname();
+  const { language, setLanguage } = useLanguage();
+  const router = useRouter();
 
   async function handleGetCategories() {
     const categories = await getAllCategories();
@@ -110,10 +106,76 @@ const HeaderMenu = ({ session }: { session: any }) => {
   function toggleTheme() {
     setTheme(theme === "light" ? "dark" : "light");
   }
+
+  // LanguageDropdownMenu component داخل الـ HeaderMenu
+  function LanguageDropdownMenu() {
+    const availableLanguages: AvailableLanguage[] = ["nl", "en", "de", "fr"];
+
+    const handleChangeLanguage = async (newLang: AvailableLanguage) => {
+      setLanguage(newLang);
+      localStorage.setItem('Lan', newLang);
+      
+      try {
+        const response = await fetch('/api/language', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ language: newLang }),
+        });
+        
+        if (response.ok) {
+          setTimeout(() => {
+            router.refresh();
+          }, 100);
+        }
+      } catch (error) {
+        console.log('Error setting language cookie:', error);
+        setTimeout(() => {
+          router.refresh();
+        }, 100);
+      }
+    };
+
+    return (
+      <div className="w-full">
+        <Accordion type="single" collapsible>
+          <AccordionItem value="language">
+            <AccordionTrigger className="py-3 px-6 text-lg hover:no-underline">
+              <div className="flex items-center gap-4">
+                <div className="text-primary">
+                  <Globe />
+                </div>
+                <span>Language ({language.toUpperCase()})</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex flex-col pl-10">
+                {availableLanguages.map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => handleChangeLanguage(lang)}
+                    className={`py-2 text-left ${
+                      language === lang 
+                        ? 'text-primary font-medium' 
+                        : 'text-gray-600 dark:text-gray-400'
+                    }`}
+                  >
+                    {lang.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
+    );
+  }
+
   return (
     <nav className="lg:hidden">
       <Sheet>
-        <SheetTrigger className="align-middle  p-1 rounded-md text-[#e30a02] ">
+        <SheetTrigger className="align-middle p-1 rounded-md text-[#e30a02]">
           <MenuIcon />
         </SheetTrigger>
         <SheetContent className="flex flex-col items-start p-4 overflow-auto">
@@ -201,13 +263,9 @@ const HeaderMenu = ({ session }: { session: any }) => {
 
             {/* Menu Actions */}
             <Menu>
-             {isAuth ? (
-               <MenuItem
-                 title={"en"}
-                 icon={<Globe />}
-                 handleClick={() => console.log("change lang")}
-               />
-             ) : null}
+              {isAuth ? (
+                <LanguageDropdownMenu />
+              ) : null}
               
               <MenuItem
                 title={theme === "light" ? "Light Mode" : "Dark Mode"}
@@ -252,11 +310,10 @@ function MenuItem({
   handleClick?: () => void;
 }) {
   return (
-    <li className=" cursor-pointer py-3 px-6 active:bg-stone-200 active:text-gray-500 dark:active:text-slate-500 dark:active:bg-slate-700 rounded-full">
+    <li className="cursor-pointer py-3 px-6 active:bg-stone-200 active:text-gray-500 dark:active:text-slate-500 dark:active:bg-slate-700 rounded-full">
       {href ? (
         <Link href={href} className="flex items-center gap-4">
           <div className="text-primary">{icon}</div>
-
           <p className="text-lg">{title}</p>
         </Link>
       ) : (
@@ -267,7 +324,6 @@ function MenuItem({
           className="flex items-center gap-4"
         >
           <div className={color || "text-primary"}>{icon}</div>
-
           <p className="text-lg">{title}</p>
         </span>
       )}

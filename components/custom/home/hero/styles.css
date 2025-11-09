@@ -1,25 +1,42 @@
+/* styles.css */
 .heroCarousel {
   position: relative;
-  height: 40vh;
+  height: 50vh; /* زيادة الارتفاع الأساسي */
   width: 100%;
   color: transparent;
-  z-index: 1; /* تأكد إن الـ z-index منخفض */
+  z-index: 1;
+  margin: 0;
+  padding: 0;
 }
 
 .heroCarousel .swiper-slide {
   height: 100%;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 .heroCarousel .image-container {
   position: relative;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* إصلاح الـ video container */
+.heroCarousel .swiper-slide video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
 }
 
 /* Pagination Styles */
 .heroCarousel .swiper-pagination {
-  bottom: 2rem;
+  bottom: 1.5rem;
   inset-inline-start: 25%;
   z-index: 2;
 }
@@ -41,23 +58,57 @@
   opacity: 1;
 }
 
-/* Responsive Design */
-@media (min-width: 768px) {
-  .heroCarousel {
-    height: 60vh;
-  }
+/* Reset Swiper default styles */
+.heroCarousel .swiper-wrapper {
+  margin: 0;
+  padding: 0;
 }
 
-@media (min-width: 1024px) {
+.heroCarousel .swiper-container {
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive Design - الهواتف */
+@media (max-width: 768px) {
   .heroCarousel {
-    height: 50vh;
+    height: 55vh; /* ارتفاع جيد في الهواتف */
+    margin-bottom: 0;
   }
   
+  .heroCarousel .swiper-pagination {
+    bottom: 0.8rem;
+  }
 }
 
-
-@media (min-width: 2024px) {
+/* الشاشات المتوسطة - التابلت */
+@media (min-width: 769px) and (max-width: 1024px) {
   .heroCarousel {
-    height: 50vh;
+    height: 65vh; /* أكبر في التابلت */
   }
+}
+
+/* الشاشات الكبيرة - اللاب توب */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .heroCarousel {
+    height: 70vh; /* أكبر في اللاب توب */
+  }
+}
+
+/* الشاشات الكبيرة جداً */
+@media (min-width: 1441px) {
+  .heroCarousel {
+    height: 75vh; /* أكبر في الشاشات الكبيرة */
+    max-height: 800px; /* حد أقصى للحفاظ على التناسب */
+  }
+  
+  .heroCarousel .swiper-pagination {
+    bottom: 2rem;
+  }
+}
+
+/* تأكد من أن الفيديوهات تعمل بشكل صحيح في جميع الشاشات */
+.heroCarousel video {
+  object-fit: cover;
+  object-position: center;
 }

@@ -55,14 +55,12 @@ const HeaderButtons = ({
       });
       
       if (response.ok) {
-        // إعادة تحميل الصفحة بعد ما ال cookie اتحط
         setTimeout(() => {
           router.refresh();
         }, 100);
       }
     } catch (error) {
       console.log('Error setting language cookie:', error);
-      // لو ال API فشل، عمل refresh عادي
       setTimeout(() => {
         router.refresh();
       }, 100);

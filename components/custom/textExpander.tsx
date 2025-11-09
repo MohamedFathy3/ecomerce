@@ -12,7 +12,7 @@ const TextExpander = ({ content }: { content: string }) => {
     >
       {displayedText}
       <span className="text-primary text-sm mt-2">
-        {showMore ? "عرض أقل" : "عرض المزيد"}
+        {showMore ? " show Less" : "show More "}
       </span>
     </p>
   );

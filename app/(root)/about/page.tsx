@@ -51,13 +51,7 @@ const About = () => {
           </p>
         </div>
         <div className="flex justify-center">
-          <Image
-            src="/images/vectors/about.svg"
-            alt="E-commerce illustration"
-            width={320}
-            height={320}
-            className="rounded-xl object-contain"
-          />
+       
         </div>
       </section>
     </div>

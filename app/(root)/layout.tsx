@@ -27,20 +27,18 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReactQueryProvider>
-          <div className="flex min-h-screen flex-col relative">
-            {/* LanguageProvider لازم يكون في أعلى level */}
-            <LanguageProvider>
-              <CompareProvider>
-                <HydrationBoundary state={dehydrate(queryClient)}>
-                  <Header />
-                  <main className="flex-1 ">{children}</main>
-                </HydrationBoundary>
+        {/* LanguageProvider لازم يكون في أعلى مستوى */}
+        <LanguageProvider>
+          <ReactQueryProvider>
+            <CompareProvider>
+              <HydrationBoundary state={dehydrate(queryClient)}>
+                <Header />
+                <main className="flex-1 ">{children}</main>
                 <Footer />
-              </CompareProvider>
-            </LanguageProvider>
-          </div>
-        </ReactQueryProvider>
+              </HydrationBoundary>
+            </CompareProvider>
+          </ReactQueryProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

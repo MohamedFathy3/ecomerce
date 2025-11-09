@@ -25,15 +25,15 @@ const Footer = () => {
               <ServerTranslate textKey="footer.account" />
             </h4>
             <div className="space-y-3">
-              <Link href="/login" className="">
+              <Link href="/signin" className="">
                 <ServerTranslate textKey="footer.loginRegister" />
               </Link>
               <Link href="/cart" className="">
                 <ServerTranslate textKey="footer.cart" />
               </Link>
-              <Link href="/wishlist" className="">
+              {/* <Link href="/wishlist" className="">
                 <ServerTranslate textKey="footer.wishlist" />
-              </Link>
+              </Link> */}
               <Link href="/products" className="">
                 <ServerTranslate textKey="footer.shop" />
               </Link>
@@ -48,13 +48,9 @@ const Footer = () => {
               <Link href="/privacy-terms" className="">
                 <ServerTranslate textKey="footer.privacyPolicy" />
               </Link>
-              <Link href="/terms" className="">
-                <ServerTranslate textKey="footer.termsOfUse" />
-              </Link>
-              <Link href="/faq" className="">
-                <ServerTranslate textKey="footer.faq" />
-              </Link>
-              <Link href="/contact" className="">
+            
+          
+              <Link href="/contact-us" className="">
                 <ServerTranslate textKey="footer.contact" />
               </Link>
             </div>

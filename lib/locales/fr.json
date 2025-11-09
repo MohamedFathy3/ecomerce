@@ -225,6 +225,7 @@
     "street": "Rue",
     "houseNumber": "Numéro de Maison",
     "city": "Ville",
+    "appartement":"appartement",
     "postalCode": "Code Postal",
     "country": "Pays",
     "paymentMethod": "Méthode de Paiement",
@@ -292,6 +293,41 @@
     "delivered": "Livrée",
     "cancelled": "Annulée"
   }
-}
+},
+  "product": {
+    "price": {
+      "save": "ÉCONOMISEZ {{discount}}%",
+      "inclusiveTaxes": "Toutes taxes comprises"
+    },
+    "features": {
+      "premiumQuality": "Qualité Premium",
+      "certified": "Certifié",
+      "fastDelivery": "Livraison Rapide"
+    },
+    "sections": {
+      "description": "Description du Produit",
+      "noDescription": "Aucune description détaillée disponible pour ce produit.",
+      "technicalSpecs": "Spécifications Techniques",
+      "appearanceDetails": "Apparence & Détails"
+    },
+    "specifications": {
+      "type": "Type",
+      "siliconeType": "Type de Silicone",
+      "hardness": "Dureté",
+      "bio": "Bio",
+      "timeInEar": "Temps dans l'Oreille",
+      "endCuring": "Fin de Durcissement",
+      "viscosity": "Viscosité",
+      "color": "Couleur",
+      "packaging": "Emballage",
+      "itemNumber": "Numéro d'Article",
+      "mixGun": "Pistolet de Mélange",
+      "mixCanules": "Canules de Mélange",
+      "category": "Catégorie",
+      "status": "Statut",
+      "availableQuantity": "Quantité Disponible",
+      "quantityUnits": "{{quantity}} unités"
+    }
+  }
 
 }

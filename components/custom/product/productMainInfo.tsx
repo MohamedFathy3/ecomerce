@@ -132,7 +132,7 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
                   </Badge>
                 </div>
               )}
-              <span className="text-3xl sm:text-4xl font-bold text-[#e30a02]">
+              <span className="text-2xl sm:text-3xl font-bold text-[#e30a02]">
                 {product.price} {product.currency}
               </span>
             </div>
@@ -141,7 +141,26 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
         </Card>
 
         {/* Key Benefits */}
-        <div className="grid grid-cols-2 gap-4">
+      
+
+        {/* Short Description */}
+        {/* {product.short_description && (
+          <Card className="bg-[#d39435]/10 border-[#d39435]/20">
+            <CardContent className="p-4">
+              <p className="text-[#e30a02] text-sm leading-relaxed">
+                {product.short_description}
+              </p>
+            </CardContent>
+          </Card>
+        )} */}
+
+        {/* Add to Cart & Actions */}
+        <div className="space-y-4">
+          <ProductAddCart product={product} />
+          
+         
+        </div>
+          <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center gap-3 p-3 bg-[#d39435]/10 rounded-lg border border-[#d39435]/20">
             <ShieldCheck className="w-5 h-5 text-[#e30a02]" />
             <span className="text-sm font-medium text-[#e30a02]">Premium Quality</span>
@@ -154,25 +173,7 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
             <Clock4 className="w-5 h-5 text-[#e30a02]" />
             <span className="text-sm font-medium text-[#e30a02]">Fast Delivery</span>
           </div>
-          
-        </div>
-
-        {/* Short Description */}
-        {product.short_description && (
-          <Card className="bg-[#d39435]/10 border-[#d39435]/20">
-            <CardContent className="p-4">
-              <p className="text-[#e30a02] text-sm leading-relaxed">
-                {product.short_description}
-              </p>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Add to Cart & Actions */}
-        <div className="space-y-4">
-          <ProductAddCart product={product} />
-          
-          <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+           <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
             {/* <ButtonFavorite inFavorites={inFavorites} productId={product.id} /> */}
             <ButtonShare />
           </div>
@@ -206,8 +207,7 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
         </Card>
 
         {/* Technical Specifications */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Technical Specs */}
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="bg-[#d39435]/5 border-[#d39435]/20">
             <CardContent className="p-0">
               <div className="bg-gradient-to-r from-[#d39435]/10 to-[#d39435]/5 p-6 border-b border-[#d39435]/20">
@@ -234,7 +234,6 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
             </CardContent>
           </Card>
 
-          {/* Appearance & Additional Info */}
           <Card className="bg-[#d39435]/5 border-[#d39435]/20">
             <CardContent className="p-0">
               <div className="bg-gradient-to-r from-[#d39435]/10 to-[#d39435]/5 p-6 border-b border-[#d39435]/20">
@@ -257,7 +256,6 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
                     </div>
                   ))}
                   
-                  {/* Status */}
                   <div className="flex items-center justify-between py-3 border-b border-[#d39435]/10">
                     <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
                       <PackageCheck className="w-4 h-4" />
@@ -270,7 +268,6 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
                     </span>
                   </div>
 
-                  {/* Quantity */}
                   <div className="flex items-center justify-between py-3">
                     <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
                       <Box className="w-4 h-4" />
@@ -286,7 +283,7 @@ const ProductMainInfo = async ({ product }: { product: Product }) => {
               </ScrollArea>
             </CardContent>
           </Card>
-        </div>
+      </div> */}
       </div>
     </section>
   );

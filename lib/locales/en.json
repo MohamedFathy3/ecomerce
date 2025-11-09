@@ -222,6 +222,7 @@
     "street": "Street",
     "houseNumber": "House Number",
     "city": "City",
+    "apartment":"apartment",
     "postalCode": "Postal Code",
     "country": "Country",
     "paymentMethod": "Payment Method",
@@ -289,6 +290,41 @@
     "delivered": "Delivered",
     "cancelled": "Cancelled"
   }
-}
+},
+  "product": {
+    "price": {
+      "save": "SAVE {{discount}}%",
+      "inclusiveTaxes": "Inclusive of all taxes"
+    },
+    "features": {
+      "premiumQuality": "Premium Quality",
+      "certified": "Certified",
+      "fastDelivery": "Fast Delivery"
+    },
+    "sections": {
+      "description": "Product Description",
+      "noDescription": "No detailed description available for this product.",
+      "technicalSpecs": "Technical Specifications",
+      "appearanceDetails": "Appearance & Details"
+    },
+    "specifications": {
+      "type": "Type",
+      "siliconeType": "Silicone Type",
+      "hardness": "Hardness",
+      "bio": "Bio",
+      "timeInEar": "Time in Ear",
+      "endCuring": "End Curing",
+      "viscosity": "Viscosity",
+      "color": "Color",
+      "packaging": "Packaging",
+      "itemNumber": "Item Number",
+      "mixGun": "Mix Gun",
+      "mixCanules": "Mix Canules",
+      "category": "Category",
+      "status": "Status",
+      "availableQuantity": "Available Quantity",
+      "quantityUnits": "{{quantity}} units"
+    }
+  }
 
 }

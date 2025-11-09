@@ -227,6 +227,7 @@
     "houseNumber": "Huisnummer",
     "city": "Stad",
     "postalCode": "Postcode",
+    "appartement":"appartement",
     "country": "Land",
     "paymentMethod": "Betalingsmethode",
     "promoCode": "Promotiecode",
@@ -294,5 +295,40 @@
     "delivered": "Geleverd",
     "cancelled": "Geannuleerd"
   }
-}
+},
+ "product": {
+    "price": {
+      "save": "BESPAAR {{discount}}%",
+      "inclusiveTaxes": "Inclusief alle belastingen"
+    },
+    "features": {
+      "premiumQuality": "Premium Kwaliteit",
+      "certified": "Gecertificeerd",
+      "fastDelivery": "Snelle Levering"
+    },
+    "sections": {
+      "description": "Productbeschrijving",
+      "noDescription": "Geen gedetailleerde beschrijving beschikbaar voor dit product.",
+      "technicalSpecs": "Technische Specificaties",
+      "appearanceDetails": "Uiterlijk & Details"
+    },
+    "specifications": {
+      "type": "Type",
+      "siliconeType": "Silicone Type",
+      "hardness": "Hardheid",
+      "bio": "Bio",
+      "timeInEar": "Tijd in Oor",
+      "endCuring": "Eind Uitharding",
+      "viscosity": "Viscositeit",
+      "color": "Kleur",
+      "packaging": "Verpakking",
+      "itemNumber": "Artikelnummer",
+      "mixGun": "Mengpistool",
+      "mixCanules": "Mengcanules",
+      "category": "Categorie",
+      "status": "Status",
+      "availableQuantity": "Beschikbare Hoeveelheid",
+      "quantityUnits": "{{quantity}} eenheden"
+    }
+  }
 }

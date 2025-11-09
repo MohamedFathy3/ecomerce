@@ -5,6 +5,7 @@ import { ProductItem } from "@/types";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ProductCardAddCart from "./productCardAddCart"; // استيراد المكون الجديد
 
 interface ProductCardProps {
   productItem: ProductItem;
@@ -48,8 +49,6 @@ const ProductCard = ({ productItem }: ProductCardProps) => {
       {/* قسم الصورة */}
       <Link href={`/product/${productItem.id}`} className="block relative aspect-[4/3] bg-gray-50 overflow-hidden">
         
-      
-
         {/* حالة الخطأ - صورة بديلة */}
         {imageError || availableImages.length === 0 ? (
           <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-gray-400">
@@ -65,7 +64,9 @@ const ProductCard = ({ productItem }: ProductCardProps) => {
               src={availableImages[currentImageIndex]}
               alt={productItem.name}
               fill
-              className={`object-cover transition-opacity duration-300 `}
+              className={`object-cover transition-opacity duration-300 ${
+                imageLoading ? 'opacity-0' : 'opacity-100'
+              }`}
               onLoad={handleImageLoad}
               onError={handleImageError}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
@@ -97,7 +98,7 @@ const ProductCard = ({ productItem }: ProductCardProps) => {
                 onClick={(e) => handleDotClick(index, e)}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 border border-white ${
                   index === currentImageIndex 
-                    ? 'bg-red-500 scale-110'  // اللون الأحمر للنقطة النشطة
+                    ? 'bg-red-500 scale-110'
                     : 'bg-white/70 hover:bg-white'
                 }`}
                 aria-label={`View image ${index + 1}`}
@@ -134,14 +135,19 @@ const ProductCard = ({ productItem }: ProductCardProps) => {
           </p>
         )}
 
-        <div className="mt-auto">
-          <span className={`text-sm font-semibold px-2 py-1 rounded ${
+        {/* قسم المخزون وإضافة إلى السلة */}
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3 border-t border-gray-100">
+          {/* حالة المخزون */}
+          <span className={`text-xs font-semibold px-2 py-1 rounded ${
             productItem.quantity > 0 
               ? 'bg-green-100 text-green-700' 
               : 'bg-red-100 text-red-700'
           }`}>
             {productItem.quantity > 0 ? 'In Stock' : 'Out of Stock'}
           </span>
+
+          {/* زر إضافة إلى السلة */}
+          <ProductCardAddCart productItem={productItem} />
         </div>
       </div>
     </div>

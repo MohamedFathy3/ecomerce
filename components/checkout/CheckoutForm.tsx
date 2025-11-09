@@ -55,6 +55,7 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
     address_line: "",
     house_number: "",
     city: "",
+    apartment:"",
     zip_code: "",
     country: "Netherlands",
     payment_method: "card",
@@ -222,21 +223,7 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* City */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      {t('checkout.city')} *
-                    </label>
-                    <input
-                      type="text"
-                      name="city"
-                      required
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                      placeholder={t('checkout.placeholders.city')}
-                    />
-                  </div>
+                
 
                   {/* Postal Code */}
                   <div>
@@ -251,6 +238,38 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
                       placeholder={t('checkout.placeholders.postalCode')}
+                    />
+                  </div>
+
+
+                    {/* City */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      {t('checkout.city')} *
+                    </label>
+                    <input
+                      type="text"
+                      name="city"
+                      required
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                      placeholder={t('checkout.placeholders.city')}
+                    />
+                  </div>
+                    {/* City */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      {t('checkout.apartment')} *
+                    </label>
+                    <input
+                      type="text"
+                      name="apartment"
+                      required
+                      value={formData.apartment}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                      placeholder="apartment"
                     />
                   </div>
                 </div>

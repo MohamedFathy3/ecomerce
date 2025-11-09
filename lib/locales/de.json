@@ -226,6 +226,7 @@
     "email": "E-Mail-Adresse",
     "phone": "Telefonnummer",
     "street": "Straße",
+    "appartement":"Wohnung",
     "houseNumber": "Hausnummer",
     "city": "Stadt",
     "postalCode": "Postleitzahl",
@@ -295,5 +296,40 @@
     "delivered": "Geliefert",
     "cancelled": "Storniert"
   }
-}
+},
+  "product": {
+    "price": {
+      "save": "SPARE {{discount}}%",
+      "inclusiveTaxes": "Inklusive aller Steuern"
+    },
+    "features": {
+      "premiumQuality": "Premium Qualität",
+      "certified": "Zertifiziert",
+      "fastDelivery": "Schnelle Lieferung"
+    },
+    "sections": {
+      "description": "Produktbeschreibung",
+      "noDescription": "Keine detaillierte Beschreibung für dieses Produkt verfügbar.",
+      "technicalSpecs": "Technische Spezifikationen",
+      "appearanceDetails": "Aussehen & Details"
+    },
+    "specifications": {
+      "type": "Typ",
+      "siliconeType": "Silicontyp",
+      "hardness": "Härte",
+      "bio": "Bio",
+      "timeInEar": "Zeit im Ohr",
+      "endCuring": "Endhärtung",
+      "viscosity": "Viskosität",
+      "color": "Farbe",
+      "packaging": "Verpackung",
+      "itemNumber": "Artikelnummer",
+      "mixGun": "Mischpistole",
+      "mixCanules": "Mischkanülen",
+      "category": "Kategorie",
+      "status": "Status",
+      "availableQuantity": "Verfügbare Menge",
+      "quantityUnits": "{{quantity}} Einheiten"
+    }
+  }
 }

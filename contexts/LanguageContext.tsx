@@ -1,3 +1,4 @@
+// contexts/LanguageContext.tsx
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
@@ -39,7 +40,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       value = value?.[k];
       if (value === undefined) {
         console.warn(`Translation key "${key}" not found for language "${language}"`);
-        return key; // ارجع الكي نفسه لو ملقاهوش
+        return key;
       }
     }
     
@@ -50,17 +51,41 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const setLanguage = (lang: Locale) => {
     setLanguageState(lang);
     localStorage.setItem('Lan', lang);
+    document.cookie = `Lan=${lang}; path=/; max-age=31536000`; // إضافة للكوكيز أيضاً
     document.documentElement.lang = lang;
     document.documentElement.dir = 'ltr';
+    
+    // إطلاق event علشان ننبه كل المكونات بالتغيير
+    window.dispatchEvent(new Event('languageChanged'));
   };
 
   // تحميل اللغه من localStorage عند البدء
   useEffect(() => {
-    const savedLang = localStorage.getItem('Lan') as Locale;
-    if (savedLang && ['en', 'nl', 'de', 'fr'].includes(savedLang)) {
-      setLanguageState(savedLang);
-      document.documentElement.lang = savedLang;
-    }
+    const getInitialLanguage = (): Locale => {
+      if (typeof window === 'undefined') return 'nl';
+      
+      // جرب من localStorage أولاً
+      const savedLanguage = localStorage.getItem('Lan') as Locale;
+      if (savedLanguage && translations[savedLanguage]) {
+        return savedLanguage;
+      }
+      
+      // جرب من cookies
+      const cookies = document.cookie.split(';');
+      const langCookie = cookies.find(cookie => cookie.trim().startsWith('Lan='));
+      if (langCookie) {
+        const langValue = langCookie.split('=')[1] as Locale;
+        if (translations[langValue]) {
+          return langValue;
+        }
+      }
+      
+      return 'nl';
+    };
+
+    const initialLang = getInitialLanguage();
+    setLanguageState(initialLang);
+    document.documentElement.lang = initialLang;
   }, []);
 
   return (
