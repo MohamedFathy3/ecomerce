@@ -6,7 +6,9 @@ import {
   ImageOff, 
   Video, 
   Ruler,
-  X
+  X,
+  Volume2,
+  VolumeX
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
@@ -34,13 +36,50 @@ const ProductImages = ({ images, videoUrl, productName }: ProductImagesProps) =>
   const [current, setCurrent] = useState(0);
   const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // ✅ علشان الـ autoplay
+  const [hasInteracted, setHasInteracted] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // ✅ إصلاح: تحقق من وجود videoUrl صالح
+  const isValidVideoUrl = videoUrl && 
+    (videoUrl.startsWith('http') || videoUrl.startsWith('https')) &&
+    (videoUrl.includes('youtube') || videoUrl.includes('youtu.be') || videoUrl.includes('vimeo') || videoUrl.endsWith('.mp4'));
 
   // دمج الصور والفيديو في مصفوفة واحدة للعرض
   const mediaItems: MediaItem[] = [
-    ...(videoUrl ? [{ type: 'video', url: videoUrl, thumbnail: images[0] || '' } as VideoMedia] : []),
-    ...images.map(img => ({ type: 'image', url: img } as ImageMedia))
+    ...(isValidVideoUrl ? [{ 
+      type: 'video', 
+      url: videoUrl, 
+      thumbnail: images[0] || '/placeholder.jpg' 
+    } as VideoMedia] : []),
+    ...images.map(img => ({ 
+      type: 'image', 
+      url: img 
+    } as ImageMedia))
   ];
+
+  // ✅ تشغيل الفيديو أوتوماتيك لما يتغير الـ current
+  useEffect(() => {
+    const currentMedia = mediaItems[current];
+    if (currentMedia?.type === 'video') {
+      // إعادة تعيين حالة التفاعل
+      setHasInteracted(false);
+      
+      // إذا كان فيديو عادي، شغله أوتوماتيك
+      if (videoRef.current && !currentMedia.url.includes('youtube') && !currentMedia.url.includes('vimeo')) {
+        videoRef.current.play().catch(error => {
+          console.log('Autoplay blocked:', error);
+        });
+      }
+    }
+  }, [current, mediaItems]);
+
+  // ✅ toggle mute/unmute
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+    setHasInteracted(true);
+  };
 
   // الحصول على أبعاد الصورة
   useEffect(() => {
@@ -94,17 +133,55 @@ const ProductImages = ({ images, videoUrl, productName }: ProductImagesProps) =>
           </div>
         )}
 
+        {/* Mute/Unmute Button للفيديو */}
+        {currentMedia.type === 'video' && !currentMedia.url.includes('youtube') && !currentMedia.url.includes('vimeo') && (
+          <div className="absolute top-4 right-4 z-20">
+            <button
+              onClick={toggleMute}
+              className="bg-black/70 text-white p-2 rounded-full hover:bg-black transition-colors"
+            >
+              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            </button>
+          </div>
+        )}
+
         {/* Main Media Display */}
         <div className="w-full h-full">
           {currentMedia.type === 'video' ? (
-            <video 
-              controls 
-              poster={currentMedia.thumbnail}
-              className="w-full h-full object-cover rounded-xl"
-            >
-              <source src={currentMedia.url} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <div className="w-full h-full flex items-center justify-center bg-black rounded-xl">
+              {currentMedia.url.includes('youtube') || currentMedia.url.includes('youtu.be') ? (
+                <iframe
+                  src={`${currentMedia.url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}?autoplay=1&mute=1&playsinline=1`}
+                  className="w-full h-full rounded-xl"
+                  allowFullScreen
+                  title="Product Video"
+                  allow="autoplay; encrypted-media"
+                />
+              ) : currentMedia.url.includes('vimeo') ? (
+                <iframe
+                  src={`${currentMedia.url.replace('vimeo.com/', 'player.vimeo.com/video/')}?autoplay=1&muted=1&playsinline=1`}
+                  className="w-full h-full rounded-xl"
+                  allowFullScreen
+                  title="Product Video"
+                  allow="autoplay; encrypted-media"
+                />
+              ) : (
+                <video 
+                  ref={videoRef}
+                  controls={hasInteracted}
+                  className="w-full h-full object-contain rounded-xl"
+                  poster={currentMedia.thumbnail}
+                  autoPlay
+                  muted={isMuted}
+                  playsInline
+                  loop
+                >
+                  <source src={currentMedia.url} type="video/mp4" />
+                  <source src={currentMedia.url} type="video/webm" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
+            </div>
           ) : (
             <>
               <Image
@@ -126,7 +203,7 @@ const ProductImages = ({ images, videoUrl, productName }: ProductImagesProps) =>
                 }}
               />
               
-              {/* Dimensions Modal Trigger - يظهر عند الـ hover */}
+              {/* Dimensions Modal Trigger */}
               <Dialog>
                 <DialogTrigger asChild>
                   <div className={`absolute inset-0 bg-black/0 transition-all duration-300 cursor-zoom-in flex items-center justify-center ${
@@ -249,7 +326,10 @@ const ProductImages = ({ images, videoUrl, productName }: ProductImagesProps) =>
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                      <Video className="w-3 h-3 text-white" />
+                      <Video className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="absolute bottom-1 right-1 bg-red-500 rounded-full p-1">
+                      <Video className="w-2 h-2 text-white" />
                     </div>
                   </>
                 ) : (
