@@ -24,14 +24,46 @@ const Header = async () => {
   }
   return (
     <>
-      <header className="border-b sticky top-0 start-0 end-0 bg-background z-50" style={{height:"100px"}}>
+      <header className="border-b sticky top-0 start-0 end-0 bg-background z-50">
         <div className="wrapper">
-          <div className="!grid grid-cols-4 grid-row-2 sm:!flex flex-between sm:gap-2" style={{position:"relative", bottom:'24px'}}>
-            <div className="flex items-center gap-2 col-start-2 col-span-3 row-start-1 row-span-1">
+          {/* تصميم للشاشات الصغيرة */}
+          <div className="block sm:hidden">
+            <div className="flex items-center justify-between py-3">
+              {/* القائمة واللوجو */}
+              <div className="flex items-center gap-2">
+                <HeaderMenu session={session} />
+                <HeaderLogo />
+              </div>
               
+              {/* أزرار المستخدم والعربة */}
+              <div className="flex items-center gap-2">
+                <HeaderButtons session={session}>
+                  <HeaderCart session={session} />
+                </HeaderButtons>
+                <UserButton user={user as User} />
+              </div>
+            </div>
+            
+            {/* رسالة الترحيب للمستخدم */}
+            {user && (
+              <div className="text-center text-gray-600 text-sm dark:text-gray-300 pb-2">
+                <span className="font-semibold">Welcome, </span>
+                {user.firstName}
+              </div>
+            )}
+            
+            {/* شريط البحث */}
+            <div className="pb-3">
+              <HeaderSearch categories={categories} />
+            </div>
+          </div>
+
+          {/* تصميم للشاشات المتوسطة والكبيرة */}
+          <div className="hidden sm:!grid sm:grid-cols-4 sm:grid-rows-2 lg:!flex lg:flex-between lg:gap-2 lg:items-center">
+            <div className="flex items-center gap-2 col-start-2 col-span-3 row-start-1 row-span-1">
               <HeaderLogo />
               {user ? (
-                <div className="ms-auto sm:ms-0 sm:hidden text-gray-600 text-sm dark:text-gray-300 ">
+                <div className="ms-auto lg:ms-0 lg:hidden text-gray-600 text-sm dark:text-gray-300">
                   <span className="font-semibold">Welcome,</span>
                   {user.firstName} 
                 </div>
@@ -44,8 +76,8 @@ const Header = async () => {
             <HeaderButtons session={session}>
               <HeaderCart session={session} />
             </HeaderButtons>
-<UserButton user={user as User} />
-            <div className=" col-start-1 col-span-1">
+            <UserButton user={user as User} />
+            <div className="col-start-1 col-span-1">
               <HeaderMenu session={session} />
             </div>
             <MobileNav />

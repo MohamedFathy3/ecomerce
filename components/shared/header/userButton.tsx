@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useGetNotifications } from "@/hooks/useGetNotifications";
 import { Notification, User as UserType } from "@/types";
-import { Bell, Heart, LogOut, User } from "lucide-react";
+import { Bell, Heart, LogOut, User,Package } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import ButtonLogout from "./buttonLogout";
@@ -34,6 +34,11 @@ const UserButton = ({ user }: { user: UserType | null }) => {
       title: t('user.favorites'),
       href: "/favorites",
       icon: <Heart />,
+    },
+      {
+      title: t('user.orders'),
+      href: "/account/orders",
+      icon: <Package />,
     },
   ];
 

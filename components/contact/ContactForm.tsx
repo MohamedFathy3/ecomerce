@@ -24,7 +24,7 @@ export default function ContactForm({ action }: { action: any }) {
   }
 
   return (
-    <section className="min-h-screen  flex items-center justify-center px-4 py-12">
+    <section className="min-h-screen  flex items-center justify-center px-2 py-10">
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
         
         {/* Left Section – Contact Info */}

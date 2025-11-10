@@ -25,7 +25,7 @@ import {
   Settings,
   Sun,
   UserCircle,
-  Wallet,
+  Package,
 } from "lucide-react";
 import {
   Accordion,
@@ -45,19 +45,34 @@ import { signOutUser } from "@/lib/api/apiUser";
 import { revalidate } from "@/lib/api/actions";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
+import HeaderSearch from "./headerSearch";
+import { ServerTranslate } from "@/components/ServerTranslate";
 
-// تعريف نوع اللغات المتاحة
 type AvailableLanguage = "nl" | "en" | "de" | "fr";
 
 const headerPages = [
-  { title: "Home", path: "/", icon: <Home /> },
-  { title: "About", path: "/about", icon: <Info /> },
-  { title: "Contact Us", path: "/contact-us", icon: <Mail /> },
+  { 
+    titleKey: "navigation.headerPages.home", 
+    path: "/", 
+    icon: <Home /> 
+  },
+  { 
+    titleKey: "navigation.headerPages.about", 
+    path: "/about", 
+    icon: <Info /> 
+  },
+  { 
+    titleKey: "navigation.headerPages.contact", 
+    path: "/contact-us", 
+    icon: <Mail /> 
+  },
 ];
 
 const accountPages = [
   { title: "Personal Info", path: "/account/profile", icon: <UserCircle /> },
   { title: "Favorites", path: "/favorites", icon: <Heart /> },
+    { title: "order", path: "/account/orders", icon: <Package /> },
+
 ];
 
 const HeaderMenu = ({ session }: { session: any }) => {
@@ -207,36 +222,36 @@ const HeaderMenu = ({ session }: { session: any }) => {
               </Menu>
             ) : null}
             {/* Menu Main Pages */}
-            <Menu>
-              {headerPages.map((ele) => (
-                <MenuItem
-                  key={`${ele.path}-mobile`}
-                  href={ele.path}
-                  title={ele.title}
-                  icon={ele.icon}
-                />
-              ))}
-            </Menu>
+           <Menu>
+  {headerPages.map((ele) => (
+    <MenuItem
+      key={`${ele.path}-mobile`}
+      href={ele.path}
+      title={<ServerTranslate textKey={ele.titleKey} />}
+      icon={ele.icon}
+    />
+  ))}
+</Menu>
 
             {/* Categories */}
-            <Accordion type="single" collapsible>
-              <AccordionItem value="categories">
-                <AccordionTrigger className="py-3 px-6 text-lg hover:no-underline">
-                  Categories
-                </AccordionTrigger>
-                <AccordionContent>
-                  <Menu>
-                    {categories.map((ele) => (
-                      <MenuItem
-                        key={`${ele.name}-category`}
-                        title={ele.name}
-                        href={`products/${ele.id}`}
-                      />
-                    ))}
-                  </Menu>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+          <Accordion type="single" collapsible>
+  <AccordionItem value="categories">
+    <AccordionTrigger className="py-3 px-6 text-lg hover:no-underline">
+      Categories
+    </AccordionTrigger>
+    <AccordionContent>
+      <Menu>
+        {categories.map((ele) => (
+          <MenuItem
+            key={`${ele.name}-category`}
+            title={ele.name}
+            href={`/products?categoryId=${ele.id}`}
+          />
+        ))}
+      </Menu>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
 
             {/* Account */}
             {isAuth ? (
@@ -263,33 +278,44 @@ const HeaderMenu = ({ session }: { session: any }) => {
 
             {/* Menu Actions */}
             <Menu>
-              {isAuth ? (
-                <LanguageDropdownMenu />
-              ) : null}
               
-              <MenuItem
-                title={theme === "light" ? "Light Mode" : "Dark Mode"}
-                icon={theme === "dark" ? <Sun /> : <Moon />}
-                handleClick={toggleTheme}
-              />
+                <LanguageDropdownMenu />
+              
+              
+         <MenuItem
+  title={
+    <ServerTranslate 
+      textKey={theme === "light" ? "common.lightMode" : "common.darkMode"} 
+    />
+  }
+  icon={theme === "dark" ? <Sun /> : <Moon />}
+  handleClick={toggleTheme}
+/>
             </Menu>
 
             {/* Logout */}
             {isAuth ? (
               <Menu>
-                <MenuItem
-                  title="Logout"
-                  icon={<LogOut />}
-                  color="text-destructive"
-                  handleClick={() => startTransition(handleSignOut)}
-                />
+             <MenuItem
+  title={<ServerTranslate textKey="auth.logout" />}
+  icon={<LogOut />}
+  color="text-destructive"
+  handleClick={() => startTransition(handleSignOut)}
+/>
               </Menu>
             ) : null}
+
+
+            {/* <div className="row-start-2 row-span-1 col-span-full">
+              <HeaderSearch categories={categories} />
+            </div> */}
+
           </div>
         </SheetContent>
       </Sheet>
     </nav>
   );
+
 };
 
 function Menu({ children }: { children: ReactNode }) {
@@ -305,7 +331,7 @@ function MenuItem({
 }: {
   icon?: ReactNode;
   href?: string;
-  title: string;
+  title: ReactNode; // غير من string إلى ReactNode
   color?: string;
   handleClick?: () => void;
 }) {

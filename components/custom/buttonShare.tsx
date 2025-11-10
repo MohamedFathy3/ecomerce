@@ -11,10 +11,8 @@ import {
   Copy,
   Facebook,
   Share2,
-  Twitter,
-  Linkedin,
-  Instagram,
   Music,
+  Instagram,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -31,17 +29,12 @@ const ButtonShare = () => {
       case "facebook":
         url = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
         break;
-      case "twitter":
-        url = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
-        break;
-      case "linkedin":
-        url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
-        break;
       case "instagram":
-        toast("Instagram doesn’t support direct web share — copy the link!");
+        toast("Instagram doesn’t support direct web share — link copied!");
+        navigator.clipboard.writeText(shareUrl);
         return;
       case "tiktok":
-        url = `https://www.tiktok.com/share/video?url=${encodedUrl}`;
+        url = `https://www.tiktok.com/share?url=${encodedUrl}`;
         break;
       default:
         return;
@@ -69,20 +62,21 @@ const ButtonShare = () => {
           >
             <Facebook className="w-4 h-4 mr-2" /> Share on Facebook
           </DropdownMenuItem>
-  
-          <DropdownMenuItem
-            className="text-blue-700"
-            onClick={() => shareTo("linkedin")}
-          >
-            <Linkedin className="w-4 h-4 mr-2" /> Share on LinkedIn
-          </DropdownMenuItem>
+
           <DropdownMenuItem
             className="text-pink-500"
             onClick={() => shareTo("instagram")}
           >
             <Instagram className="w-4 h-4 mr-2" /> Share on Instagram
           </DropdownMenuItem>
-          
+
+          <DropdownMenuItem
+            className="text-pink-600"
+            onClick={() => shareTo("tiktok")}
+          >
+            <Music className="w-4 h-4 mr-2" /> Share on TikTok
+          </DropdownMenuItem>
+
           <DropdownMenuItem
             className="text-muted-foreground"
             onClick={() => {

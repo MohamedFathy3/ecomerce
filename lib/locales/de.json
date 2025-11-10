@@ -1,17 +1,50 @@
 {
-  "common": {
+   "common": {
     "welcome": "Willkommen",
     "save": "Speichern",
     "cancel": "Abbrechen",
     "home": "Startseite",
-    "shop": "Einkaufen",
+    "shop": "Geschäft",
     "categories": "Kategorien",
     "search": "Suchen",
     "cart": "Warenkorb",
     "profile": "Profil",
-        "showAll":"showAll",
-        "details":"details"
+    "showAll": "Alle Anzeigen",
+    "details": "Details",
+    "notAvailable": "N/V",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+        "products": "Produkte",
+          "lightMode": "Hellmodus",
+    "darkMode": "Dunkelmodus"
 
+  },
+  "product": {
+    "save": "SPAREN",
+    "inclusiveTaxes": "Inklusive aller Steuern",
+    "premiumQuality": "Premium Qualität",
+    "certified": "Zertifiziert",
+    "fastDelivery": "Schnelle Lieferung",
+    "description": "Produktbeschreibung",
+    "noDescription": "Keine detaillierte Beschreibung für dieses Produkt verfügbar.",
+    "technicalSpecs": "Technische Spezifikationen",
+    "appearanceDetails": "Aussehen & Details",
+    "status": "Status",
+    "availableQuantity": "Verfügbare Menge",
+    "units": "Einheiten",
+    "type": "Typ",
+    "siliconeType": "Silicone Typ",
+    "hardness": "Härte",
+    "bio": "Bio",
+    "timeInEar": "Zeit im Ohr",
+    "endCuring": "Endhärtung",
+    "viscosity": "Viskosität",
+    "color": "Farbe",
+    "packaging": "Verpackung",
+    "itemNumber": "Artikelnummer",
+    "mixGun": "Mischpistole",
+    "mixCanules": "Mischkanülen",
+    "category": "Kategorie"
   },
   "about": {
     "title": "Über Uns",
@@ -156,8 +189,8 @@
     },
     "categories": {
       "headline": "Alle durchsuchen",
-      "highlight": "Kategorien",
-      "subheading": "Wählen Sie aus einer Vielzahl von Medikamenten, Gesundheitsprodukten und Körperpflegeprodukten – alles, was Sie brauchen, an einem Ort."
+      "highlight": "Alle Kategorien",
+      "subheading": "Wähle aus eleganten, individuell gefertigten Schmuckstücken und Designs, geformt durch deine Berührung – alles, was du brauchst, um deine besonderen Momente zu verewigen, an einem Ort."
     },
     "offers": {
       "headline": "Exklusive Angebote"
@@ -194,10 +227,13 @@
   "navigation": {
     "headerPages": {
       "home": "Startseite",
-      "about": "Über Uns",
+      "about": "Über uns",
       "contact": "Kontakt",
       "categories": "Kategorien"
     },
+
+
+
     "pharmacyCategories": {
       "painRelief": "Schmerzlinderung",
       "coldFlu": "Erkältung & Grippe",
@@ -212,11 +248,14 @@
    "auth": {
     "signin": "Anmelden",
     "signup": "Registrieren", 
-    "signout": "Abmelden"
+    "signout": "Abmelden",
+     "logout": "Abmelden"
   },
   "user": {
     "account": "Konto",
+    "personalInfo": "Persönliche Daten",
     "favorites": "Favoriten",
+    "orders": "Bestellungen",
     "notifications": "Benachrichtigungen"
   },
   "checkout": {
@@ -226,7 +265,7 @@
     "email": "E-Mail-Adresse",
     "phone": "Telefonnummer",
     "street": "Straße",
-    "appartement":"Wohnung",
+    "apartment":"WHG",
     "houseNumber": "Hausnummer",
     "city": "Stadt",
     "postalCode": "Postleitzahl",
@@ -296,40 +335,5 @@
     "delivered": "Geliefert",
     "cancelled": "Storniert"
   }
-},
-  "product": {
-    "price": {
-      "save": "SPARE {{discount}}%",
-      "inclusiveTaxes": "Inklusive aller Steuern"
-    },
-    "features": {
-      "premiumQuality": "Premium Qualität",
-      "certified": "Zertifiziert",
-      "fastDelivery": "Schnelle Lieferung"
-    },
-    "sections": {
-      "description": "Produktbeschreibung",
-      "noDescription": "Keine detaillierte Beschreibung für dieses Produkt verfügbar.",
-      "technicalSpecs": "Technische Spezifikationen",
-      "appearanceDetails": "Aussehen & Details"
-    },
-    "specifications": {
-      "type": "Typ",
-      "siliconeType": "Silicontyp",
-      "hardness": "Härte",
-      "bio": "Bio",
-      "timeInEar": "Zeit im Ohr",
-      "endCuring": "Endhärtung",
-      "viscosity": "Viskosität",
-      "color": "Farbe",
-      "packaging": "Verpackung",
-      "itemNumber": "Artikelnummer",
-      "mixGun": "Mischpistole",
-      "mixCanules": "Mischkanülen",
-      "category": "Kategorie",
-      "status": "Status",
-      "availableQuantity": "Verfügbare Menge",
-      "quantityUnits": "{{quantity}} Einheiten"
-    }
-  }
+}
 }

@@ -1,7 +1,7 @@
 {
-  "common": {
+   "common": {
     "welcome": "Bienvenue",
-    "save": "Enregistrer",
+    "save": "Sauvegarder",
     "cancel": "Annuler",
     "home": "Accueil",
     "shop": "Boutique",
@@ -9,9 +9,41 @@
     "search": "Rechercher",
     "cart": "Panier",
     "profile": "Profil",
-        "showAll":"showAll",
-        "details":"details"
-
+    "showAll": "Afficher Tout",
+    "details": "Détails",
+    "notAvailable": "N/D",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "products": "Produits",
+     "lightMode": "Mode Clair",
+    "darkMode": "Mode Sombre"
+  },
+  "product": {
+    "save": "ÉCONOMISER",
+    "inclusiveTaxes": "Toutes taxes comprises",
+    "premiumQuality": "Qualité Premium",
+    "certified": "Certifié",
+    "fastDelivery": "Livraison Rapide",
+    "description": "Description du Produit",
+    "noDescription": "Aucune description détaillée disponible pour ce produit.",
+    "technicalSpecs": "Spécifications Techniques",
+    "appearanceDetails": "Apparence & Détails",
+    "status": "Statut",
+    "availableQuantity": "Quantité Disponible",
+    "units": "unités",
+    "type": "Type",
+    "siliconeType": "Type de Silicone",
+    "hardness": "Dureté",
+    "bio": "Bio",
+    "timeInEar": "Temps dans l'Oreille",
+    "endCuring": "Fin de Durcissement",
+    "viscosity": "Viscosité",
+    "color": "Couleur",
+    "packaging": "Emballage",
+    "itemNumber": "Numéro d'Article",
+    "mixGun": "Pistolet de Mélange",
+    "mixCanules": "Canules de Mélange",
+    "category": "Catégorie"
   },
   "about": {
     "title": "À Propos de Nous",
@@ -154,8 +186,8 @@
     },
     "categories": {
       "headline": "Parcourir tout",
-      "highlight": "Catégories",
-      "subheading": "Choisissez parmi une large gamme de médicaments, produits de santé et produits de soins personnels – tout ce dont vous avez besoin au même endroit."
+      "highlight": "Toutes les catégories",
+      "subheading": "Choisissez parmi des bijoux et des créations personnalisées façonnés par votre touche – tout ce dont vous avez besoin pour éterniser vos moments, en un seul endroit."
     },
     "offers": {
       "headline": "Offres Exclusives"
@@ -190,10 +222,15 @@
    "navigation": {
     "headerPages": {
       "home": "Accueil",
-      "about": "À Propos",
-      "contact": "Contact",
+      "about": "À propos",
+      "contact": "Contactez-nous",
       "categories": "Catégories"
     },
+
+
+
+  
+
     "pharmacyCategories": {
       "painRelief": "Soulagement de la Douleur",
       "coldFlu": "Rhume & Grippe",
@@ -208,11 +245,15 @@
     "auth": {
     "signin": "Se Connecter",
     "signup": "S'inscrire",
-    "signout": "Se Déconnecter"
+    "signout": "Se Déconnecter",
+        "logout": "Déconnexion"
+
   },
   "user": {
     "account": "Compte",
+    "personalInfo": "Informations Personnelles",
     "favorites": "Favoris",
+    "orders": "Commandes",
     "notifications": "Notifications"
   },
 
@@ -225,7 +266,7 @@
     "street": "Rue",
     "houseNumber": "Numéro de Maison",
     "city": "Ville",
-    "appartement":"appartement",
+    "apartment":"BTE",
     "postalCode": "Code Postal",
     "country": "Pays",
     "paymentMethod": "Méthode de Paiement",
@@ -248,6 +289,7 @@
       "city": "Paris",
       "postalCode": "75000"
     },
+
     "paymentOptions": {
       "card": "Carte de Crédit/Débit",
       "wallet": "Portefeuille Électronique",
@@ -264,6 +306,7 @@
       "generic": "Une erreur est survenue lors du paiement. Veuillez réessayer."
     }
   },
+
   "register": {
   "title": "S'inscrire",
   "description": "Créez votre compte, entrez vos informations ci-dessous.",
@@ -293,41 +336,7 @@
     "delivered": "Livrée",
     "cancelled": "Annulée"
   }
-},
-  "product": {
-    "price": {
-      "save": "ÉCONOMISEZ {{discount}}%",
-      "inclusiveTaxes": "Toutes taxes comprises"
-    },
-    "features": {
-      "premiumQuality": "Qualité Premium",
-      "certified": "Certifié",
-      "fastDelivery": "Livraison Rapide"
-    },
-    "sections": {
-      "description": "Description du Produit",
-      "noDescription": "Aucune description détaillée disponible pour ce produit.",
-      "technicalSpecs": "Spécifications Techniques",
-      "appearanceDetails": "Apparence & Détails"
-    },
-    "specifications": {
-      "type": "Type",
-      "siliconeType": "Type de Silicone",
-      "hardness": "Dureté",
-      "bio": "Bio",
-      "timeInEar": "Temps dans l'Oreille",
-      "endCuring": "Fin de Durcissement",
-      "viscosity": "Viscosité",
-      "color": "Couleur",
-      "packaging": "Emballage",
-      "itemNumber": "Numéro d'Article",
-      "mixGun": "Pistolet de Mélange",
-      "mixCanules": "Canules de Mélange",
-      "category": "Catégorie",
-      "status": "Statut",
-      "availableQuantity": "Quantité Disponible",
-      "quantityUnits": "{{quantity}} unités"
-    }
-  }
+}
+
 
 }
