@@ -126,7 +126,7 @@ export function generateProductSchema(product: {
     category: product.category,
     image: product.image
       ? `${SITE_URL}${product.image}`
-      : `${SITE_URL}/images/no-image.jpg`,
+      : `${SITE_URL}/images/logo.png`,
     url: `${SITE_URL}/product/${product.id}`,
     offers: {
       "@type": "Offer",

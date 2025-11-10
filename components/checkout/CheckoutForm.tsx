@@ -1,11 +1,12 @@
+// components/checkout/CheckoutForm.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { formatCurrencyEGP } from "@/lib/utils";
-import { CartItem } from "@/types";
+import { formatCurrency } from "@/lib/utils";
+import { CartItem, Country } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -40,14 +41,25 @@ const SuccessPopup = ({ orderNumber, onClose, t }: { orderNumber: string; onClos
 
 interface CheckoutFormProps {
   cartItems: CartItem[];
+  countries: Country[];
 }
 
-export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
+export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps) {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0] || {
+    id: 1,
+    name: "Netherlands",
+    iso_code: null,
+    shipping_price: "0.00",
+    currency: "EUR",
+    created_at: "",
+    updated_at: ""
+  });
+
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -55,31 +67,58 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
     address_line: "",
     house_number: "",
     city: "",
-    apartment:"",
+    apartment: "",
     zip_code: "",
-    country: "Netherlands",
+    country: countries[0]?.name || "Netherlands",
     payment_method: "card",
     promo_code: ""
   });
 
+  
+
   // حساب الإجماليات
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cartItems.reduce((sum, item) => {
+  const productsTotal = cartItems.reduce((sum, item) => {
     const price = parseFloat(item.card?.price || "0");
     return sum + (price * item.quantity);
   }, 0);
 
+  const shippingPrice = parseFloat(selectedCountry.shipping_price);
+  const totalAmount = productsTotal + shippingPrice;
+
+  // تحديث البلد المختار
+  useEffect(() => {
+    const country = countries.find(c => c.name === formData.country);
+    if (country) {
+      setSelectedCountry(country);
+    }
+  }, [formData.country, countries]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+  };
+
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const countryName = e.target.value;
+    const country = countries.find(c => c.name === countryName);
+    
+    if (country) {
+      setSelectedCountry(country);
+      setFormData({
+        ...formData,
+        country: countryName
+      });
+    }
   };
 
   const handleSuccessPopupClose = () => {
     setShowSuccessPopup(false);
     router.push('/');
-    router.refresh(); // تحديث الصفحة
+    router.refresh();
   };
 
   const handleCheckout = async (e: React.FormEvent) => {
@@ -89,7 +128,13 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
     try {
       console.log("🔄 [Client] Starting checkout process...");
 
-      // استخدام Server Action
+      // التحقق من صحة البيانات
+      if (!formData.full_name || !formData.email || !formData.phone) {
+        alert("Please fill all required fields");
+        return;
+      }
+
+      // استخدام Server Action - بدون إرسال بيانات الشحن منفصلة
       const result = await processCheckout(formData, cartItems);
       
       if (!result.success) {
@@ -108,16 +153,6 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
       setIsLoading(false);
     }
   };
-
-  // قائمة البلاد
-  const countries = [
-    { value: "Netherlands", label: "Netherlands" },
-    { value: "Belgium", label: "Belgium" },
-    { value: "Germany", label: "Germany" },
-    { value: "France", label: "France" },
-    { value: "Spain", label: "Spain" },
-    { value: "Italy", label: "Italy" }
-  ];
 
   return (
     <>
@@ -206,30 +241,41 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                   />
                 </div>
 
-                {/* House Number */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    {t('checkout.houseNumber')} *
-                  </label>
-                  <input
-                    type="text"
-                    name="house_number"
-                    required
-                    value={formData.house_number}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                    placeholder={t('checkout.placeholders.houseNumber')}
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* House Number */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      {t('checkout.houseNumber')} *
+                    </label>
+                    <input
+                      type="text"
+                      name="house_number"
+                      required
+                      value={formData.house_number}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                      placeholder={t('checkout.placeholders.houseNumber')}
+                    />
+                  </div>
+
+                  {/* Apartment */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      {t('checkout.apartment')}
+                    </label>
+                    <input
+                      type="text"
+                      name="apartment"
+                      value={formData.apartment}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                      placeholder={t('checkout.placeholders.apartment')}
+                    />
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-
-                  {/* Postal Code */}
-                
-
-
-                    {/* City */}
+                  {/* City */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('checkout.city')} *
@@ -244,22 +290,9 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                       placeholder={t('checkout.placeholders.city')}
                     />
                   </div>
-                    {/* City */}
+
+                  {/* Postal Code */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      {t('checkout.apartment')} *
-                    </label>
-                    <input
-                      type="text"
-                      name="apartment"
-                      required
-                      value={formData.apartment}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                      placeholder="apartment"
-                    />
-                  </div>
-                    <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('checkout.postalCode')} *
                     </label>
@@ -284,15 +317,18 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                     name="country"
                     required
                     value={formData.country}
-                    onChange={handleInputChange}
+                    onChange={handleCountryChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
                   >
                     {countries.map((country) => (
-                      <option key={country.value} value={country.value}>
-                        {country.label}
+                      <option key={country.id} value={country.name}>
+                        {country.name} - {(parseFloat(country.shipping_price), country.currency)} {t('checkout.shipping')}
                       </option>
                     ))}
                   </select>
+                  <p className="text-sm text-gray-500 mt-1">
+                    {t('checkout.shippingPriceFor')} {selectedCountry.name}: {(shippingPrice)}
+                  </p>
                 </div>
 
                 {/* Payment Method */}
@@ -369,14 +405,14 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                             {t('checkout.quantity')}: {item.quantity}
                           </span>
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {formatCurrencyEGP(parseFloat(item.card.price))}
+                            {(parseFloat(item.card.price))}
                           </span>
                         </div>
                       </div>
 
                       <div className="text-right">
                         <div className="font-bold text-gray-900 dark:text-white">
-                          {formatCurrencyEGP(parseFloat(item.card.price) * item.quantity)}
+                          {(parseFloat(item.card.price) * item.quantity)}
                         </div>
                         {item.card.discount && parseFloat(item.card.discount) > 0 && (
                           <Badge className="bg-[#e30a02] text-white text-xs mt-1">
@@ -389,7 +425,7 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-gray-200 dark:border-slate-600">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">{t('checkout.totalItems')}:</span>
                       <span className="font-medium">{totalItems}</span>
@@ -397,13 +433,20 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                     
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">{t('checkout.productsTotal')}:</span>
-                      <span className="font-medium">{formatCurrencyEGP(totalPrice)}</span>
+                      <span className="font-medium">{(productsTotal)}</span>
                     </div>
 
-                    <div className="flex justify-between text-lg font-bold pt-2 border-t border-gray-200 dark:border-slate-600">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600 dark:text-gray-400">
+                        {t('checkout.shipping')} ({selectedCountry.name}):
+                      </span>
+                      <span className="font-medium">{(shippingPrice)}</span>
+                    </div>
+
+                    <div className="flex justify-between text-lg font-bold pt-3 border-t border-gray-200 dark:border-slate-600">
                       <span className="text-gray-900 dark:text-white">{t('checkout.totalAmount')}:</span>
                       <span className="text-[#e30a02]">
-                        {formatCurrencyEGP(totalPrice)}
+                        {(totalAmount)}
                       </span>
                     </div>
                   </div>
@@ -414,7 +457,7 @@ export default function CheckoutForm({ cartItems }: CheckoutFormProps) {
                   disabled={isLoading}
                   className="w-full mt-6 bg-[#e30a02] text-white py-3 rounded-lg hover:bg-[#e30a02]/90 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? t('checkout.processing') : `${t('checkout.pay')} ${formatCurrencyEGP(totalPrice)}`}
+                  {isLoading ? t('checkout.processing') : `${t('checkout.pay')} ${(totalAmount)}`}
                 </button>
 
                 <Link

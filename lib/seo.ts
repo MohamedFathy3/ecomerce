@@ -22,11 +22,11 @@ export function generateSEO({
   type = "website",
   noIndex = false,
 }: SEOProps): Metadata {
-  const fullTitle = `${title} | ${APP_NAME} - الصيدلية الإلكترونية الرائدة`;
+  const fullTitle = `${title} | ${APP_NAME} -   متجرك اللكتروني`;
   const url = `${SITE_URL}${path}`;
   const fullImage = image
     ? `${SITE_URL}${image}`
-    : `${SITE_URL}/images/logos/valideria-og.jpg`;
+    : `${SITE_URL}/images/logos/logo.png`;
 
   // Base keywords for all pages
   const baseKeywords = [

@@ -36,7 +36,15 @@ export type plan = {
   is_active: boolean;
   created_at: string | null;
 };
-
+export interface Country {
+  id: number;
+  name: string;
+  iso_code: string | null;
+  shipping_price: string;
+  currency: string;
+  created_at: string;
+  updated_at: string;
+}
 export class SignInError extends CredentialsSignin {
   message = "signin_error";
 }

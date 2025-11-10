@@ -8,41 +8,14 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import {
-  Copy,
-  Facebook,
   Share2,
-  Music,
   Instagram,
+  Facebook,
+  Music,
 } from "lucide-react";
-import { toast } from "sonner";
+import Link from "next/link";
 
 const ButtonShare = () => {
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-  const title = document?.title || "Check this out!";
-
-  const shareTo = (platform: string) => {
-    let url = "";
-    const encodedUrl = encodeURIComponent(shareUrl);
-    const encodedTitle = encodeURIComponent(title);
-
-    switch (platform) {
-      case "facebook":
-        url = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-        break;
-      case "instagram":
-        toast("Instagram doesn’t support direct web share — link copied!");
-        navigator.clipboard.writeText(shareUrl);
-        return;
-      case "tiktok":
-        url = `https://www.tiktok.com/share?url=${encodedUrl}`;
-        break;
-      default:
-        return;
-    }
-
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <>
       <DropdownMenu>
@@ -56,40 +29,42 @@ const ButtonShare = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 p-2">
-          <DropdownMenuItem
-            className="text-blue-600"
-            onClick={() => shareTo("facebook")}
-          >
-            <Facebook className="w-4 h-4 mr-2" /> Share on Facebook
+          {/* فيسبوك */}
+          <DropdownMenuItem asChild>
+            <Link 
+              href="https://www.facebook.com/people/Forma-Shop/61583053477324/" 
+              aria-label="Facebook" 
+              target="_blank" 
+              className="flex items-center w-full"
+            >
+              <Facebook className="w-4 h-4 mr-2 text-blue-600" /> 
+              Facebook
+            </Link>
           </DropdownMenuItem>
 
-          <DropdownMenuItem
-            className="text-pink-500"
-            onClick={() => shareTo("instagram")}
-          >
-            <Instagram className="w-4 h-4 mr-2" /> Share on Instagram
+          {/* تيك توك */}
+          <DropdownMenuItem asChild>
+            <Link 
+              href="https://www.tiktok.com/tag/tecktik" 
+              target="_blank" 
+              className="flex items-center w-full"
+            >
+              <Music className="w-4 h-4 mr-2 text-black" /> 
+              TikTok
+            </Link>
           </DropdownMenuItem>
 
-          <DropdownMenuItem
-            className="text-pink-600"
-            onClick={() => shareTo("tiktok")}
-          >
-            <Music className="w-4 h-4 mr-2" /> Share on TikTok
-          </DropdownMenuItem>
-
-          <DropdownMenuItem
-            className="text-muted-foreground"
-            onClick={() => {
-              navigator.clipboard.writeText(shareUrl);
-              toast.custom(() => (
-                <div className="flex items-center gap-2 px-4 py-2 bg-background rounded-md shadow-md">
-                  <Copy className="w-4 h-4 text-green-500" />
-                  <span className="text-sm">Link copied to clipboard</span>
-                </div>
-              ));
-            }}
-          >
-            <Copy className="w-4 h-4 mr-2" /> Copy Link
+          {/* انستجرام */}
+          <DropdownMenuItem asChild>
+            <Link 
+              href="https://www.instagram.com/formashop.nl/" 
+              aria-label="Instagram" 
+              target="_blank" 
+              className="flex items-center w-full"
+            >
+              <Instagram className="w-4 h-4 mr-2 text-pink-500" /> 
+              Instagram
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

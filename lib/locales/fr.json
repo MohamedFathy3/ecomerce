@@ -266,6 +266,8 @@
     "street": "Rue",
     "houseNumber": "Numéro de Maison",
     "city": "Ville",
+        "shipping": "Livraison"
+,
     "apartment":"BTE",
     "postalCode": "Code Postal",
     "country": "Pays",

@@ -256,6 +256,7 @@
     "email": "Email Address",
     "phone": "Phone Number",
     "street": "Street",
+    "shipping": "Shipping",
     "houseNumber": "House Number",
     "city": "City",
     "apartment":"APT",

@@ -78,14 +78,14 @@ export const metadata: Metadata = {
     alternateLocale: ["ar_EG"],
     images: [
       {
-        url: `${SITE_URL}/images/logos/valideria-og.jpg`,
+        url: `${SITE_URL}/images/logos/logo.png`,
         width: 1200,
         height: 630,
         alt: `${APP_NAME} - Online Pharmacy Platform`,
         type: "image/jpeg",
       },
       {
-        url: `${SITE_URL}/images/logos/valideria-square.jpg`,
+        url: `${SITE_URL}/images/logos/logo.png`,
         width: 800,
         height: 800,
         alt: `${APP_NAME} Logo`,
@@ -158,7 +158,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <body className={` ${poppins.className} ${cairo.className} antialiased`}>
         <SessionProvider>
           <ThemeProvider

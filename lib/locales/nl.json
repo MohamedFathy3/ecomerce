@@ -262,7 +262,8 @@
     "phone": "Telefoonnummer",
     "street": "Straat",
     "houseNumber": "Huisnummer",
-    "city": "Stad",
+    "city": "Stad",    "shipping": "Verzending"
+,
     "postalCode": "Postcode",
     "apartment":"BUS",
     "country": "Land",

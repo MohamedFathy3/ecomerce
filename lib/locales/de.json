@@ -265,7 +265,7 @@
     "email": "E-Mail-Adresse",
     "phone": "Telefonnummer",
     "street": "Straße",
-    "apartment":"WHG",
+    "apartment":"WHG","shipping": "Versand",
     "houseNumber": "Hausnummer",
     "city": "Stadt",
     "postalCode": "Postleitzahl",

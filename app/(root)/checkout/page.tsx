@@ -1,6 +1,8 @@
+// app/checkout/page.tsx
 import { auth, signOut } from "@/lib/auth";
 import { getCartData } from "@/lib/api/apiCart";
-import { CartItem } from "@/types";
+import { getAllCountries } from "@/lib/api/apiCountries";
+import { CartItem, Country } from "@/types";
 import { redirect } from "next/navigation";
 import CheckoutForm from "@/components/checkout/CheckoutForm";
 import Link from "next/link";
@@ -13,8 +15,11 @@ export default async function CheckoutPage() {
     redirect("/signin?callbackUrl=/checkout");
   }
 
-  // جلب بيانات السلة
-  const cartData = await getCartData();
+  // جلب بيانات السلة والبلاد بالتوازي
+  const [cartData, countries] = await Promise.all([
+    getCartData(),
+    getAllCountries()
+  ]);
 
   // إذا لم يكن المستخدم مصادقاً
   if (cartData?.notAuthenticated) {
@@ -49,7 +54,7 @@ export default async function CheckoutPage() {
         <p className="text-gray-600 dark:text-gray-400">Complete your purchase</p>
       </div>
 
-      <CheckoutForm cartItems={cartItems} />
+      <CheckoutForm cartItems={cartItems} countries={countries} />
     </section>
   );
 }

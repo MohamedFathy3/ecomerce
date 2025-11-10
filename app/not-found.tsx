@@ -7,7 +7,7 @@ const NotFound = () => {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen m-auto">
       <Image
-        src="/images/logos/Logo.svg"
+        src="/images/logos/logo.png"
         alt={`${APP_NAME} logo`}
         height={48}
         width={48}

@@ -1,77 +1,85 @@
-"use server";
+// app/actions/checkout.ts
+'use server';
 
-import { auth, signOut } from "@/lib/auth";
-import { createOrder, clearCart } from "@/lib/api/apiOrders";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { api } from "@/lib/axios";
+import { CartItem } from "@/types";
 
-export interface CheckoutFormData {
+interface CheckoutData {
   full_name: string;
   email: string;
   phone: string;
   address_line: string;
   house_number: string;
   city: string;
+  apartment: string;
   zip_code: string;
   country: string;
   payment_method: string;
-  promo_code?: string;
+  promo_code: string;
 }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function processCheckout(formData: CheckoutFormData, cartItems: any[]) {
+
+export async function processCheckout(formData: CheckoutData, cartItems: CartItem[]) {
   try {
     const session = await auth();
     
     if (!session || !session.accessToken) {
-      return { success: false, message: "Not authenticated" };
+      return {
+        success: false,
+        message: "Not authenticated"
+      };
     }
 
-    console.log("🔄 [Server Action] Processing checkout...");
-
-    // Step 1: Create Order
+    // تحضير بيانات الطلب
     const orderData = {
-      ...formData,
-      state: formData.city, 
+      name: formData.full_name,
+      email: formData.email,
+      phone: formData.phone,
+      address_line: formData.address_line,
+      house_number: formData.house_number,
+      city: formData.city,
+      apartment: formData.apartment || "",
+      zip_code: formData.zip_code,
+      state: formData.country,
+      country: formData.country,
+      payment_method: formData.payment_method,
+      promo_code: formData.promo_code || "",
       cards: cartItems.map(item => ({
-        id: item.card.id,
+        id: item.card.id, // التغيير هنا: من card_id إلى id
         qty: item.quantity
       }))
     };
 
-    console.log("📦 [Server Action] Order data:", orderData);
+    console.log("🔄 [Server Action] Processing checkout:", orderData);
 
-    const orderResult = await createOrder(orderData, session.accessToken);
-    
-    if (!orderResult.success || !orderResult.order_number) {
-      console.error("❌ [Server Action] Order creation failed:", orderResult.message);
-      return { success: false, message: orderResult.message || "Failed to create order" };
-    }
+    const response = await api.post("/front/create-order", orderData, {
+      headers: {
+        Authorization: `Bearer ${session.accessToken}`,
+      },
+    });
 
-    const orderNum = orderResult.order_number;
-    console.log("✅ [Server Action] Order created successfully. Order Number:", orderNum);
+    console.log("✅ [Server Action] Checkout successful:", response.data);
 
-    // Step 2: Clear Cart
-    console.log("🗑️ [Server Action] Clearing cart...");
-    const clearResult = await clearCart(session.accessToken);
-    
-    if (!clearResult.success) {
-      console.warn("⚠️ [Server Action] Cart clearing failed:", clearResult.message);
-    } else {
-      console.log("✅ [Server Action] Cart cleared successfully");
-    }
-
-    // Step 3: Revalidate cache
-    revalidatePath("/cart");
-    revalidatePath("/checkout");
-
-    return { 
-      success: true, 
-      order_number: orderNum,
-      message: "Order created successfully" 
+    return {
+      success: true,
+      order_number: response.data.data.order_number,
+      message: "Order placed successfully"
     };
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("❌ [Server Action] Checkout error:", error);
-    return { success: false, message: "An error occurred during checkout" };
+    
+    if (error.response) {
+      console.error("🔍 Error details:", {
+        status: error.response.status,
+        data: error.response.data,
+        message: error.response.data?.message
+      });
+    }
+    
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to process checkout"
+    };
   }
 }
