@@ -87,7 +87,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="p-5 flex-center border-t">
-        {currentYear} &copy; {APP_NAME}. <ServerTranslate textKey="footer.copyright" />
+        {currentYear} &copy;  FORMA. <ServerTranslate textKey="footer.copyright" />
       </div>
     </footer>
   );

@@ -21,8 +21,8 @@ const SITE_URL = process.env.NEXTAUTH_URL || "https://valideria.com";
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | ${APP_NAME} - الصيدلية الإلكترونية الرائدة`,
-    default: `${APP_NAME} - الصيدلية الإلكترونية الرائدة في الشرق الأوسط`,
+    template: `FORMA`,
+    default: `FORMA`,
   },
   description: APP_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "أدوية أونلاين",
     "مستحضرات تجميل",
     "منتجات صحية",
-    "صيدليات متعددة",
+    "صيدليات متعددة", 
     "توصيل أدوية",
     "pharmacy online",
     "medicines delivery",
@@ -78,14 +78,14 @@ export const metadata: Metadata = {
     alternateLocale: ["ar_EG"],
     images: [
       {
-        url: `${SITE_URL}/images/logos/logo.png`,
+        url: `${SITE_URL}/images/logos/Logo.svg`,
         width: 1200,
         height: 630,
         alt: `${APP_NAME} - Online Pharmacy Platform`,
         type: "image/jpeg",
       },
       {
-        url: `${SITE_URL}/images/logos/logo.png`,
+        url: `${SITE_URL}/images/logos/Logo.svg`,
         width: 800,
         height: 800,
         alt: `${APP_NAME} Logo`,
@@ -103,7 +103,7 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: `${SITE_URL}/images/logos/valideria-twitter.jpg`,
+        url: `${SITE_URL}/images/logos/Logo.svg`,
         alt: `${APP_NAME} - Online Pharmacy`,
       },
     ],
