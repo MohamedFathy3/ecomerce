@@ -44,6 +44,7 @@ export async function getAllCountries(): Promise<Country[]> {
     
     console.log("✅ [API] Countries fetched successfully");
     return response.data.data.data;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("❌ [API] Error fetching countries:", error);
     
