@@ -53,6 +53,7 @@ export async function getAllCountries(): Promise<Country[]> {
       console.warn("⚠️ [API] Unexpected data structure:", response.data);
       return [];
     }
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("❌ [API] Error fetching countries:", error);
     
