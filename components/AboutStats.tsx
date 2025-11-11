@@ -8,45 +8,48 @@ const stats = [
   {
     value: 15,
     color: "text-[#e30a02]",
-    icon: <Briefcase className="w-8 h-8 text-white " />,
+    icon: <Briefcase className="w-8 h-8 text-white" />,
   },
   {
     value: 700,
     color: "text-[#e30a02]",
-    icon: <Users className="w-8 h-8 text-white " />,
+    icon: <Users className="w-8 h-8 text-white" />,
   },
   {
-    value: 5000,
+    value: 300,
     color: "text-[#e30a02]",
-    icon: <ShoppingCart className="w-8 h-8 text-white " />,
+    icon: <ShoppingCart className="w-8 h-8 text-white" />,
   },
   {
     value: 3000,
     color: "text-[#e30a02]",
-    icon: <Globe className="w-8 h-8 text-white " />,
+    icon: <Globe className="w-8 h-8 text-white" />,
   },
 ];
 
 const AboutStats = () => {
-  const [count, setCount] = useState(0); // This will track the current number
+  const [counts, setCounts] = useState(stats.map(() => 0));
 
-  // Function to animate the number increase
-  const animateCounter = (finalValue: number) => {
-    const interval = setInterval(() => {
-      setCount(prev => {
-        if (prev < finalValue) {
-          return prev + Math.ceil(finalValue / 100); // Increase by a small fraction
-        }
-        clearInterval(interval); // Stop once we reach the final value
-        return finalValue; // Ensure the number doesn't exceed the target
-      });
-    }, 50); // The interval speed (change it to adjust how fast the numbers increase)
+  // Function to animate the number increase for each stat
+  const animateCounters = () => {
+    stats.forEach((stat, index) => {
+      const interval = setInterval(() => {
+        setCounts(prev => {
+          const newCounts = [...prev];
+          if (newCounts[index] < stat.value) {
+            newCounts[index] += Math.ceil(stat.value / 50); // Increase by a small fraction
+          } else {
+            clearInterval(interval); // Stop once we reach the final value
+            newCounts[index] = stat.value; // Ensure the number doesn't exceed the target
+          }
+          return newCounts;
+        });
+      }, 30); // The interval speed
+    });
   };
 
   useEffect(() => {
-    stats.forEach(stat => {
-      animateCounter(stat.value); // Start the animation for each stat
-    });
+    animateCounters();
   }, []); // Run this only once on mount
 
   return (
@@ -58,11 +61,10 @@ const AboutStats = () => {
         >
           <div className="mb-4 rounded-full bg-[#e30a02] p-3">{stat.icon}</div>
           <CardContent className="p-0">
-            {/* The number counter */}
+            {/* The number counter for each stat */}
             <h3 className={`text-2xl font-bold ${stat.color}`}>
-              {count} {/* This will display the dynamically increasing number */}
+              {counts[idx]} {/* This will display the dynamically increasing number for each stat */}
             </h3>
-          
           </CardContent>
         </Card>
       ))}

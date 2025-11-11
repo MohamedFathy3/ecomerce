@@ -70,7 +70,7 @@
    "footer": {
     "support": "Ondersteuning",
     "address": "111 Bigway Street, Dhaka, DH 1515, Bangladesh",
-    "email": "exclusive@gmail.com",
+    "email": "info@formashop.nl",
     "account": "Account",
     "loginRegister": "Inloggen / Registreren",
     "cart": "Winkelwagen",
@@ -188,8 +188,8 @@
       "cta": "Jetzt Einkaufen"
     },
     "categories": {
-      "headline": "Alle durchsuchen",
-      "highlight": "Alle Kategorien",
+      "headline": " durchsuchen",
+      "highlight": " Kategorien",
       "subheading": "Wähle aus eleganten, individuell gefertigten Schmuckstücken und Designs, geformt durch deine Berührung – alles, was du brauchst, um deine besonderen Momente zu verewigen, an einem Ort."
     },
     "offers": {
@@ -202,7 +202,7 @@
       "offers": "Sonderangebote"
     },
     "brands": {
-      "headline": "Alle durchsuchen",
+      "headline": " durchsuchen",
       "highlight": "Marken",
       "subheading": "Wählen Sie aus einer Vielzahl von Medikamenten, Gesundheitsprodukten und Körperpflegeprodukten – alles, was Sie brauchen, an einem Ort.",
       "topRated": "Bestbewertete Marken"
@@ -283,7 +283,7 @@
     "backToCart": "Zurück zum Warenkorb",
     "placeholders": {
       "fullName": "Max Mustermann",
-      "email": "ihre@email.de",
+      "email": "info@formashop.nl",
       "phone": "+49 123 456 789",
       "street": "Hauptstraße",
       "houseNumber": "123",

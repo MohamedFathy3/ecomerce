@@ -69,7 +69,7 @@
    "footer": {
     "support": "Ondersteuning",
     "address": "111 Bigway Street, Dhaka, DH 1515, Bangladesh",
-    "email": "exclusive@gmail.com",
+    "email": "info@formashop.nl",
     "account": "Account",
     "loginRegister": "Inloggen / Registreren",
     "cart": "Winkelwagen",
@@ -186,7 +186,7 @@
     },
     "categories": {
       "headline": "Blader door alle",
-      "highlight": "Alle categorieën",
+      "highlight": " categorieën",
       "subheading": "Kies uit elegante gepersonaliseerde sieraden en ontwerpen gevormd door jouw aanraking – alles wat je nodig hebt om je momenten te vereeuwigen, op één plek."
     },
     "offers": {
@@ -200,7 +200,7 @@
     },
     "brands": {
       "headline": "Blader door alle",
-      "highlight": "Merken",
+      "highlight": "",
       "subheading": "Kies uit een breed scala aan medicijnen, gezondheidsproducten en persoonlijke verzorgingsproducten – alles wat u nodig heeft op één plek.",
       "topRated": "Best Beoordeelde Merken"
     }
@@ -224,7 +224,7 @@
 "navigation": {
     "headerPages": {
       "home": "Home",
-      "about": "Over ons opnemen",
+      "about": "Over ons",
       "contact": "Contact",
       "categories": "Categorieën"
     },

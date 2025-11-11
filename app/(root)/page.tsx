@@ -52,7 +52,7 @@ export default async function Home() {
       <div id="categories-section">
         <BrandSwiper
           items={homeCategories}
-          headLine="home.categories.headline"
+          headLine=""
           highlight="home.categories.highlight"
           subHeadign="home.categories.subheading"
         />

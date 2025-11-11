@@ -15,7 +15,6 @@ const Footer = () => {
               <ServerTranslate textKey="footer.support" />
             </h4>
             <div className="space-y-3">
-              <div><ServerTranslate textKey="footer.address" /></div>
               <div><ServerTranslate textKey="footer.email" /></div>
             </div>
           </div>
