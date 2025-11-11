@@ -39,6 +39,7 @@ const SuccessPopup = ({ orderNumber, onClose, t }: { orderNumber: string; onClos
   );
 };
 
+
 interface CheckoutFormProps {
   cartItems: CartItem[];
   countries: Country[];
@@ -50,7 +51,7 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0] || {
+  const [selectedCountry, setSelectedCountry] = useState<Country>({
     id: 1,
     name: "Netherlands",
     iso_code: null,

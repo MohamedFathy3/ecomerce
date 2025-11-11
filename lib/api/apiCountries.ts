@@ -42,9 +42,17 @@ export async function getAllCountries(): Promise<Country[]> {
     
     const response = await api.post<CountriesResponse>("/countries-shipping/index");
     
-    console.log("✅ [API] Countries fetched successfully");
-    return response.data.data.data;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    console.log("✅ [API] Countries fetched successfully:", response.data);
+    
+    // تحقق من هيكل البيانات
+    if (response.data.data && Array.isArray(response.data.data.data)) {
+      return response.data.data.data;
+    } else if (Array.isArray(response.data.data)) {
+      return response.data.data;
+    } else {
+      console.warn("⚠️ [API] Unexpected data structure:", response.data);
+      return [];
+    }
   } catch (error: any) {
     console.error("❌ [API] Error fetching countries:", error);
     
@@ -53,18 +61,5 @@ export async function getAllCountries(): Promise<Country[]> {
     }
     
     throw new Error("Failed to fetch countries");
-  }
-}
-
-// جبل بلد معينة بالاسم
-export async function getCountryByName(countryName: string): Promise<Country | null> {
-  try {
-    const countries = await getAllCountries();
-    return countries.find(country => 
-      country.name.toLowerCase() === countryName.toLowerCase()
-    ) || null;
-  } catch (error) {
-    console.error("❌ [API] Error fetching country by name:", error);
-    return null;
   }
 }
