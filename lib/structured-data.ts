@@ -1,17 +1,17 @@
 import { APP_NAME } from "@/lib/constants";
 
-const SITE_URL = process.env.NEXTAUTH_URL || "https://valideria.com";
+const SITE_URL = process.env.NEXTAUTH_URL || "https://forma.com";
 
 // Organization Schema
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: APP_NAME,
-  alternateName: "Valideria Online Pharmacy",
+  alternateName: "Forma Online Store",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/logos/valideria-logo.png`,
+  logo: `${SITE_URL}/images/logos/forma-logo.png`,
   description:
-    "Leading multi-vendor online marketplace for pharmacies in the Middle East",
+    "Leading multi-vendor online marketplace for various products in the Middle East",
   foundingDate: "2023",
   contactPoint: [
     {
@@ -24,17 +24,17 @@ export const organizationSchema = {
   ],
   address: {
     "@type": "PostalAddress",
-    streetAddress: "123 Healthcare Street",
+    streetAddress: "123 Main Street",
     addressLocality: "Cairo",
     addressRegion: "Cairo Governorate",
     postalCode: "11511",
     addressCountry: "EG",
   },
   sameAs: [
-    "https://www.facebook.com/valideria",
-    "https://www.twitter.com/valideria",
-    "https://www.instagram.com/valideria",
-    "https://www.linkedin.com/company/valideria",
+    "https://www.facebook.com/forma",
+    "https://www.twitter.com/forma",
+    "https://www.instagram.com/forma",
+    "https://www.linkedin.com/company/forma",
   ],
 };
 
@@ -45,7 +45,7 @@ export const websiteSchema = {
   name: APP_NAME,
   url: SITE_URL,
   description:
-    "Online pharmacy platform offering medicines, healthcare products, and cosmetics with fast delivery across the Middle East",
+    "Online store platform offering various products with fast delivery across the Middle East",
   publisher: {
     "@type": "Organization",
     name: APP_NAME,
@@ -66,34 +66,29 @@ export const websiteSchema = {
   },
 };
 
-// Pharmacy Schema
-export const pharmacySchema = {
+// Store Schema
+export const storeSchema = {
   "@context": "https://schema.org",
-  "@type": "Pharmacy",
+  "@type": "Store",
   name: APP_NAME,
   url: SITE_URL,
   description:
-    "Online pharmacy providing prescription and non-prescription medicines",
-  serviceType: "Online Pharmacy",
+    "Online store offering a wide range of products including electronics, clothing, and more",
+  serviceType: "Online Retail",
   areaServed: {
     "@type": "Country",
     name: "Egypt",
   },
   availableService: [
     {
-      "@type": "MedicalService",
-      name: "Prescription Medication Delivery",
-      description: "Safe delivery of prescription medications",
-    },
-    {
-      "@type": "MedicalService",
-      name: "Over-the-Counter Medication",
-      description: "Non-prescription medicines and health products",
+      "@type": "Service",
+      name: "Product Delivery",
+      description: "Fast and reliable product delivery service",
     },
     {
       "@type": "Service",
-      name: "Pharmaceutical Consultation",
-      description: "Free consultation with licensed pharmacists",
+      name: "Customer Support",
+      description: "24/7 support for any queries and assistance",
     },
   ],
 };

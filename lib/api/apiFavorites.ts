@@ -1,11 +1,10 @@
+// lib/api/apiFavorites.ts
 "use server";
 
 import { api } from "../axios";
 import { AxiosError } from "axios";
 import { auth } from "../auth";
-import { delay } from "../utils";
 import { FavoriteItem } from "@/types";
-import { revalidatePath } from "next/cache";
 
 export const getFavorites = async () => {
   const session = await auth();
@@ -19,7 +18,6 @@ export const getFavorites = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    // console.log("response", response.data);
     const res = response.data.data;
     if (res.length > 0) {
       return {
@@ -64,7 +62,7 @@ export const addToFavorites = async (
       "/front/favorite",
       {
         card_id: productId,
-        methed:'add'
+        method: 'add' // صححت typo من 'methed' إلى 'method'
       },
       {
         headers: {
@@ -72,10 +70,8 @@ export const addToFavorites = async (
         },
       }
     );
-    console.log("response", response.data);
+    console.log("✅ [API] Add to favorites response:", response.data);
     if (response.data.result === "Success") {
-      // revalidatePath("/favorites");
-      // await delay(100); // Delay to ensure revalidation is processed
       return {
         success: true,
         message: "Added to favorites",
@@ -97,7 +93,7 @@ export const addToFavorites = async (
           notAuthenticated: true,
         };
       }
-      console.log("Error adding to favorites:", error.response);
+      console.log("❌ [API] Error adding to favorites:", error.response?.data);
     }
 
     return {
@@ -125,15 +121,20 @@ export const removeFromFavorites = async (
   const token = session?.user?.token || session?.accessToken;
   const productId = formInputs.get("productId");
   try {
-    const response = await api.delete(`/favorites/remove/${productId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await api.post( // غيرت من DELETE إلى POST
+      "/front/favorite",
+      {
+        card_id: productId,
+        method: 'delete' // استخدم method: 'delete' حسب الـ API
       },
-    });
-    console.log("response", response.data);
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("✅ [API] Remove from favorites response:", response.data);
     if (response.data.result === "Success") {
-      // revalidatePath("/favorites");
-      // await delay(100); // Delay to ensure revalidation is processed
       return {
         success: true,
         message: "Removed from favorites",
@@ -155,6 +156,7 @@ export const removeFromFavorites = async (
           notAuthenticated: true,
         };
       }
+      console.log("❌ [API] Error removing from favorites:", error.response?.data);
     }
     return {
       success: false,

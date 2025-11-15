@@ -22,7 +22,7 @@ export function generateSEO({
   type = "website",
   noIndex = false,
 }: SEOProps): Metadata {
-  const fullTitle = `${title} | ${APP_NAME} -   متجرك اللكتروني`;
+  const fullTitle = `${title} | ${APP_NAME} -    FORMA`;
   const url = `${SITE_URL}${path}`;
   const fullImage = image
     ? `${SITE_URL}${image}`
@@ -30,12 +30,91 @@ export function generateSEO({
 
   // Base keywords for all pages
   const baseKeywords = [
-    "صيدلية إلكترونية",
-    "أدوية أونلاين",
-    "valideria",
-    "صحة",
-    "دواء",
-    "علاج",
+"body casting",
+"hand casting kit",
+"3D hand sculpture",
+"fingerprint jewelry",
+"custom jewelry",
+"personalized gifts",
+"custom gifts online",
+"memorial jewelry",
+"keepsake gifts",
+"3D body molds",
+"silicone molding",
+"medical grade silicone",
+"German silicone",
+"silicone wholesale",
+"silicone retail",
+"silicone for artists",
+"silicone for medical use",
+"3D art materials",
+"online gift shop",
+"personalized jewelry",
+"baby hand casting",
+"couples gifts",
+"FORMA gifts",
+"custom mold making",
+"handprint jewelry",
+"creative gifts",
+
+"body casting",
+"handafdruk 3D",
+"vingerafdruk sieraden",
+"gepersonaliseerde cadeaus",
+"persoonlijke sieraden",
+"3D handbeeld",
+"siliconen mal",
+"medische siliconen",
+"Duitse siliconen",
+"siliconen groothandel",
+"siliconen detailhandel",
+"siliconen voor kunstenaars",
+"siliconen voor medisch gebruik",
+"cadeauwinkel online",
+"maatwerk cadeaus",
+"herinneringssieraden",
+"baby handafdruk",
+"FORMA cadeaus",
+"custom molds",
+
+"Body Casting",
+"Handabdruck 3D",
+"Fingerabdruck Schmuck",
+"personalisierte Geschenke",
+"maßgeschneiderter Schmuck",
+"3D Hand Skulptur",
+"Silikonformen",
+"medizinisches Silikon",
+"deutsches Silikon",
+"Silikon Großhandel",
+"Silikon Einzelhandel",
+"Silikon für Künstler",
+"Silikon für medizinische Zwecke",
+"online Geschenkeshop",
+"Erinnerungsschmuck",
+"Baby Handabdruck",
+"FORMA Shop",
+"3D Modellierung",
+
+"body casting",
+"empreinte de main 3D",
+"bijoux empreinte digitale",
+"cadeaux personnalisés",
+"bijoux personnalisés",
+"sculpture main 3D",
+"moulage en silicone",
+"silicone médical",
+"silicone allemand",
+"silicone en gros",
+"silicone au détail",
+"silicone pour artistes",
+"silicone médical",
+"boutique de cadeaux en ligne",
+"cadeaux sur mesure",
+"bijoux commémoratifs",
+"empreinte bébé",
+"FORMA cadeaux",
+"moulage personnalisé"
   ];
 
   return {
@@ -79,8 +158,8 @@ export function generateSEO({
 
     twitter: {
       card: "summary_large_image",
-      site: "@valideria",
-      creator: "@valideria",
+      site: "@FORMA",
+      creator: "@FORMA",
       title: fullTitle,
       description,
       images: [fullImage],
@@ -93,17 +172,161 @@ export function generateSEO({
 }
 
 // Pre-configured SEO for common pages
-export const homeSEO = generateSEO({
-  title: "الصفحة الرئيسية",
+export const homeSEO_EN = generateSEO({
+  title: "Home Page",
   description:
-    "اكتشف أفضل الأدوية والمنتجات الصحية من صيدليات موثوقة. توصيل سريع وآمن، أسعار منافسة، واستشارة صيدلانية مجانية.",
+    "FORMA – the premier destination for body casting, personalized gifts, and custom jewelry. We provide certified medical-grade silicone for artists and the medical sector, offering wholesale and retail options with innovative mould-making solutions.",
   keywords: [
-    "صيدلية رئيسية",
-    "أدوية منزلية",
-    "مكملات غذائية",
-    "مستحضرات تجميل",
-    "منتجات أطفال",
-    "فيتامينات",
+"body casting", "life casting", "personalized gifts", "custom jewelry", "medical-grade silicone", "silicone moulds", "silicone for artists", "mould making, FORMA",
+
+"body casting", "life casting", "persoonlijke cadeaus", "gepersonaliseerde sieraden", "medische siliconen", "siliconen mallen", "siliconen voor kunstenaars", "mallen maken", "FORMA",
+
+"Body Casting", "Life Casting", "personalisierte Geschenke", "individueller Schmuck", "medizinisches Silikon", "Silikonformen", "Silikon für Künstler", "Formenherstellung", "FORMA",
+
+
+"body casting", "life casting", "cadeaux personnalisés", "bijoux sur mesure", "silicone médical", "moules en silicone", "silicone pour artistes", "fabrication de moules", "FORMA",
+"body casting",
+"hand casting kit",
+"3D hand sculpture",
+"fingerprint jewelry",
+"custom jewelry",
+"personalized gifts",
+"custom gifts online",
+"memorial jewelry",
+"keepsake gifts",
+"3D body molds",
+"silicone molding",
+"medical grade silicone",
+"German silicone",
+"silicone wholesale",
+"silicone retail",
+"silicone for artists",
+"silicone for medical use",
+"3D art materials",
+"online gift shop",
+"personalized jewelry",
+"baby hand casting",
+"couples gifts",
+"FORMA gifts",
+"custom mold making",
+"handprint jewelry",
+"creative gifts",
+
+"body casting",
+"handafdruk 3D",
+"vingerafdruk sieraden",
+"gepersonaliseerde cadeaus",
+"persoonlijke sieraden",
+"3D handbeeld",
+"siliconen mal",
+"medische siliconen",
+"Duitse siliconen",
+"siliconen groothandel",
+"siliconen detailhandel",
+"siliconen voor kunstenaars",
+"siliconen voor medisch gebruik",
+"cadeauwinkel online",
+"maatwerk cadeaus",
+"herinneringssieraden",
+"baby handafdruk",
+"FORMA cadeaus",
+"custom molds",
+
+"Body Casting",
+"Handabdruck 3D",
+"Fingerabdruck Schmuck",
+"personalisierte Geschenke",
+"maßgeschneiderter Schmuck",
+"3D Hand Skulptur",
+"Silikonformen",
+"medizinisches Silikon",
+"deutsches Silikon",
+"Silikon Großhandel",
+"Silikon Einzelhandel",
+"Silikon für Künstler",
+"Silikon für medizinische Zwecke",
+"online Geschenkeshop",
+"Erinnerungsschmuck",
+"Baby Handabdruck",
+"FORMA Shop",
+"3D Modellierung",
+
+"body casting",
+"empreinte de main 3D",
+"bijoux empreinte digitale",
+"cadeaux personnalisés",
+"bijoux personnalisés",
+"sculpture main 3D",
+"moulage en silicone",
+"silicone médical",
+"silicone allemand",
+"silicone en gros",
+"silicone au détail",
+"silicone pour artistes",
+"silicone médical",
+"boutique de cadeaux en ligne",
+"cadeaux sur mesure",
+"bijoux commémoratifs",
+"empreinte bébé",
+"FORMA cadeaux",
+"moulage personnalisé"
+  ],
+});
+
+export const homeSEO_NL = generateSEO({
+  title: "Homepagina",
+  description:
+    "FORMA – de nummer één bestemming voor body casting, persoonlijke cadeaus en op maat gemaakte sieraden. Wij bieden gecertificeerde medische siliconen voor kunstenaars en de medische sector, zowel groothandel als detailhandel, met innovatieve oplossingen voor het maken van mallen.",
+  keywords: [
+    "body casting",
+    "life casting",
+    "persoonlijke cadeaus",
+    "gepersonaliseerde sieraden",
+    "medische siliconen",
+    "siliconen mallen",
+    "mallen maken",
+    "3D body casting",
+    "siliconen groothandel",
+    "siliconen voor kunstenaars",
+    "FORMA"
+  ],
+});
+
+export const homeSEO_DE = generateSEO({
+  title: "Startseite",
+  description:
+    "FORMA – die führende Adresse für Body Casting, personalisierte Geschenke und maßgefertigten Schmuck. Wir bieten zertifiziertes medizinisches Silikon für Künstler und den medizinischen Bereich, im Groß- und Einzelhandel, mit innovativen Lösungen für die Formenherstellung.",
+  keywords: [
+    "Body Casting",
+    "Life Casting",
+    "personalisierte Geschenke",
+    "maßgefertigter Schmuck",
+    "medizinisches Silikon",
+    "Silikonformen",
+    "Formenherstellung",
+    "3D Body Casting",
+    "Silikon Großhandel",
+    "Silikon für Künstler",
+    "FORMA"
+  ],
+});
+
+export const homeSEO_FR = generateSEO({
+  title: "Page d’accueil",
+  description:
+    "FORMA – la destination incontournable pour le body casting, les cadeaux personnalisés et les bijoux sur mesure. Nous fournissons du silicone médical certifié pour le secteur médical et les artistes, en vente en gros et au détail, avec des solutions innovantes de création de moules.",
+  keywords: [
+    "body casting",
+    "life casting",
+    "cadeaux personnalisés",
+    "bijoux sur mesure",
+    "silicone médical",
+    "moules en silicone",
+    "création de moules",
+    "3D body casting",
+    "silicone en gros",
+    "silicone pour artistes",
+    "FORMA"
   ],
 });
 
@@ -146,18 +369,18 @@ export function generateProductSEO(product: {
 }) {
   return generateSEO({
     title: product.name,
-    description: `${product.description} - متوفر الآن في فاليديريا بسعر ${product.price} جنيه. اطلب الآن واحصل على توصيل سريع.`,
+    description: `${product.description} - FORMA  to FORMA price ${product.price} pount. Order now and get fast delivery.`,
     keywords: [
       product.name,
       product.category,
       product.brand,
-      "شراء أونلاين",
-      "توصيل سريع",
-      `${product.category} أدوية`,
-      "فاليديريا",
-      "صيدلية إلكترونية",
+      "Buy online",
+    "Fast delivery",
+      `${product.category} `,
+      "FORMA",
+      "products store",
       `دواء ${product.name}`,
-      `${product.brand} منتجات`,
+      `${product.brand} products`,
     ],
     image: product.image,
     path: `/product/${product.id}`,
@@ -200,50 +423,50 @@ export function generateCategorySEO(category: {
     title: category.name,
     description:
       category.description ||
-      `تسوق من مجموعة ${category.name} الواسعة في فاليديريا. ${
+      `تسوق من مجموعة ${category.name}  to products. ${
         category.productCount
-          ? `أكثر من ${category.productCount} منتج متاح`
+          ? `mor from   ${category.productCount}  productCount`
           : ""
-      } مع توصيل سريع وضمان الجودة.`,
+      } With fast delivery and quality guarantee.`,
     keywords: [
       category.name,
-      `أدوية ${category.name}`,
-      `منتجات ${category.name}`,
-      "تسوق أونلاين",
+      `products ${category.name}`,
+      `products ${category.name}`,
+      "Shop online",
     ],
     path: `/products?category=${category.name}`,
   });
 }
 
 // Account pages SEO (no-index for privacy)
-export const accountSEO = {
-  profile: generateSEO({
-    title: "الملف الشخصي",
-    description: "إدارة معلوماتك الشخصية وتفضيلاتك في فاليديريا.",
-    path: "/account/profile",
-    noIndex: true,
-  }),
+export const accountSEO = {  
+  profile: generateSEO({     
+    title: "Profile",     
+    description: "Manage your personal information and preferences at Forma.",     
+    path: "/account/profile",     
+    noIndex: true,   
+  }),  
 
-  orders: generateSEO({
-    title: "طلباتي",
-    description: "تتبع طلباتك وتاريخ المشتريات في فاليديريا.",
-    path: "/account/orders",
-    noIndex: true,
-  }),
+  orders: generateSEO({     
+    title: "My Orders",     
+    description: "Track your orders and purchase history at Forma.",     
+    path: "/account/orders",     
+    noIndex: true,   
+  }),  
 
-  addresses: generateSEO({
-    title: "عناويني",
-    description: "إدارة عناوين التوصيل المحفوظة في حسابك.",
-    path: "/account/addresses",
-    noIndex: true,
-  }),
+  addresses: generateSEO({     
+    title: "My Addresses",     
+    description: "Manage your saved shipping addresses in your account.",     
+    path: "/account/addresses",     
+    noIndex: true,   
+  }),  
 
-  favorites: generateSEO({
-    title: "المفضلة",
-    description: "قائمة المنتجات المفضلة لديك في فاليديريا.",
-    path: "/favorites",
-    noIndex: true,
-  }),
+  favorites: generateSEO({     
+    title: "Favorites",     
+    description: "Your list of favorite products at Forma.",     
+    path: "/favorites",     
+    noIndex: true,   
+  }), 
 };
 
 export default generateSEO;

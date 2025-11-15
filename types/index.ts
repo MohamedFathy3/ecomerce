@@ -74,6 +74,16 @@ export type User = {
   updatedAt?: string;
   deletedAt?: string | null;
 };
+
+
+export interface FavoriteItem {
+  id: number;
+  user_id: number;
+  card_id: number;
+  created_at: string;
+  updated_at: string;
+  card?: Product;
+}
 export type UserProfile = z.infer<typeof profileSchema> & {
   currency_code?: string | null;
 };
@@ -261,14 +271,7 @@ export type addRate = {
   rate_text: string;
 };
 
-export type FavoriteItem = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string | null;
-  created_at: string;
-};
+
 
 export type category = {
   id: string;
