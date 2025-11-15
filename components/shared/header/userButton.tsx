@@ -30,11 +30,11 @@ const UserButton = ({ user }: { user: UserType | null }) => {
       href: "/account/profile",
       icon: <User />,
     },
-    {
-      title: t('user.favorites'),
-      href: "/favorites",
-      icon: <Heart />,
-    },
+    // {
+    //   title: t('user.favorites'),
+    //   href: "/favorites",
+    //   icon: <Heart />,
+    // },
       {
       title: t('user.orders'),
       href: "/account/orders",

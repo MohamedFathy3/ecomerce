@@ -70,7 +70,7 @@ const headerPages = [
 
 const accountPages = [
   { title: "Personal Info", path: "/account/profile", icon: <UserCircle /> },
-  { title: "Favorites", path: "/favorites", icon: <Heart /> },
+  // { title: "Favorites", path: "/favorites", icon: <Heart /> },
     { title: "order", path: "/account/orders", icon: <Package /> },
 
 ];
