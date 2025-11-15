@@ -172,7 +172,7 @@ export function generateSEO({
 }
 
 // Pre-configured SEO for common pages
-export const homeSEO_EN = generateSEO({
+export const homeSEO = generateSEO({
   title: "Home Page",
   description:
     "FORMA – the premier destination for body casting, personalized gifts, and custom jewelry. We provide certified medical-grade silicone for artists and the medical sector, offering wholesale and retail options with innovative mould-making solutions.",

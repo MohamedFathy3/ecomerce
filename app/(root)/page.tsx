@@ -14,9 +14,11 @@ import {
   getAlternativeProducts
 } from "@/lib/api/apiProducts";
 import { auth } from "@/lib/auth";
-import { homeSEO } from "@/lib/seo";
+import { homeSEO,
+homeSEO_NL, homeSEO_DE,homeSEO_FR
 
-export const metadata = homeSEO;
+ } from "@/lib/seo";
+export const metadata = {homeSEO, homeSEO_NL,homeSEO_DE,homeSEO_FR};
 
 export default async function Home() {
   const session = await auth();
