@@ -68,6 +68,7 @@ const ProductCard = ({ productItem, initialInFavorites = false }: ProductCardPro
                 src={availableImages[currentImageIndex]}
                 alt={productItem.name}
                 fill
+                unoptimized
                 className={`object-cover transition-opacity duration-300 ${
                   imageLoading ? 'opacity-0' : 'opacity-100'
                 }`}

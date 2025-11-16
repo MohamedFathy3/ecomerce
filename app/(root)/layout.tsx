@@ -25,9 +25,6 @@ export default async function RootLayout({
     });
   }
   return (
-    <html lang="en">
-      <body>
-        {/* LanguageProvider لازم يكون في أعلى مستوى */}
         <LanguageProvider>
           <ReactQueryProvider>
             <CompareProvider>
@@ -39,7 +36,5 @@ export default async function RootLayout({
             </CompareProvider>
           </ReactQueryProvider>
         </LanguageProvider>
-      </body>
-    </html>
   );
 }

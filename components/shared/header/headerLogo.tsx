@@ -8,7 +8,7 @@ const HeaderLogo = () => {
     <div className="flex items-center">
       <Link href="/" className="block">
         <Image
-          src="/images/logos/logo.webp"
+          src="/images/logos/Logo.svg"
           width={180}
           height={100}
           className="object-content object-left"

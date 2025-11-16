@@ -324,6 +324,7 @@ const ProductImages = ({ images, videoUrl, productName }: ProductImagesProps) =>
                       alt="Video thumbnail"
                       fill
                       className="object-cover"
+                      unoptimized
                     />
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                       <Video className="w-4 h-4 text-white" />
@@ -338,6 +339,7 @@ const ProductImages = ({ images, videoUrl, productName }: ProductImagesProps) =>
                     alt={`Thumbnail ${index + 1}`}
                     fill
                     className="object-cover"
+                    unoptimized
                   />
                 )}
               </button>
