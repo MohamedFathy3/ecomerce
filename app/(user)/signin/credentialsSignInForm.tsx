@@ -42,17 +42,22 @@ const CredentialsSignInForm = () => {
   const pending = isLoading || isSubmitting;
 
   const onSubmit = async (data: SignInFormData) => {
-    // Add your sign-in logic here
+    setFormError(null); // Reset error
+    
     const res = await signInWithCredentials(data);
     if (res?.success === false) {
       setFormError("Invalid email or password");
       return;
     }
-          router.refresh();
 
     if (res?.success) {
-
-      router.push(callbackUrl);
+      // Refresh the page completely
+      window.location.reload();
+      
+      // Optional: Redirect after reload (though reload should handle this)
+      setTimeout(() => {
+        window.location.href = callbackUrl;
+      }, 100);
     }
   };
 
@@ -94,7 +99,7 @@ const CredentialsSignInForm = () => {
               </ul>
             </div>
           )}
-          <Button className="w-full" variant="default">
+          <Button className="w-full" variant="default" disabled={pending}>
             {pending ? <SpinnerMini /> : "Sign In"}
           </Button>
         </div>

@@ -49,7 +49,7 @@ export function createSEOMetadata({
   structuredData?: object | object[];
   noIndex?: boolean;
 }): Metadata {
-  const siteUrl = process.env.NEXTAUTH_URL || "https://valideria.com";
+  const siteUrl = process.env.NEXTAUTH_URL || "https://formashop.nl/";
   const fullTitle = title.includes("forma")
     ? title
     : `${title} | forma - forma  `;
