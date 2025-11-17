@@ -30,7 +30,7 @@ const ProductAddCart = async ({ product }: { product: Product }) => {
           <div>
             {formatCurrency(
               price,
-              session?.user.currency_code || CURRENCY_CODE
+             product.currency || CURRENCY_CODE
             )}
           </div>
         </div>

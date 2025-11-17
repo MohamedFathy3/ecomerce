@@ -205,18 +205,7 @@ const ProductImages = ({ images, videoUrl, productName }: ProductImagesProps) =>
               
               {/* Dimensions Modal Trigger */}
               <Dialog>
-                <DialogTrigger asChild>
-                  <div className={`absolute inset-0 bg-black/0 transition-all duration-300 cursor-zoom-in flex items-center justify-center ${
-                    isHovering ? 'bg-black/20' : 'bg-black/0'
-                  }`}>
-                    {isHovering && (
-                      <div className="bg-white/90 backdrop-blur-sm px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 transform transition-transform duration-300 hover:scale-105">
-                        <Ruler className="w-5 h-5 text-gray-700" />
-                        <span className="text-gray-800 font-medium">View Image Details</span>
-                      </div>
-                    )}
-                  </div>
-                </DialogTrigger>
+               
                 <DialogContent className="max-w-4xl max-h-[90vh] p-0 bg-white border-0 rounded-xl overflow-hidden">
                   <div className="relative">
                     {/* Header */}
