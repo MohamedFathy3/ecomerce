@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {  } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { CartItem, Country } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,6 +38,7 @@ const SuccessPopup = ({ orderNumber, onClose, t }: { orderNumber: string; onClos
     </div>
   );
 };
+
 
 interface CheckoutFormProps {
   cartItems: CartItem[];
@@ -73,6 +74,8 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
     payment_method: "card",
     promo_code: ""
   });
+
+  
 
   // حساب الإجماليات
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -132,24 +135,8 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
         return;
       }
 
-      // إنشاء payload كامل مع total_amount
-      const checkoutPayload = {
-        ...formData,
-        total_amount: totalAmount, // ✅ إضافة السعر النهائي هنا
-        shipping_price: shippingPrice,
-        products_total: productsTotal,
-        cart_items: cartItems.map(item => ({
-          id: item.card?.id,
-          qty: item.quantity,
-          price: item.card?.price,
-          name: item.card?.name
-        }))
-      };
-
-      console.log("📦 [Client] Checkout payload:", checkoutPayload);
-
-      // استخدام Server Action مع البيانات الكاملة
-      const result = await processCheckout(checkoutPayload);
+      // استخدام Server Action - بدون إرسال بيانات الشحن منفصلة
+      const result = await processCheckout(formData, cartItems);
       
       if (!result.success) {
         alert(result.message || t('checkout.errors.orderFailed'));
@@ -283,13 +270,13 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                       value={formData.apartment}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                      placeholder='apartment'
+                      placeholder={t('checkout.placeholders.apartment')}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
+                 
 
                   {/* Postal Code */}
                   <div>
@@ -306,7 +293,9 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                       placeholder={t('checkout.placeholders.postalCode')}
                     />
                   </div>
-                    <div>
+                </div>
+ {/* City */}
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('checkout.city')} *
                     </label>
@@ -320,8 +309,6 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                       placeholder={t('checkout.placeholders.city')}
                     />
                   </div>
-                </div>
-
                 {/* Country Dropdown */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -336,12 +323,12 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                   >
                     {countries.map((country) => (
                       <option key={country.id} value={country.name}>
-                        {country.name} - {(parseFloat(country.shipping_price))} {t('checkout.shipping')}
+                        {country.name} - {(parseFloat(country.shipping_price), country.currency)} {t('checkout.shipping')}
                       </option>
                     ))}
                   </select>
                   <p className="text-sm text-gray-500 mt-1">
-                    {selectedCountry.name}: {(shippingPrice)}
+                     {selectedCountry.name}: {(shippingPrice)}
                   </p>
                 </div>
 
@@ -374,7 +361,7 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                     value={formData.promo_code}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                    placeholder={t('checkout.placeholders.promoCode')}
+                    placeholder="promoCode"
                   />
                 </div>
               </div>
@@ -419,14 +406,14 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                             {t('checkout.quantity')}: {item.quantity}
                           </span>
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {(parseFloat(item.card?.price || "0"))}
+                            {(parseFloat(item.card?.price))}
                           </span>
                         </div>
                       </div>
 
                       <div className="text-right">
                         <div className="font-bold text-gray-900 dark:text-white">
-                          {(parseFloat(item.card?.price || "0") * item.quantity)}
+                          {(parseFloat(item.card?.price) * item.quantity)}
                         </div>
                         {item.card?.discount && parseFloat(item.card?.discount) > 0 && (
                           <Badge className="bg-[#e30a02] text-white text-xs mt-1">
