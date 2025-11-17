@@ -315,23 +315,33 @@
   "signIn": "Inloggen"
 }
 ,
-"orders": {
-  "title": "Mijn Bestellingen",
-  "subtitle": "Bekijk uw bestelgeschiedenis en volg uw aankopen",
-  "empty": "U heeft nog geen bestellingen geplaatst",
-  "startShopping": "Start met Winkelen",
-  "order": "Bestelling",
-  "items": "artikelen",
-  "customerInfo": "Klantinformatie",
-  "shippingAddress": "Verzendadres",
-  "orderItems": "Bestelde Artikelen",
-  "viewDetails": "Details Bekijken",
-  "status": {
-    "pending": "In behandeling",
-    "processing": "Wordt verwerkt",
-    "confirmed": "Bevestigd",
-    "delivered": "Geleverd",
-    "cancelled": "Geannuleerd"
+ "orders": {
+    "title": "Mijn Bestellingen",
+    "subtitle": "Bekijk uw bestelgeschiedenis en volg uw aankopen",
+    "emptyMessage": "U heeft nog geen bestellingen geplaatst",
+    "startShopping": "Start met Winkelen",
+    "orderNumber": "Bestelling",
+    "items": "artikelen",
+    "customerInfo": "Klantinformatie",
+    "shippingAddress": "Verzendadres",
+    "orderedItems": "Bestelde Artikelen",
+    "quantity": "Aantal",
+    "price": "Prijs",
+    "total": "Totaal",
+    "status": {
+      "pending": "In behandeling",
+      "processing": "Wordt verwerkt",
+      "confirmed": "Bevestigd",
+      "delivered": "Geleverd",
+      "cancelled": "Geannuleerd"
+    }
+  },
+
+  "search": {
+    "allCategories": "Alle categorieën",
+    "searchPlaceholder": "Zoek naar producten",
+    "categories": "Categorieën",
+    "noProducts": "Geen producten gevonden"
   }
-}
+
 }

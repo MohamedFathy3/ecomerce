@@ -9,10 +9,10 @@ export const organizationSchema = {
   name: APP_NAME,
   alternateName: "Forma Online Store",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/logos/forma-logo.png`,
+  logo: `${SITE_URL}/images/logos/logo.png`,
   description:
-    "Leading multi-vendor online marketplace for various products in the Middle East",
-  foundingDate: "2023",
+    "Forma - Shape Your Memories Forever",
+  foundingDate: "2025",
   contactPoint: [
     {
       "@type": "ContactPoint",

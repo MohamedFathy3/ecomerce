@@ -17,7 +17,7 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState, useTransition } from "react";
-import { set } from "zod";
+import { useLanguage } from "@/contexts/LanguageContext"; // أضف هذا الاستيراد
 
 const HeaderSearch = ({ categories }: { categories: category[] }) => {
   const [isPending, searchTransitionStart] = useTransition();
@@ -27,6 +27,15 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
   const [products, setProducts] = useState<ProductItem[]>([]);
   const [isItemSelected, setIsItemSelected] = useState(false);
   const router = useRouter();
+  const { t } = useLanguage(); // أضف هذا السطر
+
+  // الترجمات للنصوص المستخدمة في المكون
+  const translations = {
+    allCategories: t("search.allCategories") || "All Categories",
+    searchPlaceholder: t("search.searchPlaceholder") || "Search for products...",
+    categories: t("search.categories") || "Categories",
+    noProducts: t("search.noProducts") || "No products found",
+  };
 
   async function handleSearch(categoryId: string, keyword: string) {
     const result = await getSearchProducts(categoryId, keyword);
@@ -68,15 +77,17 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
           >
             <SelectTrigger className="w-32 md:w-36 h-full bg-transparent border-0 border-r border-[#e30a02] rounded-none focus:ring-0 focus:ring-offset-0 px-3">
               <SelectValue
-                placeholder="All Categories"
+                placeholder={translations.allCategories}
                 className="text-gray-600 dark:text-gray-300 text-sm"
               />
             </SelectTrigger>
             <SelectContent className="max-h-72 overflow-y-auto bg-white dark:bg-slate-800 border border-[#e30a02]">
               <SelectGroup>
-                <SelectLabel className="text-[#e30a02] font-semibold">Categories</SelectLabel>
+                <SelectLabel className="text-[#e30a02] font-semibold">
+                  {translations.categories}
+                </SelectLabel>
                 <SelectItem value="all" className="text-gray-700 dark:text-gray-300 hover:bg-[#e30a02]/10 focus:bg-[#e30a02]/10">
-                  All Categories
+                  {translations.allCategories}
                 </SelectItem>
                 {categories.map((category) => (
                   <SelectItem
@@ -94,7 +105,7 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
           <Input
             type="text"
             className="h-full bg-transparent border-0 shadow-none rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 text-sm text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 flex-1 px-3"
-            placeholder="Search for products..."
+            placeholder={translations.searchPlaceholder}
             onChange={(e) => {
               setKeyword(e.target.value.trim());
             }}
@@ -158,7 +169,7 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
             </div>
           ) : keyword.trim() !== "" ? (
             <div className="text-center py-4 text-gray-500 dark:text-gray-400 text-sm">
-              No products found
+              {translations.noProducts}
             </div>
           ) : null}
         </div>

@@ -6,6 +6,7 @@ import {
   SheetContent,
   SheetTitle,
   SheetTrigger,
+  SheetClose, // أضفنا SheetClose هنا
 } from "@/components/ui/sheet";
 import {
   CreditCard,
@@ -70,9 +71,7 @@ const headerPages = [
 
 const accountPages = [
   { title: "Personal Info", path: "/account/profile", icon: <UserCircle /> },
-  // { title: "Favorites", path: "/favorites", icon: <Heart /> },
-    { title: "order", path: "/account/orders", icon: <Package /> },
-
+  { title: "order", path: "/account/orders", icon: <Package /> },
 ];
 
 const HeaderMenu = ({ session }: { session: any }) => {
@@ -87,6 +86,7 @@ const HeaderMenu = ({ session }: { session: any }) => {
   const pathName = usePathname();
   const { language, setLanguage } = useLanguage();
   const router = useRouter();
+  const [open, setOpen] = useState(false); // أضفنا state للتحكم في فتح/إغلاق الـ Sheet
 
   async function handleGetCategories() {
     const categories = await getAllCategories();
@@ -101,6 +101,7 @@ const HeaderMenu = ({ session }: { session: any }) => {
     ]);
     setIsAuth(false);
     setInitials("");
+    setOpen(false); // إغلاق الـ Sheet بعد تسجيل الخروج
   }
 
   useEffect(() => {
@@ -117,6 +118,11 @@ const HeaderMenu = ({ session }: { session: any }) => {
     startTransition(handleGetCategories);
     setMounted(true);
   }, []);
+
+  // إغلاق الـ Sheet تلقائياً عند تغيير الصفحة
+  useEffect(() => {
+    setOpen(false);
+  }, [pathName]);
 
   function toggleTheme() {
     setTheme(theme === "light" ? "dark" : "light");
@@ -189,7 +195,7 @@ const HeaderMenu = ({ session }: { session: any }) => {
 
   return (
     <nav className="lg:hidden">
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger className="align-middle p-1 rounded-md text-[#e30a02]">
           <MenuIcon />
         </SheetTrigger>
@@ -218,40 +224,48 @@ const HeaderMenu = ({ session }: { session: any }) => {
           <div className="flex-grow-1 w-full flex flex-col divide-y divide-gray-200 dark:divide-slate-700">
             {!isAuth ? (
               <Menu>
-                <MenuItem href="/signin" title="signin" icon={<LogIn />} />
+                <MenuItem 
+                  href="/signin" 
+                  title="signin" 
+                  icon={<LogIn />} 
+                  setOpen={setOpen}
+                />
               </Menu>
             ) : null}
+            
             {/* Menu Main Pages */}
-           <Menu>
-  {headerPages.map((ele) => (
-    <MenuItem
-      key={`${ele.path}-mobile`}
-      href={ele.path}
-      title={<ServerTranslate textKey={ele.titleKey} />}
-      icon={ele.icon}
-    />
-  ))}
-</Menu>
+            <Menu>
+              {headerPages.map((ele) => (
+                <MenuItem
+                  key={`${ele.path}-mobile`}
+                  href={ele.path}
+                  title={<ServerTranslate textKey={ele.titleKey} />}
+                  icon={ele.icon}
+                  setOpen={setOpen}
+                />
+              ))}
+            </Menu>
 
             {/* Categories */}
-          <Accordion type="single" collapsible>
-  <AccordionItem value="categories">
-    <AccordionTrigger className="py-3 px-6 text-lg hover:no-underline">
-      Categories
-    </AccordionTrigger>
-    <AccordionContent>
-      <Menu>
-        {categories.map((ele) => (
-          <MenuItem
-            key={`${ele.name}-category`}
-            title={ele.name}
-            href={`/products?categoryId=${ele.id}`}
-          />
-        ))}
-      </Menu>
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="categories">
+                <AccordionTrigger className="py-3 px-6 text-lg hover:no-underline">
+                  Categories
+                </AccordionTrigger>
+                <AccordionContent>
+                  <Menu>
+                    {categories.map((ele) => (
+                      <MenuItem
+                        key={`${ele.name}-category`}
+                        title={ele.name}
+                        href={`/products?categoryId=${ele.id}`}
+                        setOpen={setOpen}
+                      />
+                    ))}
+                  </Menu>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
 
             {/* Account */}
             {isAuth ? (
@@ -268,6 +282,7 @@ const HeaderMenu = ({ session }: { session: any }) => {
                           title={ele.title}
                           href={ele.path}
                           icon={ele.icon}
+                          setOpen={setOpen}
                         />
                       ))}
                     </Menu>
@@ -278,44 +293,41 @@ const HeaderMenu = ({ session }: { session: any }) => {
 
             {/* Menu Actions */}
             <Menu>
-              
-                <LanguageDropdownMenu />
-              
-              
-         <MenuItem
-  title={
-    <ServerTranslate 
-      textKey={theme === "light" ? "common.lightMode" : "common.darkMode"} 
-    />
-  }
-  icon={theme === "dark" ? <Sun /> : <Moon />}
-  handleClick={toggleTheme}
-/>
+              <LanguageDropdownMenu />
+              <MenuItem
+                title={
+                  <ServerTranslate 
+                    textKey={theme === "light" ? "common.lightMode" : "common.darkMode"} 
+                  />
+                }
+                icon={theme === "dark" ? <Sun /> : <Moon />}
+                handleClick={() => {
+                  toggleTheme();
+                  setOpen(false);
+                }}
+              />
             </Menu>
 
             {/* Logout */}
             {isAuth ? (
               <Menu>
-             <MenuItem
-  title={<ServerTranslate textKey="auth.logout" />}
-  icon={<LogOut />}
-  color="text-destructive"
-  handleClick={() => startTransition(handleSignOut)}
-/>
+                <MenuItem
+                  title={<ServerTranslate textKey="auth.logout" />}
+                  icon={<LogOut />}
+                  color="text-destructive"
+                  handleClick={() => startTransition(handleSignOut)}
+                />
               </Menu>
             ) : null}
-
 
             {/* <div className="row-start-2 row-span-1 col-span-full">
               <HeaderSearch categories={categories} />
             </div> */}
-
           </div>
         </SheetContent>
       </Sheet>
     </nav>
   );
-
 };
 
 function Menu({ children }: { children: ReactNode }) {
@@ -328,25 +340,32 @@ function MenuItem({
   color,
   icon,
   handleClick,
+  setOpen, // أضفنا setOpen كـ prop
 }: {
   icon?: ReactNode;
   href?: string;
-  title: ReactNode; // غير من string إلى ReactNode
+  title: ReactNode;
   color?: string;
   handleClick?: () => void;
+  setOpen?: (open: boolean) => void; // أضفنا setOpen كـ prop اختياري
 }) {
+  const handleClickInternal = () => {
+    if (handleClick) handleClick();
+    if (setOpen) setOpen(false); // إغلاق الـ Sheet عند النقر
+  };
+
   return (
     <li className="cursor-pointer py-3 px-6 active:bg-stone-200 active:text-gray-500 dark:active:text-slate-500 dark:active:bg-slate-700 rounded-full">
       {href ? (
-        <Link href={href} className="flex items-center gap-4">
-          <div className="text-primary">{icon}</div>
-          <p className="text-lg">{title}</p>
-        </Link>
+        <SheetClose asChild>
+          <Link href={href} className="flex items-center gap-4">
+            <div className="text-primary">{icon}</div>
+            <p className="text-lg">{title}</p>
+          </Link>
+        </SheetClose>
       ) : (
         <span
-          onClick={() => {
-            if (handleClick) handleClick();
-          }}
+          onClick={handleClickInternal}
           className="flex items-center gap-4"
         >
           <div className={color || "text-primary"}>{icon}</div>

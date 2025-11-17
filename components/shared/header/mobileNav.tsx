@@ -8,6 +8,8 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { useGetCart } from "@/hooks/useGetCart";
+import { CartItem } from "@/types";
 
 const navItems = [
   { href: "/", icon: House, label: "Home" },
@@ -17,12 +19,29 @@ const navItems = [
 
 const MobileNav = () => {
   const pathName = usePathname();
+  const { data: cartData } = useGetCart();
+
   const isActive = (href: string) => {
     if (href === "/") {
       return pathName === href || pathName === "/";
     }
     return pathName.includes(href);
   };
+
+  // حساب عدد العناصر في السلة مباشرة من cartData
+  const getCartItemCount = (): number => {
+    if (!cartData?.success || !cartData?.data?.items) {
+      return 0;
+    }
+
+    const count = cartData.data.items.reduce((sum: number, item: CartItem) => {
+      return sum + (item.quantity || 0);
+    }, 0);
+
+    return count;
+  };
+
+  const cartItemCount = getCartItemCount();
 
   return (
     <nav
@@ -36,7 +55,7 @@ const MobileNav = () => {
       <div className="container mx-auto px-2">
         <div className="flex justify-around items-center h-20 relative">
           
-          {/* الخلفية المتحركة للنصف دايره - تتحرك بين العناصر */}
+          {/* الخلفية المتحركة للنصف دايره */}
           <div className="absolute top-0 left-0 w-full h-3 overflow-visible pointer-events-none">
             {navItems.map(({ href }, index) => (
               <div
@@ -73,7 +92,7 @@ const MobileNav = () => {
               }}
             >
               
-              {/* الدائرة البيضاء - متداخلة مع الـ section */}
+              {/* الدائرة البيضاء */}
               <div
                 className={`absolute transition-all duration-400 ease-out overflow-hidden ${
                   isActive(href) ? "scale-100 opacity-100" : "scale-0 opacity-0"
@@ -95,18 +114,34 @@ const MobileNav = () => {
                   marginTop: isActive(href) ? '-5px' : '0px'
                 }}>
                 
-                {/* الآيكون - يكبر مع الدائرة */}
-                <Icon
-                  className={`transition-all duration-400 ease-out ${
-                    isActive(href)
-                      ? "text-[#e30a02] scale-125"
-                      : "text-[#e30a02]/60 scale-100"
-                  }`}
-                  style={{
-                    width: isActive(href) ? '26px' : '22px',
-                    height: isActive(href) ? '19px' : '22px',
-                  }}
-                />
+                {/* الآيكون مع الـ badge */}
+                <div className="relative">
+                  <Icon
+                    className={`transition-all duration-400 ease-out ${
+                      isActive(href)
+                        ? "text-[#e30a02] scale-125"
+                        : "text-[#e30a02]/60 scale-100"
+                    }`}
+                    style={{
+                      width: isActive(href) ? '26px' : '22px',
+                      height: isActive(href) ? '19px' : '22px',
+                    }}
+                  />
+                  
+                  {/* Badge للـ Cart فقط */}
+                  {href === "/cart" && cartItemCount > 0 && (
+                    <span 
+                      className="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold leading-none text-white bg-red-600 rounded-full border-2 border-white"
+                      style={{
+                        fontSize: '10px',
+                        minWidth: '20px',
+                        height: '20px',
+                      }}
+                    >
+                      {cartItemCount > 9 ? '9+' : cartItemCount}
+                    </span>
+                  )}
+                </div>
 
                 {/* النص */}
                 <span

@@ -18,6 +18,8 @@ import { SignInFormData } from "@/types";
 import { useState } from "react";
 import { revalidatePath } from "next/cache";
 import SpinnerMini from "@/components/custom/SpinnerMini";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 
 const CredentialsSignInForm = () => {
   const searchParams = useSearchParams();
@@ -46,7 +48,10 @@ const CredentialsSignInForm = () => {
       setFormError("Invalid email or password");
       return;
     }
+          router.refresh();
+
     if (res?.success) {
+
       router.push(callbackUrl);
     }
   };

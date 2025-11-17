@@ -317,23 +317,31 @@
   "haveAccount": "Haben Sie bereits ein Konto?",
   "signIn": "Anmelden"
 },
-"orders": {
-  "title": "Meine Bestellungen",
-  "subtitle": "Sehen Sie sich Ihre Bestellhistorie an und verfolgen Sie Ihre Einkäufe",
-  "empty": "Sie haben noch keine Bestellungen aufgegeben",
-  "startShopping": "Einkaufen Starten",
-  "order": "Bestellung",
-  "items": "Artikel",
-  "customerInfo": "Kundeninformationen",
-  "shippingAddress": "Lieferadresse",
-  "orderItems": "Bestellte Artikel",
-  "viewDetails": "Details Anzeigen",
-  "status": {
-    "pending": "Ausstehend",
-    "processing": "In Bearbeitung",
-    "confirmed": "Bestätigt",
-    "delivered": "Geliefert",
-    "cancelled": "Storniert"
+ "orders": {
+    "title": "Meine Bestellungen",
+    "subtitle": "Sehen Sie sich Ihre Bestellhistorie an und verfolgen Sie Ihre Einkäufe",
+    "emptyMessage": "Sie haben noch keine Bestellungen aufgegeben",
+    "startShopping": "Einkaufen starten",
+    "orderNumber": "Bestellung",
+    "items": "Artikel",
+    "customerInfo": "Kundeninformation",
+    "shippingAddress": "Lieferadresse",
+    "orderedItems": "Bestellte Artikel",
+    "quantity": "Menge",
+    "price": "Preis",
+    "total": "Gesamt",
+    "status": {
+      "pending": "In Bearbeitung",
+      "processing": "Wird bearbeitet",
+      "confirmed": "Bestätigt",
+      "delivered": "Geliefert",
+      "cancelled": "Storniert"
+    }
+  },
+  "search": {
+    "allCategories": "Alle Kategorien",
+    "searchPlaceholder": "Nach Produkten suchen",
+    "categories": "Kategorien",
+    "noProducts": "Keine Produkte gefunden"
   }
-}
 }

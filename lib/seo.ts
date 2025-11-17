@@ -331,30 +331,44 @@ export const homeSEO_FR = generateSEO({
 });
 
 export const productsSEO = generateSEO({
-  title: "جميع المنتجات",
+  title: "All Products | Online Store",
   description:
-    "تصفح مجموعة واسعة من الأدوية والمنتجات الصحية من أفضل الصيدليات. فلترة حسب الفئة، السعر، والتقييم.",
+    "Explore a wide variety of high-quality products available in our online store. Filter by category, price, and rating to find what suits you best.",
   keywords: [
-    "كتالوج الأدوية",
-    "منتجات صحية",
-    "أدوية بوصفة",
-    "أدوية بدون وصفة",
-    "مقارنة الأسعار",
+    "product catalog",
+    "online store",
+    "ecommerce products",
+    "shop online",
+    "best prices",
+    "top categories",
+    "compare products",
   ],
 });
 
 export const aboutSEO = generateSEO({
-  title: "من نحن",
+  title: "About Us | Online Store",
   description:
-    "تعرف على فاليديريا، المنصة الرائدة للصيدليات الإلكترونية في الشرق الأوسط. مهمتنا توفير الرعاية الصحية للجميع.",
-  keywords: ["عن فاليديريا", "رؤية الشركة", "خدمات صحية", "منصة صيدليات"],
+    "Learn more about our online store, our mission, and our commitment to offering high-quality products with a seamless shopping experience.",
+  keywords: [
+    "about us",
+    "our mission",
+    "online store information",
+    "ecommerce platform",
+    "company vision",
+  ],
 });
 
 export const contactSEO = generateSEO({
-  title: "اتصل بنا",
+  title: "Contact Us | Online Store",
   description:
-    "تواصل مع فريق خدمة العملاء في فاليديريا. نحن هنا لمساعدتك في جميع استفساراتك الطبية والصيدلانية.",
-  keywords: ["خدمة العملاء", "دعم فني", "استشارة صيدلانية", "تواصل معنا"],
+    "Get in touch with our customer support team. We're here to help with your questions, orders, and any assistance you may need.",
+  keywords: [
+    "customer service",
+    "support",
+    "contact us",
+    "order help",
+    "online store support",
+  ],
 });
 
 // Dynamic product SEO generator

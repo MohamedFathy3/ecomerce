@@ -80,6 +80,8 @@ export async function registerUser(data: RegisterFormData) {
 // Sign in the user with credentials
 // Sign in the user with credentials
 export async function signInWithCredentials(formData: SignInFormData) {
+
+
   try {
     console.log('📧 Sign in attempt with:', { email: formData.email });
     
@@ -117,6 +119,9 @@ export async function signInWithCredentials(formData: SignInFormData) {
     };
   }
 }
+
+
+
 export async function signOutUser(token: string) {
   try {
     const response = await api.post(

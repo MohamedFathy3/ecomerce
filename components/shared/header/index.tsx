@@ -42,6 +42,7 @@ const Header = async () => {
               <HeaderSearch categories={categories} />
             </div>
             <HeaderButtons session={session}>
+              
               <HeaderCart session={session} />
             </HeaderButtons>
 <UserButton user={user as User} />
