@@ -69,12 +69,16 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
     <div className="relative">
       <div className="border border-[#e30a02] rounded-md bg-white dark:bg-slate-800 h-9 md:h-10 flex items-center overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
         <div className="flex items-center flex-1 h-full">
-          <Select
-            onValueChange={(value) => {
-              setCategoryId(value);
-            }}
-            value={categoryId || "all"}
-          >
+       <Select
+  onValueChange={(value) => {
+    setCategoryId(value);
+
+    if (value !== "all") {
+      router.push(`/products?categoryId=${value}`);
+    }
+  }}
+  value={categoryId || "all"}
+>
             <SelectTrigger className="w-32 md:w-36 h-full bg-transparent border-0 border-r border-[#e30a02] rounded-none focus:ring-0 focus:ring-offset-0 px-3">
               <SelectValue
                 placeholder={translations.allCategories}
@@ -114,7 +118,7 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
               if (e.key === "Enter") {
                 if (keyword.trim() === "") return;
                 router.push(
-                  `/products?category=${categoryId}&keyword=${keyword}`
+                  `/products?categoryId=${categoryId}&keyword=${keyword}`
                 );
                 setShowModalSearch(false);
               }
@@ -133,47 +137,7 @@ const HeaderSearch = ({ categories }: { categories: category[] }) => {
         </Button>
       </div>
       
-      {/* Search Results Modal */}
-      {showModalSearch && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-800 border border-[#e30a02] rounded-md shadow-lg z-50 max-h-80 overflow-y-auto">
-          {isPending ? (
-            <div className="flex justify-center items-center py-4">
-              <SpinnerMini />
-            </div>
-          ) : products.length > 0 ? (
-            <div className="py-2">
-              {products.map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/products/${product.id}`}
-                  className="flex items-center px-4 py-3 hover:bg-[#e30a02]/10 border-b border-gray-100 dark:border-slate-700 last:border-b-0 transition-colors duration-200"
-                  onClick={() => {
-                    setShowModalSearch(false);
-                    setKeyword("");
-                    setIsItemSelected(true);
-                  }}
-                >
-                  <div className="flex-1">
-                    <h3 className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                      {product.name}
-                    </h3>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                      {product.categoryName}
-                    </p>
-                  </div>
-                  <div className="text-[#e30a02] font-semibold text-sm">
-                    ${product.price}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : keyword.trim() !== "" ? (
-            <div className="text-center py-4 text-gray-500 dark:text-gray-400 text-sm">
-              {translations.noProducts}
-            </div>
-          ) : null}
-        </div>
-      )}
+
     </div>
   );
 };

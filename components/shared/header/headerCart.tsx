@@ -131,10 +131,10 @@ const HeaderCart = ({ session }: { session?: any }) => {
               <Link href="/cart">
                 <div className="flex items-center gap-3 w-full">
                   <div className="flex-shrink-0 w-10 h-10 bg-gray-200 dark:bg-slate-600 rounded flex items-center justify-center">
-                    {item.card.image ? (
+                    {item.card?.image ? (
                       <img 
-                        src={item.card.image} 
-                        alt={item.card.name}
+                        src={item.card?.image} 
+                        alt={item.card?.name}
                         className="w-10 h-10 object-cover rounded"
                       />
                     ) : (
@@ -143,14 +143,14 @@ const HeaderCart = ({ session }: { session?: any }) => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                      {item.card.name}
+                      {item.card?.name}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Qty: {item.quantity} × {formatCurrencyEGP(parseFloat(item.card.price))}
+                      Qty: {item?.quantity} × {formatCurrencyEGP(parseFloat(item.card?.price))}
                     </p>
                   </div>
                   <div className="text-sm font-semibold text-gray-900 dark:text-white">
-                    {formatCurrencyEGP(parseFloat(item.card.price) * item.quantity)}
+                    {formatCurrencyEGP(parseFloat(item.card?.price) * item.quantity)}
                   </div>
                 </div>
               </Link>

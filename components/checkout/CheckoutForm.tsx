@@ -380,10 +380,10 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex items-center gap-3">
                       <div className="flex-shrink-0">
-                        {item.card.image ? (
+                        {item.card?.image ? (
                           <Image
-                            src={item.card.gallery?.[0] || item.card.image}
-                            alt={item.card.name}
+                            src={item.card?.gallery?.[0] || item.card.image}
+                            alt={item.card?.name}
                             width={48}
                             height={48}
                             className="rounded-lg object-cover border"
@@ -399,25 +399,25 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                       
                       <div className="flex-1">
                         <h4 className="font-medium text-gray-900 dark:text-white text-sm">
-                          {item.card.name}
+                          {item.card?.name}
                         </h4>
                         <div className="flex items-center gap-2 mt-1">
                           <span className="text-sm text-gray-600 dark:text-gray-400">
                             {t('checkout.quantity')}: {item.quantity}
                           </span>
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {(parseFloat(item.card.price))}
+                            {(parseFloat(item.card?.price))}
                           </span>
                         </div>
                       </div>
 
                       <div className="text-right">
                         <div className="font-bold text-gray-900 dark:text-white">
-                          {(parseFloat(item.card.price) * item.quantity)}
+                          {(parseFloat(item.card?.price) * item.quantity)}
                         </div>
-                        {item.card.discount && parseFloat(item.card.discount) > 0 && (
+                        {item.card?.discount && parseFloat(item.card?.discount) > 0 && (
                           <Badge className="bg-[#e30a02] text-white text-xs mt-1">
-                            {item.card.discount}% {t('checkout.off')}
+                            {item.card?.discount}% {t('checkout.off')}
                           </Badge>
                         )}
                       </div>

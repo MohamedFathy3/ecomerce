@@ -123,7 +123,7 @@ export default async function Cart() {
 
                   <div className="text-center sm:text-right">
                     <div className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
-                      {formatCurrencyEGP(parseFloat(item.card.price) * item.quantity)}
+                      {(parseFloat(item.card.price) * item.quantity)} {item.card.currency}
                     </div>
                     {item.card.discount && parseFloat(item.card.discount) > 0 && (
                       <Badge className="bg-[#e30a02] text-white text-xs mt-1">
@@ -135,16 +135,6 @@ export default async function Cart() {
               ))}
             </div>
 
-            <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-200 dark:border-slate-600">
-              <div className="flex justify-between items-center">
-                <span className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
-                  Subtotal:
-                </span>
-                <span className="text-lg sm:text-xl font-bold text-[#e30a02]">
-                  {formatCurrencyEGP(totalPrice)}
-                </span>
-              </div>
-            </div>
 
             <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row gap-3">
               <Link
@@ -183,14 +173,14 @@ export default async function Cart() {
               
               <div className="flex justify-between text-sm sm:text-base">
                 <span className="text-gray-600 dark:text-gray-400">Products Total:</span>
-                <span className="font-medium">{formatCurrencyEGP(totalPrice)}</span>
+                <span className="font-medium">{(totalPrice)}</span>
               </div>
 
               {cart.items.some(item => item.card.discount && parseFloat(item.card.discount) > 0) && (
                 <div className="flex justify-between text-green-600 dark:text-green-400 text-sm sm:text-base">
                   <span>You Save:</span>
                   <span className="font-medium">
-                    {formatCurrencyEGP(
+                    {(
                       cart.items.reduce((savings, item) => {
                         if (item.card.discount && item.card.old_price) {
                           const discount = parseFloat(item.card.discount);
@@ -209,7 +199,7 @@ export default async function Cart() {
                 <div className="flex justify-between text-base sm:text-lg font-bold">
                   <span className="text-gray-900 dark:text-white">Total Amount:</span>
                   <span className="text-[#e30a02]">
-                    {formatCurrencyEGP(totalPrice)}
+                    {(totalPrice)}
                   </span>
                 </div>
               </div>
