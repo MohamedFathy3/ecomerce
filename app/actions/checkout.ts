@@ -17,6 +17,7 @@ interface CheckoutData {
   country: string;
   payment_method: string;
   promo_code: string;
+  total_amount:number;
 }
 
 export async function processCheckout(formData: CheckoutData, cartItems: CartItem[]) {
@@ -47,7 +48,8 @@ export async function processCheckout(formData: CheckoutData, cartItems: CartIte
       cards: cartItems.map(item => ({
         id: item.card.id, // التغيير هنا: من card_id إلى id
         qty: item.quantity
-      }))
+      })),
+        total_amount: formData.total_amount, 
     };
 
     console.log("🔄 [Server Action] Processing checkout:", orderData);

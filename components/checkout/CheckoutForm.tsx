@@ -39,7 +39,6 @@ const SuccessPopup = ({ orderNumber, onClose, t }: { orderNumber: string; onClos
   );
 };
 
-
 interface CheckoutFormProps {
   cartItems: CartItem[];
   countries: Country[];
@@ -74,8 +73,6 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
     payment_method: "card",
     promo_code: ""
   });
-
-  
 
   // حساب الإجماليات
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -135,8 +132,24 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
         return;
       }
 
-      // استخدام Server Action - بدون إرسال بيانات الشحن منفصلة
-      const result = await processCheckout(formData, cartItems);
+      // إنشاء payload كامل مع total_amount
+      const checkoutPayload = {
+        ...formData,
+        total_amount: totalAmount, // ✅ إضافة السعر النهائي هنا
+        shipping_price: shippingPrice,
+        products_total: productsTotal,
+        cart_items: cartItems.map(item => ({
+          id: item.card?.id,
+          qty: item.quantity,
+          price: item.card?.price,
+          name: item.card?.name
+        }))
+      };
+
+      console.log("📦 [Client] Checkout payload:", checkoutPayload);
+
+      // استخدام Server Action مع البيانات الكاملة
+      const result = await processCheckout(checkoutPayload);
       
       if (!result.success) {
         alert(result.message || t('checkout.errors.orderFailed'));
@@ -276,7 +289,21 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                 
+                  {/* City */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      {t('checkout.city')} *
+                    </label>
+                    <input
+                      type="text"
+                      name="city"
+                      required
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                      placeholder={t('checkout.placeholders.city')}
+                    />
+                  </div>
 
                   {/* Postal Code */}
                   <div>
@@ -294,21 +321,7 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                     />
                   </div>
                 </div>
- {/* City */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      {t('checkout.city')} *
-                    </label>
-                    <input
-                      type="text"
-                      name="city"
-                      required
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                      placeholder={t('checkout.placeholders.city')}
-                    />
-                  </div>
+
                 {/* Country Dropdown */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -323,12 +336,12 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                   >
                     {countries.map((country) => (
                       <option key={country.id} value={country.name}>
-                        {country.name} - {(parseFloat(country.shipping_price), country.currency)} {t('checkout.shipping')}
+                        {country.name} - {formatCurrency(parseFloat(country.shipping_price))} {t('checkout.shipping')}
                       </option>
                     ))}
                   </select>
                   <p className="text-sm text-gray-500 mt-1">
-                     {selectedCountry.name}: {(shippingPrice)}
+                    {selectedCountry.name}: {formatCurrency(shippingPrice)}
                   </p>
                 </div>
 
@@ -361,7 +374,7 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                     value={formData.promo_code}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30a02] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
-                    placeholder="promoCode"
+                    placeholder={t('checkout.placeholders.promoCode')}
                   />
                 </div>
               </div>
@@ -406,14 +419,14 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                             {t('checkout.quantity')}: {item.quantity}
                           </span>
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {(parseFloat(item.card?.price))}
+                            {formatCurrency(parseFloat(item.card?.price || "0"))}
                           </span>
                         </div>
                       </div>
 
                       <div className="text-right">
                         <div className="font-bold text-gray-900 dark:text-white">
-                          {(parseFloat(item.card?.price) * item.quantity)}
+                          {formatCurrency(parseFloat(item.card?.price || "0") * item.quantity)}
                         </div>
                         {item.card?.discount && parseFloat(item.card?.discount) > 0 && (
                           <Badge className="bg-[#e30a02] text-white text-xs mt-1">
@@ -434,20 +447,20 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                     
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">{t('checkout.productsTotal')}:</span>
-                      <span className="font-medium">{(productsTotal)}</span>
+                      <span className="font-medium">{formatCurrency(productsTotal)}</span>
                     </div>
 
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">
                         {t('checkout.shipping')} ({selectedCountry.name}):
                       </span>
-                      <span className="font-medium">{(shippingPrice)}</span>
+                      <span className="font-medium">{formatCurrency(shippingPrice)}</span>
                     </div>
 
                     <div className="flex justify-between text-lg font-bold pt-3 border-t border-gray-200 dark:border-slate-600">
                       <span className="text-gray-900 dark:text-white">{t('checkout.totalAmount')}:</span>
                       <span className="text-[#e30a02]">
-                        {(totalAmount)}
+                        {formatCurrency(totalAmount)}
                       </span>
                     </div>
                   </div>
@@ -458,7 +471,7 @@ export default function CheckoutForm({ cartItems, countries }: CheckoutFormProps
                   disabled={isLoading}
                   className="w-full mt-6 bg-[#e30a02] text-white py-3 rounded-lg hover:bg-[#e30a02]/90 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? t('checkout.processing') : `${t('checkout.pay')} ${(totalAmount)}`}
+                  {isLoading ? t('checkout.processing') : `${t('checkout.pay')} ${formatCurrency(totalAmount)}`}
                 </button>
 
                 <Link
