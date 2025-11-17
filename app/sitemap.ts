@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllCategories, getFilteredProducts } from "@/lib/api/apiProducts";
 import {Product} from '@/types'
-const SITE_URL = process.env.NEXTAUTH_URL || "https://valideria.com";
+const SITE_URL = process.env.NEXTAUTH_URL || "https://formashop.nl/";
 
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

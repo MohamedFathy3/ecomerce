@@ -17,7 +17,7 @@ const cairo = Cairo({
   variable: "--font-cairo",
 });
 
-const SITE_URL = process.env.NEXTAUTH_URL || "https://valideria.com";
+const SITE_URL = process.env.NEXTAUTH_URL || "https://formashop.nl/";
 
 export const metadata: Metadata = {
   title: {
@@ -138,7 +138,7 @@ export const metadata: Metadata = {
   // Open Graph
   openGraph: {
     type: "website",
-    siteName: APP_NAME,
+    siteName: "forma",
     title: `${APP_NAME} -    Shape Your Memories Forever`,
     description: APP_DESCRIPTION,
     url: SITE_URL,
@@ -153,7 +153,7 @@ export const metadata: Metadata = {
         type: "image/jpeg",
       },
       {
-        url: `${SITE_URL}/images/logos/logo.png`,
+        url: `${SITE_URL}/images/logos/logos.png`,
         width: 800,
         height: 800,
         alt: `${APP_NAME} Logo`,
@@ -171,7 +171,7 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: `${SITE_URL}/images/logos/logo.png`,
+        url: `${SITE_URL}/images/logos/logos.png`,
         alt: `${APP_NAME} - Online FORMA`,
       },
     ],
