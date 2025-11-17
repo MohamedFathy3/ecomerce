@@ -139,21 +139,21 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: APP_NAME,
-    title: `${APP_NAME} -   متجر اللكتروني  في الشرق الأوسط`,
+    title: `${APP_NAME} -    Shape Your Memories Forever`,
     description: APP_DESCRIPTION,
     url: SITE_URL,
     locale: "en_US",
     alternateLocale: ["ar_EG"],
     images: [
       {
-        url: `${SITE_URL}/images/logos/Logo.svg`,
+        url: `${SITE_URL}/images/logos/logo.png`,
         width: 1200,
         height: 630,
         alt: `${APP_NAME} - Online FORMA Platform`,
         type: "image/jpeg",
       },
       {
-        url: `${SITE_URL}/images/logos/Logo.svg`,
+        url: `${SITE_URL}/images/logos/logo.png`,
         width: 800,
         height: 800,
         alt: `${APP_NAME} Logo`,
@@ -167,11 +167,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@FORMA",
     creator: "@FORMA",
-    title: `${APP_NAME} - متجر  الإلكترونية الرائدة`,
+    title: `${APP_NAME} -    Shape Your Memories Forever`,
     description: APP_DESCRIPTION,
     images: [
       {
-        url: `${SITE_URL}/images/logos/Logo.svg`,
+        url: `${SITE_URL}/images/logos/logo.png`,
         alt: `${APP_NAME} - Online FORMA`,
       },
     ],

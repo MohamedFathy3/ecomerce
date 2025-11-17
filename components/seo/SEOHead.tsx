@@ -50,10 +50,10 @@ export function createSEOMetadata({
   noIndex?: boolean;
 }): Metadata {
   const siteUrl = process.env.NEXTAUTH_URL || "https://valideria.com";
-  const fullTitle = title.includes("فاليديريا")
+  const fullTitle = title.includes("forma")
     ? title
-    : `${title} | فاليديريا - الصيدلية الإلكترونية الرائدة`;
-  const fullImage = ogImage || `${siteUrl}/images/logos/valideria-og.jpg`;
+    : `${title} | forma - forma  `;
+  const fullImage = ogImage || `${siteUrl}/images/logos/logos.png`;
 
   return {
     title: fullTitle,
@@ -82,7 +82,7 @@ export function createSEOMetadata({
       title: fullTitle,
       description,
       url: canonicalUrl || siteUrl,
-      siteName: "فاليديريا",
+      siteName: "forma",
       locale: "ar_EG",
       images: [
         {
@@ -96,8 +96,8 @@ export function createSEOMetadata({
 
     twitter: {
       card: "summary_large_image",
-      site: "@valideria",
-      creator: "@valideria",
+      site: "@forma",
+      creator: "@forma",
       title: fullTitle,
       description,
       images: [fullImage],
